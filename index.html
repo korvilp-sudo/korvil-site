@@ -1,132 +1,250 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KORVIL | Sistema Inteligente</title>
-
-<!-- ICONS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<title>KORVIL | Sistema K</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
 :root{
-  --bg:#0b0b0b;
-  --card:#141414;
-  --primary:#00e0ff;
-  --text:#f1f1f1;
-  --muted:#9a9a9a;
+  --ciano:#00ffe0;
+  --preto:#050505;
+  --cinza:#111;
+  --branco:#ffffff;
 }
 
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+
+body{
+  background:var(--preto);
+  color:var(--branco);
+  overflow-x:hidden;
+}
 
 /* ===== LOGIN ===== */
 #login{
-  height:100vh;display:flex;align-items:center;justify-content:center
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
 .login-box{
-  background:var(--card);
+  background:var(--cinza);
   padding:30px;
-  width:320px;
+  width:100%;
+  max-width:360px;
   border-radius:12px;
-  box-shadow:0 0 20px rgba(0,224,255,.2)
+  box-shadow:0 0 30px rgba(0,255,224,.3);
 }
-.login-box h2{text-align:center;color:var(--primary)}
+
+.login-box h1{
+  color:var(--ciano);
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.login-box p{
+  text-align:center;
+  font-size:13px;
+  opacity:.7;
+}
+
 .login-box input{
-  width:100%;padding:10px;margin:10px 0;
-  background:#000;border:1px solid #333;color:#fff;border-radius:6px
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#000;
+  border:1px solid var(--ciano);
+  color:#fff;
+  border-radius:6px;
 }
+
 .login-box button{
-  width:100%;padding:10px;
-  background:var(--primary);border:none;border-radius:6px;
-  font-weight:bold;cursor:pointer
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  background:var(--ciano);
+  border:none;
+  color:#000;
+  font-weight:bold;
+  border-radius:6px;
+  cursor:pointer;
 }
 
 /* ===== APP ===== */
 #app{display:none}
 
-/* TOP BAR */
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 20px;background:#000;border-bottom:1px solid #222
+/* HEADER */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:15px 20px;
+  background:#000;
+  border-bottom:1px solid var(--ciano);
 }
-.menu-btn{cursor:pointer;font-size:20px}
-.menu-horizontal{
-  display:flex;gap:20px
+
+header h2{color:var(--ciano)}
+
+.menu-btn{
+  font-size:22px;
+  cursor:pointer;
 }
-.menu-horizontal span{
-  cursor:pointer;color:var(--muted)
-}
-.menu-horizontal span:hover{color:var(--primary)}
+
 .profile{
-  display:flex;align-items:center;gap:10px
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  background:var(--ciano);
+  color:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
 }
-.profile i{font-size:22px;color:var(--primary)}
 
-/* SIDEBAR */
-.sidebar{
-  position:fixed;top:0;left:-260px;height:100%;
-  width:260px;background:#000;padding:20px;
-  transition:.3s;z-index:10
+/* MENU HORIZONTAL */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  padding:12px;
+  background:#080808;
 }
-.sidebar.active{left:0}
-.sidebar h3{color:var(--primary)}
-.sidebar div{
-  margin:10px 0;cursor:pointer;color:var(--muted)
+
+nav button{
+  background:none;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  font-size:14px;
 }
-.sidebar div:hover{color:var(--primary)}
 
-/* CONTENT */
-.content{padding:30px}
+nav button:hover{color:var(--ciano)}
 
-/* CARDS */
+/* MENU LATERAL */
+aside{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100%;
+  background:#000;
+  border-right:1px solid var(--ciano);
+  transition:.3s;
+  padding:20px;
+  z-index:10;
+}
+
+aside h3{color:var(--ciano);margin-bottom:10px}
+
+aside button{
+  width:100%;
+  background:none;
+  border:none;
+  color:#fff;
+  text-align:left;
+  padding:10px 0;
+  cursor:pointer;
+}
+
+aside button:hover{color:var(--ciano)}
+
+/* CONTEÚDO */
+main{padding:30px;text-align:center}
+
 .cards{
-  display:flex;gap:20px;flex-wrap:wrap
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
 }
-.card{
-  background:var(--card);
-  padding:20px;border-radius:12px;
-  width:220px;cursor:pointer;
-  transition:.3s
-}
-.card:hover{box-shadow:0 0 15px rgba(0,224,255,.3)}
-.card h3{color:var(--primary)}
 
-/* MODAL */
-.modal{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,.8);
-  display:none;align-items:center;justify-content:center
+.card{
+  width:260px;
+  padding:20px;
+  background:#0b0b0b;
+  border:1px solid var(--ciano);
+  border-radius:12px;
 }
-.modal-box{
-  background:var(--card);padding:30px;border-radius:12px;
-  width:350px;text-align:center
-}
-.modal-box button{
-  margin-top:20px;padding:10px 20px;
-  background:var(--primary);border:none;border-radius:6px
+
+.card h3{color:var(--ciano);margin-bottom:10px}
+
+.card button{
+  margin-top:10px;
+  padding:10px;
+  width:100%;
+  background:var(--ciano);
+  border:none;
+  color:#000;
+  border-radius:6px;
 }
 
 /* K-AI */
-.kai{
-  margin-top:40px;background:#000;padding:20px;border-radius:12px
+#kai{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:var(--ciano);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,255,224,.6);
 }
-.kai h3{color:var(--primary)}
-.kai-log{
-  height:150px;overflow:auto;font-size:14px;color:var(--muted)
+
+#kai-chat{
+  position:fixed;
+  bottom:90px;
+  right:20px;
+  width:300px;
+  background:#000;
+  border:1px solid var(--ciano);
+  border-radius:10px;
+  display:none;
 }
-.kai input{
-  width:100%;padding:10px;margin-top:10px;
-  background:#111;border:1px solid #333;color:#fff
+
+#kai-chat header{
+  padding:10px;
+  border-bottom:1px solid var(--ciano);
+}
+
+#kai-chat textarea{
+  width:100%;
+  height:60px;
+  background:#000;
+  color:#fff;
+  border:none;
+  padding:10px;
+}
+
+#kai-chat button{
+  width:100%;
+  padding:10px;
+  background:var(--ciano);
+  border:none;
+}
+
+/* RESPONSIVO */
+@media(max-width:600px){
+  nav{flex-wrap:wrap}
 }
 </style>
 </head>
+
 <body>
 
 <!-- LOGIN -->
 <div id="login">
   <div class="login-box">
-    <h2>KORVIL LOGIN</h2>
+    <h1>KORVIL</h1>
+    <p>somos uma ideia, somos uma marca, somos KORVIL</p>
     <input id="user" placeholder="Usuário ou e-mail">
     <input id="pass" type="password" placeholder="Senha">
     <button onclick="login()">Entrar</button>
@@ -136,132 +254,106 @@ body{margin:0;background:var(--bg);color:var(--text)}
 <!-- APP -->
 <div id="app">
 
-<div class="sidebar" id="sidebar">
+<header>
+  <span class="menu-btn" onclick="toggleMenu()">☰</span>
+  <h2>KORVIL</h2>
+  <div class="profile">SK</div>
+</header>
+
+<nav>
+  <button onclick="home()">Início</button>
+  <button onclick="sector('Sistema K')">sistema K</button>
+  <button onclick="sector('K-TP')">K-TP</button>
+  <button onclick="sector('K-AFORTUNADO')">K-AFORTUNADO</button>
+  <button onclick="sector('K-ALMA')">K-ALMA</button>
+</nav>
+
+<aside id="side">
   <h3>Menu</h3>
-  <div onclick="openSector('Sistema K')">Sistema K</div>
-  <div onclick="openSector('K-TP')">K-TP</div>
-  <div onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</div>
-  <div onclick="openSector('K-ALMA')">K-ALMA</div>
-</div>
+  <button onclick="home()">Início</button>
+  <button onclick="sector('Sistema K')">sistema K</button>
+  <button onclick="sector('K-TP')">K-TP</button>
+  <button onclick="sector('K-AFORTUNADO')">K-AFORTUNADO</button>
+  <button onclick="sector('K-ALMA')">K-ALMA</button>
+</aside>
 
-<div class="topbar">
-  <i class="fas fa-bars menu-btn" onclick="toggleSidebar()"></i>
-
-  <div class="menu-horizontal">
-    <span onclick="home()">Início KORVIL</span>
-    <span onclick="openSector('Sistema K')">Sistema K</span>
-    <span onclick="openSector('K-TP')">K-TP</span>
-    <span onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</span>
-    <span onclick="openSector('K-ALMA')">K-ALMA</span>
-  </div>
-
-  <div class="profile">
-    <i class="fas fa-user-circle"></i>
-    <span>Say Korvil</span>
-  </div>
-</div>
-
-<div class="content" id="content"></div>
+<main id="content"></main>
 
 </div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h3 id="modalTitle"></h3>
-    <p id="modalDesc"></p>
-    <button onclick="enterSector()">Entrar</button>
-  </div>
+<!-- K-AI -->
+<div id="kai" onclick="toggleKai()">K-AI</div>
+
+<div id="kai-chat">
+  <header>K-AI • Assistente</header>
+  <textarea placeholder="Digite sua pergunta..."></textarea>
+  <button>Enviar</button>
 </div>
 
 <script>
-/* ===== LOGIN ===== */
-const HASH = btoa("korvilxxx"); // hash simples para demo
+const ADMIN = {
+  user:"Say Korvil",
+  email:"saykorvil@gmail.com",
+  pass:"korvilxxx"
+};
 
-function login(){
-  const u = user.value;
-  const p = btoa(pass.value);
-
-  if((u==="Say Korvil"||u==="saykorvil@gmail.com") && p===HASH){
-    localStorage.setItem("korvil_auth","true");
-    startApp();
-  } else {
-    alert("Acesso negado");
-  }
+if(localStorage.getItem("korvilLogin")){
+  login(true);
 }
 
-function startApp(){
+function login(auto=false){
+  if(!auto){
+    const u=user.value;
+    const p=pass.value;
+    if((u===ADMIN.user||u===ADMIN.email)&&p===ADMIN.pass){
+      localStorage.setItem("korvilLogin","ok");
+    } else {
+      alert("Login inválido");
+      return;
+    }
+  }
   login.style.display="none";
   app.style.display="block";
   home();
 }
 
-if(localStorage.getItem("korvil_auth")==="true") startApp();
-
-/* ===== UI ===== */
-function toggleSidebar(){
-  sidebar.classList.toggle("active")
+function toggleMenu(){
+  side.style.left = side.style.left==="0px" ? "-260px" : "0px";
 }
 
 function home(){
   content.innerHTML=`
-  <h1>Bem-vindo ao KORVIL</h1>
+  <h1>KORVIL</h1>
+  <p>Marca única e complexo de desenvolvimento</p>
   <div class="cards">
-    ${card("Sistema K","Gestão e serviços")}
+    ${card("sistema K","Tecnologia e Serviços")}
     ${card("K-TP","Treinamento Personalizado")}
     ${card("K-AFORTUNADO","Empreendedorismo")}
-    ${card("K-ALMA","Saúde e equilíbrio")}
-  </div>
-  ${kai()}
-  `;
+    ${card("K-ALMA","Centro de Cuidados")}
+  </div>`;
 }
 
 function card(name,desc){
-  return `<div class="card" onclick="openSector('${name}')">
-    <h3>${name}</h3><p>${desc}</p></div>`
-}
-
-/* ===== SECTORS ===== */
-let currentSector="";
-
-function openSector(name){
-  currentSector=name;
-  modal.style.display="flex";
-  modalTitle.innerText=name;
-  modalDesc.innerText="Acessar o setor "+name;
-}
-
-function enterSector(){
-  modal.style.display="none";
-  content.innerHTML=`
-  <h2>${currentSector}</h2>
-  <ul>
-    <li>Sub-aba 1</li>
-    <li>Sub-aba 2</li>
-    <li>Sub-aba 3</li>
-  </ul>
-  ${kai()}
-  `;
-}
-
-/* ===== K-AI REAL (estado + contexto) ===== */
-let memory=[];
-
-function kai(){
   return `
-  <div class="kai">
-    <h3>K-AI • Inteligência do Sistema</h3>
-    <div class="kai-log" id="kaiLog"></div>
-    <input placeholder="Fale com o K-AI" onkeydown="if(event.key==='Enter')talk(this.value,this)">
-  </div>`
+  <div class="card">
+    <h3>${name}</h3>
+    <p>${desc}</p>
+    <button onclick="sector('${name}')">Entrar</button>
+  </div>`;
 }
 
-function talk(msg,input){
-  memory.push({sector:currentSector,msg});
-  const response = `Analisando "${msg}" no contexto ${currentSector||"KORVIL"}. Próxima ação sugerida.`;
-  kaiLog.innerHTML+=`<div>> ${msg}</div><div style="color:#00e0ff">${response}</div>`;
-  input.value="";
+function sector(name){
+  content.innerHTML=`
+  <h1>${name}</h1>
+  <p>Área oficial do setor ${name}</p>
+  <p>Entre em contato: 13 99769-0898</p>`;
+}
+
+function toggleKai(){
+  kai-chat.style.display =
+    kai-chat.style.display==="block"?"none":"block";
 }
 </script>
+
 </body>
 </html>
