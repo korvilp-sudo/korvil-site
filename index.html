@@ -1,418 +1,267 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KORVIL | Sistema K</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KORVIL | Sistema Inteligente</title>
+
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
 <style>
-/* Reset e estilo geral */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body, html { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; height: 100%; }
-a { text-decoration: none; color: inherit; }
-button { cursor: pointer; }
-
-/* HEADER - Menu horizontal */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #00CED1;
-  padding: 10px 20px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-}
-header nav a { margin: 0 15px; font-weight: bold; color: black; }
-header #btnMenu { font-size: 26px; cursor: pointer; }
-
-/* MENU LATERAL */
-.menu-lateral {
-  position: fixed;
-  left: -280px;
-  top: 0;
-  width: 280px;
-  height: 100%;
-  background: #111;
-  padding: 25px;
-  transition: 0.3s;
-  z-index: 101;
-  overflow-y: auto;
-}
-.menu-lateral a { display: block; padding: 12px 0; color: #fff; font-weight: bold; }
-.menu-lateral .submenu { display: none; padding-left: 15px; font-weight: normal; }
-.seta { float: right; cursor: pointer; }
-
-/* TELA INICIAL E SETORES */
-.tela { display: none; padding-top: 80px; width: 100%; min-height: 100vh; text-align: center; }
-.sectores { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 40px; }
-.sector-card {
-  background: #222;
-  border: 2px solid #00CED1;
-  margin: 15px;
-  padding: 35px;
-  border-radius: 12px;
-  flex: 1 1 220px;
-  max-width: 260px;
-  text-align: center;
-  transition: 0.3s;
-  box-shadow: 0 0 15px #00CED1;
-}
-.sector-card:hover { transform: scale(1.05); }
-
-/* TELAS POP-UP DE SETOR */
-.tela-setor {
-  display: none;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%);
-  background: #222;
-  padding: 30px;
-  border-radius: 12px;
-  text-align: center;
-  z-index: 200;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 0 25px #00CED1;
-}
-.tela-setor button { margin-top: 20px; padding: 12px 25px; background: #00CED1; border: none; color: black; font-weight: bold; border-radius: 6px; }
-
-/* LOGIN */
-#loginTela {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background: #111;
-  padding: 20px;
-}
-#loginTela input { margin: 10px 0; padding: 12px; border-radius: 6px; border: none; width: 250px; max-width: 90%; }
-#loginTela button { margin-top: 20px; padding: 12px 25px; background: #00CED1; border: none; color: black; font-weight: bold; border-radius: 6px; }
-
-/* Perfil e ícone usuário */
-#userProfile {
-  position: fixed;
-  top: 12px;
-  right: 20px;
-  background: #00CED1;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
+:root{
+  --bg:#0b0b0b;
+  --card:#141414;
+  --primary:#00e0ff;
+  --text:#f1f1f1;
+  --muted:#9a9a9a;
 }
 
-/* K-AI Chatbot flutuante */
-#kai-chatbot {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #00CED1;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  line-height: 60px;
-  font-weight: bold;
-  color: black;
-  cursor: pointer;
-  z-index: 300;
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;background:var(--bg);color:var(--text)}
+
+/* ===== LOGIN ===== */
+#login{
+  height:100vh;display:flex;align-items:center;justify-content:center
+}
+.login-box{
+  background:var(--card);
+  padding:30px;
+  width:320px;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(0,224,255,.2)
+}
+.login-box h2{text-align:center;color:var(--primary)}
+.login-box input{
+  width:100%;padding:10px;margin:10px 0;
+  background:#000;border:1px solid #333;color:#fff;border-radius:6px
+}
+.login-box button{
+  width:100%;padding:10px;
+  background:var(--primary);border:none;border-radius:6px;
+  font-weight:bold;cursor:pointer
 }
 
-/* Responsivo */
-@media(max-width:768px){
-  .sectores { flex-direction: column; align-items: center; }
+/* ===== APP ===== */
+#app{display:none}
+
+/* TOP BAR */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px;background:#000;border-bottom:1px solid #222
+}
+.menu-btn{cursor:pointer;font-size:20px}
+.menu-horizontal{
+  display:flex;gap:20px
+}
+.menu-horizontal span{
+  cursor:pointer;color:var(--muted)
+}
+.menu-horizontal span:hover{color:var(--primary)}
+.profile{
+  display:flex;align-items:center;gap:10px
+}
+.profile i{font-size:22px;color:var(--primary)}
+
+/* SIDEBAR */
+.sidebar{
+  position:fixed;top:0;left:-260px;height:100%;
+  width:260px;background:#000;padding:20px;
+  transition:.3s;z-index:10
+}
+.sidebar.active{left:0}
+.sidebar h3{color:var(--primary)}
+.sidebar div{
+  margin:10px 0;cursor:pointer;color:var(--muted)
+}
+.sidebar div:hover{color:var(--primary)}
+
+/* CONTENT */
+.content{padding:30px}
+
+/* CARDS */
+.cards{
+  display:flex;gap:20px;flex-wrap:wrap
+}
+.card{
+  background:var(--card);
+  padding:20px;border-radius:12px;
+  width:220px;cursor:pointer;
+  transition:.3s
+}
+.card:hover{box-shadow:0 0 15px rgba(0,224,255,.3)}
+.card h3{color:var(--primary)}
+
+/* MODAL */
+.modal{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,.8);
+  display:none;align-items:center;justify-content:center
+}
+.modal-box{
+  background:var(--card);padding:30px;border-radius:12px;
+  width:350px;text-align:center
+}
+.modal-box button{
+  margin-top:20px;padding:10px 20px;
+  background:var(--primary);border:none;border-radius:6px
+}
+
+/* K-AI */
+.kai{
+  margin-top:40px;background:#000;padding:20px;border-radius:12px
+}
+.kai h3{color:var(--primary)}
+.kai-log{
+  height:150px;overflow:auto;font-size:14px;color:var(--muted)
+}
+.kai input{
+  width:100%;padding:10px;margin-top:10px;
+  background:#111;border:1px solid #333;color:#fff
 }
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginTela">
-  <h1>KORVIL | Sistema K</h1>
-  <input type="email" id="loginEmail" placeholder="Email do Google">
-  <input type="password" id="loginSenha" placeholder="Senha">
-  <button onclick="login()">ENTRAR</button>
-</div>
-
-<!-- MENU LATERAL -->
-<div class="menu-lateral" id="menuLateral">
-  <a href="#" onclick="toggleMenuLateral()">Fechar ×</a>
-  <a href="#" onclick="voltarInicio()">Início KORVIL</a>
-  <a href="#" onclick="toggleSubmenu('sistemaKSub')">sistema K <span class="seta">▼</span></a>
-  <div id="sistemaKSub" class="submenu">
-    <a href="#">Serviços gerais</a>
-    <a href="#">Parcerias</a>
-    <a href="#">Terceirizações</a>
-  </div>
-  <a href="#" onclick="toggleSubmenu('KTPSub')">K-TP <span class="seta">▼</span></a>
-  <div id="KTPSub" class="submenu">
-    <a href="#">Projeto TRANSFORMAÇÃO</a>
-    <a href="#">Suplementos</a>
-    <a href="#">Roupas e acessórios</a>
-  </div>
-  <a href="#" onclick="toggleSubmenu('KAFSub')">K-AFORTUNADO <span class="seta">▼</span></a>
-  <div id="KAFSub" class="submenu">
-    <a href="#">Cursos</a>
-    <a href="#">Treinamentos</a>
-  </div>
-  <a href="#" onclick="toggleSubmenu('KALMASub')">K-ALMA <span class="seta">▼</span></a>
-  <div id="KALMASub" class="submenu">
-    <a href="#">Dentistas</a>
-    <a href="#">Médicos</a>
-    <a href="#">Psicólogos</a>
-    <a href="#">Fisioterapeutas</a>
+<div id="login">
+  <div class="login-box">
+    <h2>KORVIL LOGIN</h2>
+    <input id="user" placeholder="Usuário ou e-mail">
+    <input id="pass" type="password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
   </div>
 </div>
 
-<!-- HEADER HORIZONTAL -->
-<header style="display:none;" id="mainHeader">
-  <span id="btnMenu" onclick="toggleMenuLateral()">☰</span>
-  <nav>
-    <a href="#" onclick="voltarInicio()">Início KORVIL</a>
-    <a href="#" onclick="abrirSetor('sistemaK')">sistema K</a>
-    <a href="#" onclick="abrirSetor('KTP')">K-TP</a>
-    <a href="#" onclick="abrirSetor('KAF')">K-AFORTUNADO</a>
-    <a href="#" onclick="abrirSetor('KALMA')">K-ALMA</a>
-  </nav>
-</header>
+<!-- APP -->
+<div id="app">
 
-<!-- Ícone perfil -->
-<div id="userProfile" style="display:none;" onclick="alert('Perfil do usuário')">U</div>
+<div class="sidebar" id="sidebar">
+  <h3>Menu</h3>
+  <div onclick="openSector('Sistema K')">Sistema K</div>
+  <div onclick="openSector('K-TP')">K-TP</div>
+  <div onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</div>
+  <div onclick="openSector('K-ALMA')">K-ALMA</div>
+</div>
 
-<!-- TELA INICIAL -->
-<div class="tela" id="telaInicio">
-  <div class="sectores">
-    <div class="sector-card" onclick="abrirSetor('sistemaK')">sistema K<br><small>Tecnologia e Serviços</small></div>
-    <div class="sector-card" onclick="abrirSetor('KTP')">K-TP<br><small>Treinamento Personalizado</small></div>
-    <div class="sector-card" onclick="abrirSetor('KAF')">K-AFORTUNADO<br><small>Empreendedorismo</small></div>
-    <div class="sector-card" onclick="abrirSetor('KALMA')">K-ALMA<br><small>Centro de Cuidados</small></div>
+<div class="topbar">
+  <i class="fas fa-bars menu-btn" onclick="toggleSidebar()"></i>
+
+  <div class="menu-horizontal">
+    <span onclick="home()">Início KORVIL</span>
+    <span onclick="openSector('Sistema K')">Sistema K</span>
+    <span onclick="openSector('K-TP')">K-TP</span>
+    <span onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</span>
+    <span onclick="openSector('K-ALMA')">K-ALMA</span>
+  </div>
+
+  <div class="profile">
+    <i class="fas fa-user-circle"></i>
+    <span>Say Korvil</span>
   </div>
 </div>
 
-<!-- Tela pop-up setor -->
-<div class="tela-setor" id="setorTela">
-  <h2 id="tituloSetor"></h2>
-  <p id="descSetor"></p>
-  <button onclick="entrarSetor()">ENTRAR</button>
+<div class="content" id="content"></div>
+
 </div>
 
-<!-- K-AI -->
-<div id="kai-chatbot" onclick="abrirChat()">K-AI</div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <button onclick="enterSector()">Entrar</button>
+  </div>
+</div>
 
 <script>
-// LOGIN
+/* ===== LOGIN ===== */
+const HASH = btoa("korvilxxx"); // hash simples para demo
+
 function login(){
-  const email = document.getElementById('loginEmail').value;
-  const senha = document.getElementById('loginSenha').value;
-  if(email && senha){
-    document.getElementById('loginTela').style.display='none';
-    document.getElementById('mainHeader').style.display='flex';
-    document.getElementById('userProfile').style.display='flex';
-    document.getElementById('telaInicio').style.display='flex';
-    alert('Bem-vindo, ' + email);
+  const u = user.value;
+  const p = btoa(pass.value);
+
+  if((u==="Say Korvil"||u==="saykorvil@gmail.com") && p===HASH){
+    localStorage.setItem("korvil_auth","true");
+    startApp();
   } else {
-    alert('Preencha email e senha');
+    alert("Acesso negado");
   }
 }
 
-// Menu lateral
-function toggleMenuLateral(){
-  const menu = document.getElementById('menuLateral');
-  menu.style.left = (menu.style.left==='0px') ? '-280px':'0px';
+function startApp(){
+  login.style.display="none";
+  app.style.display="block";
+  home();
 }
 
-// Submenus
-function toggleSubmenu(id){
-  const sub = document.getElementById(id);
-  sub.style.display = (sub.style.display==='block') ? 'none':'block';
+if(localStorage.getItem("korvil_auth")==="true") startApp();
+
+/* ===== UI ===== */
+function toggleSidebar(){
+  sidebar.classList.toggle("active")
 }
 
-// Setores
-let setorAtual = '';
-function abrirSetor(setor){
-  setorAtual = setor;
-  const tela = document.getElementById('setorTela');
-  const titulo = document.getElementById('tituloSetor');
-  const desc = document.getElementById('descSetor');
-
-  if(setor==='sistemaK'){
-    titulo.textContent='sistema K';
-    desc.textContent='Tecnologia e serviços com parcerias e terceirizações para empresas e profissionais.';
-  } else if(setor==='KTP'){
-    titulo.textContent='K-TP';
-    desc.textContent='Centro de treinamento personalizado para várias modalidades esportivas.';
-  } else if(setor==='KAF'){
-    titulo.textContent='K-AFORTUNADO';
-    desc.textContent='Empreendedorismo, cursos e treinamentos para profissionais e empresas.';
-  } else if(setor==='KALMA'){
-    titulo.textContent='K-ALMA';
-    desc.textContent='Centro de cuidados e bem-estar, com serviços de saúde e terapias.';
-  }
-
-  tela.style.display='block';
-  document.getElementById('telaInicio').style.display='none';
-}
-
-// Entrar no setor
-function entrarSetor(){
-  alert('Abrindo página do setor: '+setorAtual+' (sub-abas serão implementadas aqui)');
-}
-
-// Voltar início
-function voltarInicio(){
-  document.getElementById('telaInicio').style.display='flex';
-  document.getElementById('setorTela').style.display='none';
-}
-
-// K-AI Chatbot
-let kaiHistory = [];
-function abrirChat(){
-  const pergunta = prompt('K-AI está online! Pergunte qualquer coisa sobre o Sistema K e KORVIL:');
-  if(pergunta){
-    kaiHistory.push({user: pergunta});
-    let resposta = '';
-    // Aqui você pode expandir lógica do K-AI
-    resposta = 'K-AI: Recebi sua pergunta: "'+pergunta+'". Em breve, respostas detalhadas estarão implementadas.';
-    kaiHistory.push({kai: resposta});
-    alert(resposta);
-  }
-}
-</script>
-</body>
-</html>    <p>Cursos</p>
-  </div>
-
-  <div class="menu-item" onclick="toggleSub('kalma')">K-ALMA &#9662;</div>
-  <div class="submenu" id="kalma-sub">
-    <p>Dentistas</p>
-    <p>Médicos</p>
-    <p>Terapeutas</p>
-    <p>Psicólogos</p>
-    <p>Fisioterapeutas</p>
-  </div>
-</div>
-
-<!-- =================== SEÇÕES =================== -->
-<div id="inicio-section" class="section" style="display:block;">
+function home(){
+  content.innerHTML=`
   <h1>Bem-vindo ao KORVIL</h1>
-  <p>Somos uma ideia, somos uma marca, somos KORVIL</p>
-</div>
-
-<div id="sistema-section" class="section">
-  <div class="sector-entry">
-    <h2>sistema K</h2>
-    <p>Tecnologia e Serviços gerais de várias áreas com parcerias e terceirizações.</p>
-    <button onclick="alert('Entrando no setor sistema K')">Entrar</button>
+  <div class="cards">
+    ${card("Sistema K","Gestão e serviços")}
+    ${card("K-TP","Treinamento Personalizado")}
+    ${card("K-AFORTUNADO","Empreendedorismo")}
+    ${card("K-ALMA","Saúde e equilíbrio")}
   </div>
-</div>
+  ${kai()}
+  `;
+}
 
-<div id="ktp-section" class="section">
-  <div class="sector-entry">
-    <h2>K-TP</h2>
-    <p>Centro de Treinamento Personalizado para várias modalidades esportivas.</p>
-    <button onclick="alert('Entrando no setor K-TP')">Entrar</button>
-  </div>
-</div>
+function card(name,desc){
+  return `<div class="card" onclick="openSector('${name}')">
+    <h3>${name}</h3><p>${desc}</p></div>`
+}
 
-<div id="kafortunado-section" class="section">
-  <div class="sector-entry">
-    <h2>K-AFORTUNADO</h2>
-    <p>Empreendedorismo com cursos e treinamentos especializados.</p>
-    <button onclick="alert('Entrando no setor K-AFORTUNADO')">Entrar</button>
-  </div>
-</div>
+/* ===== SECTORS ===== */
+let currentSector="";
 
-<div id="kalma-section" class="section">
-  <div class="sector-entry">
-    <h2>K-ALMA</h2>
-    <p>Centro de Cuidados, saúde e bem-estar.</p>
-    <button onclick="alert('Entrando no setor K-ALMA')">Entrar</button>
-  </div>
-</div>
+function openSector(name){
+  currentSector=name;
+  modal.style.display="flex";
+  modalTitle.innerText=name;
+  modalDesc.innerText="Acessar o setor "+name;
+}
 
-<!-- =================== K-AI CHATBOT =================== -->
-<div id="kai-icon" onclick="toggleKaiChat()">K-AI</div>
-<div id="kai-window">
-  <div id="kai-body"></div>
-  <div id="kai-input">
-    <input type="text" id="kai-msg" placeholder="Digite aqui...">
-    <button onclick="kaiRespond()">Enviar</button>
-  </div>
-</div>
+function enterSector(){
+  modal.style.display="none";
+  content.innerHTML=`
+  <h2>${currentSector}</h2>
+  <ul>
+    <li>Sub-aba 1</li>
+    <li>Sub-aba 2</li>
+    <li>Sub-aba 3</li>
+  </ul>
+  ${kai()}
+  `;
+}
 
-<script>
-  // === LOGIN ===
-  const userProfile = {email:null,name:null,role:"user",history:[]};
-  function login(){
-    const email=document.getElementById('login-email').value;
-    const pass=document.getElementById('login-pass').value;
-    if(!email||!pass){alert('Preencha e-mail e senha!'); return;}
-    userProfile.email=email;
-    userProfile.name=email.split('@')[0];
-    if(email==="adminkorvil@korvil.com" && pass==="korvilxxx") userProfile.role="admin";
-    document.getElementById('login-screen').style.display='none';
-    sendNotification("Bem-vindo, "+userProfile.name+"!");
-  }
+/* ===== K-AI REAL (estado + contexto) ===== */
+let memory=[];
 
-  // === NAVEGAÇÃO ===
-  function showSector(sector){
-    const sections=['inicio','sistema','ktp','kafortunado','kalma'];
-    sections.forEach(s=>document.getElementById(s+'-section').style.display='none');
-    document.getElementById(sector+'-section').style.display='block';
-  }
-  function toggleSub(id){
-    const sub=document.getElementById(id+'-sub');
-    sub.style.display = sub.style.display==='none'?'block':'none';
-  }
+function kai(){
+  return `
+  <div class="kai">
+    <h3>K-AI • Inteligência do Sistema</h3>
+    <div class="kai-log" id="kaiLog"></div>
+    <input placeholder="Fale com o K-AI" onkeydown="if(event.key==='Enter')talk(this.value,this)">
+  </div>`
+}
 
-  // === K-AI ===
-  function toggleKaiChat(){
-    const kai=document.getElementById('kai-window');
-    kai.style.display = kai.style.display==='flex'?'none':'flex';
-  }
-  function kaiRespond(){
-    const input=document.getElementById('kai-msg'); let msg=input.value.trim(); if(!msg) return;
-    const body=document.getElementById('kai-body');
-    userProfile.history.push({from:"user",text:msg,date:new Date().toISOString()});
-    const userP=document.createElement('p'); userP.style.background="rgba(0,255,240,0.3)"; userP.innerText="Você: "+msg; body.appendChild(userP);
-    const kaiP=document.createElement('p'); kaiP.innerText="K-AI: Processando..."; body.appendChild(kaiP);
-    setTimeout(()=>{
-      let response=generateKaiResponse(msg); kaiP.innerText="K-AI: "+response;
-      userProfile.history.push({from:"kai",text:response,date:new Date().toISOString()});
-      body.scrollTop=body.scrollHeight;
-    },800);
-    input.value=""; body.scrollTop=body.scrollHeight;
-  }
-  function generateKaiResponse(msg){
-    msg=msg.toLowerCase();
-    if(userProfile.role==="user"){
-      if(msg.includes("histórico")) return "Aqui está seu histórico interno.";
-      if(msg.includes("comprar")||msg.includes("venda")) return "Confira produtos e serviços nos setores!";
-      if(msg.includes("ajuda")) return "Clique nos setores ou no menu lateral, posso te orientar sobre cada área.";
-      return "Posso te ajudar com informações sobre setores, produtos ou serviços do Sistema K.";
-    } else {
-      return "ADM: Você pode criar, modificar ou acessar qualquer informação do Sistema K.";
-    }
-  }
-  function sendNotification(msg){
-    if(userProfile.email){
-      const body=document.getElementById('kai-body');
-      const kaiP=document.createElement('p');
-      kaiP.innerText="K-AI (lembrete): "+msg;
-      body.appendChild(kaiP);
-      body.scrollTop=body.scrollHeight;
-    }
-  }
-  setInterval(()=>{ if(userProfile.email) sendNotification("Não esqueça de conferir novidades e produtos no Sistema K!"); },120000);
+function talk(msg,input){
+  memory.push({sector:currentSector,msg});
+  const response = `Analisando "${msg}" no contexto ${currentSector||"KORVIL"}. Próxima ação sugerida.`;
+  kaiLog.innerHTML+=`<div>> ${msg}</div><div style="color:#00e0ff">${response}</div>`;
+  input.value="";
+}
 </script>
-
 </body>
 </html>
