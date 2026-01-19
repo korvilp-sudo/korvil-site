@@ -1,13 +1,184 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>KORVIL | Sistema K</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #000;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    nav h1 {
+      color: #00e5ff;
+      font-size: 22px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00e5ff;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section h2 {
+      color: #00e5ff;
+      margin-bottom: 15px;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #1f1f1f;
+    }
+
+    footer {
+      background: #000;
+      border-top: 1px solid #1e1e1e;
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
 </head>
-<body style="background:black;color:white;font-family:Arial;">
-  <h1>KORVIL</h1>
-  <h2>Sistema K</h2>
-  <p>Plataforma em construção.</p>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <h1>KORVIL</h1>
+      <ul>
+        <li><a href="#home">Início</a></li>
+        <li><a href="#sistema">Sistema K</a></li>
+        <li><a href="#ktp">K-TP</a></li>
+        <li><a href="#kafortunado">K-AFORTUNADO</a></li>
+        <li><a href="#kalma">K-ALMA</a></li>
+        <li><a href="#kai">K-AI</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <section id="home">
+    <h2>Bem-vindo ao KORVIL</h2>
+    <div class="card">
+      <p>
+        O KORVIL é um ecossistema moderno que integra tecnologia, treinamento,
+        empreendedorismo e cuidados humanos através do Sistema K.
+      </p>
+    </div>
+  </section>
+
+  <!-- SISTEMA K -->
+  <section id="sistema">
+    <h2>Sistema K</h2>
+    <div class="card">
+      <p>
+        O Sistema K é o núcleo operacional do KORVIL. Ele conecta todos os setores,
+        dados, usuários, projetos e inteligências em um único fluxo inteligente,
+        automatizado e escalável.
+      </p>
+    </div>
+  </section>
+
+  <!-- K-TP -->
+  <section id="ktp">
+    <h2>K-TP | Treinamento Personalizado</h2>
+    <div class="card">
+      <p>
+        O K-TP é o setor de treinamento físico, evolução corporal e performance.
+        Inclui projetos como o Projeto Transformação, cronogramas, avaliações,
+        planos e acompanhamento.
+      </p>
+    </div>
+  </section>
+
+  <!-- K-AFORTUNADO -->
+  <section id="kafortunado">
+    <h2>K-AFORTUNADO | Empreendedorismo</h2>
+    <div class="card">
+      <p>
+        O K-AFORTUNADO é o setor de negócios, workshops, cursos online,
+        investimentos e e-commerce. Um ambiente para crescimento financeiro
+        e mentalidade empreendedora.
+      </p>
+    </div>
+  </section>
+
+  <!-- K-ALMA -->
+  <section id="kalma">
+    <h2>K-ALMA | Centro de Cuidados</h2>
+    <div class="card">
+      <p>
+        O K-ALMA é o setor focado em saúde, equilíbrio, cuidados, estudos,
+        práticas e bem-estar físico, mental e espiritual.
+      </p>
+    </div>
+  </section>
+
+  <!-- K-AI -->
+  <section id="kai">
+    <h2>K-AI | KORVIL Inteligência Artificial</h2>
+    <div class="card">
+      <p>
+        O K-AI nasce da integração entre pesquisa, design e inteligência artificial.
+        Ele conecta Google (dados), Canva (visual) e ChatGPT (inteligência),
+        funcionando como o cérebro digital do Sistema K.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 KORVIL — Sistema K • Todos os direitos reservados
+  </footer>
+
 </body>
 </html>
