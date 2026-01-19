@@ -1,114 +1,293 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>KORVIL | Sistema K</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* === RESET BASICO === */
-    * {margin:0; padding:0; box-sizing:border-box;}
-    body {font-family: Arial, sans-serif; background:black; color:white;}
-    a {color:#00ffff; text-decoration:none;}
-    a:hover {text-decoration:underline;}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KORVIL | Sistema K</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset e estilo geral */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html { font-family: 'Roboto', sans-serif; background: #0a0a0a; color: #fff; height: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; }
 
-    /* === TELA LOGIN === */
-    #login-screen{
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      background:#111; display:flex; flex-direction:column; justify-content:center; align-items:center;
-      z-index:1000;
-    }
-    #login-screen input{padding:10px; margin:5px; border:none; border-radius:5px;}
-    #login-screen button{padding:10px 20px; margin-top:10px; background:#00ffff; color:black; border:none; border-radius:5px; cursor:pointer;}
+/* HEADER - Menu horizontal */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #00CED1;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+header nav a { margin: 0 15px; font-weight: bold; color: black; }
+header #btnMenu { font-size: 26px; cursor: pointer; }
 
-    /* === NAVEGAÇÃO HORIZONTAL === */
-    #top-nav{
-      display:flex; justify-content:center; background:#000; padding:10px; gap:20px; border-bottom:2px solid #00ffff;
-      position:sticky; top:0; z-index:900;
-    }
-    #top-nav button{
-      background:#000; border:2px solid #00ffff; color:#00ffff; padding:8px 20px; border-radius:5px; cursor:pointer;
-      transition:0.3s;
-    }
-    #top-nav button:hover{background:#00ffff; color:black;}
+/* MENU LATERAL */
+.menu-lateral {
+  position: fixed;
+  left: -280px;
+  top: 0;
+  width: 280px;
+  height: 100%;
+  background: #111;
+  padding: 25px;
+  transition: 0.3s;
+  z-index: 101;
+  overflow-y: auto;
+}
+.menu-lateral a { display: block; padding: 12px 0; color: #fff; font-weight: bold; }
+.menu-lateral .submenu { display: none; padding-left: 15px; font-weight: normal; }
+.seta { float: right; cursor: pointer; }
 
-    /* === MENU LATERAL === */
-    #side-menu{
-      position:fixed; left:0; top:50px; width:200px; background:#111; height:100%; padding:10px;
-    }
-    #side-menu h3{margin-bottom:5px;}
-    .submenu{display:none; margin-left:10px; margin-bottom:10px;}
-    .menu-item{cursor:pointer; margin-bottom:5px; display:flex; justify-content:space-between; align-items:center;}
-    .menu-item:hover{color:#00ffff;}
+/* TELA INICIAL E SETORES */
+.tela { display: none; padding-top: 80px; width: 100%; min-height: 100vh; text-align: center; }
+.sectores { display: flex; flex-wrap: wrap; justify-content: center; margin-top: 40px; }
+.sector-card {
+  background: #222;
+  border: 2px solid #00CED1;
+  margin: 15px;
+  padding: 35px;
+  border-radius: 12px;
+  flex: 1 1 220px;
+  max-width: 260px;
+  text-align: center;
+  transition: 0.3s;
+  box-shadow: 0 0 15px #00CED1;
+}
+.sector-card:hover { transform: scale(1.05); }
 
-    /* === SEÇÕES === */
-    .section{display:none; padding:20px; margin-left:220px;}
-    .sector-entry{background:#111; border:2px solid #00ffff; padding:20px; margin:10px; border-radius:10px; text-align:center;}
-    .sector-entry h2{color:#00ffff; margin-bottom:10px;}
-    .sector-entry button{padding:10px 20px; border:none; background:#00ffff; color:black; cursor:pointer; border-radius:5px;}
+/* TELAS POP-UP DE SETOR */
+.tela-setor {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  background: #222;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 200;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 25px #00CED1;
+}
+.tela-setor button { margin-top: 20px; padding: 12px 25px; background: #00CED1; border: none; color: black; font-weight: bold; border-radius: 6px; }
 
-    /* === K-AI CHATBOT === */
-    #kai-icon{
-      position:fixed; bottom:20px; right:20px; width:60px; height:60px; border-radius:50%; background:#00ffff;
-      display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:999;
-      font-weight:bold; color:black;
-    }
-    #kai-window{
-      display:none; flex-direction:column; position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:#111; border:2px solid #00ffff; border-radius:10px; z-index:999;
-    }
-    #kai-body{flex:1; overflow-y:auto; padding:10px;}
-    #kai-input{display:flex;}
-    #kai-input input{flex:1; padding:5px; margin:5px;}
-    #kai-input button{padding:5px 10px; margin:5px; background:#00ffff; border:none; cursor:pointer;}
+/* LOGIN */
+#loginTela {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #111;
+  padding: 20px;
+}
+#loginTela input { margin: 10px 0; padding: 12px; border-radius: 6px; border: none; width: 250px; max-width: 90%; }
+#loginTela button { margin-top: 20px; padding: 12px 25px; background: #00CED1; border: none; color: black; font-weight: bold; border-radius: 6px; }
 
-    /* === RESPONSIVO === */
-    @media(max-width:768px){
-      .section{margin-left:0; padding:10px;}
-      #side-menu{position:relative; width:100%; height:auto;}
-      #top-nav{flex-direction:column;}
-    }
-  </style>
+/* Perfil e ícone usuário */
+#userProfile {
+  position: fixed;
+  top: 12px;
+  right: 20px;
+  background: #00CED1;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* K-AI Chatbot flutuante */
+#kai-chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00CED1;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  z-index: 300;
+}
+
+/* Responsivo */
+@media(max-width:768px){
+  .sectores { flex-direction: column; align-items: center; }
+}
+</style>
 </head>
 <body>
 
-<!-- =================== TELA LOGIN =================== -->
-<div id="login-screen">
+<!-- LOGIN -->
+<div id="loginTela">
   <h1>KORVIL | Sistema K</h1>
-  <input type="email" id="login-email" placeholder="E-mail">
-  <input type="password" id="login-pass" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
+  <input type="email" id="loginEmail" placeholder="Email do Google">
+  <input type="password" id="loginSenha" placeholder="Senha">
+  <button onclick="login()">ENTRAR</button>
 </div>
 
-<!-- =================== NAVEGAÇÃO HORIZONTAL =================== -->
-<div id="top-nav">
-  <button onclick="showSector('inicio')">Início</button>
-  <button onclick="showSector('sistema')">sistema K</button>
-  <button onclick="showSector('ktp')">K-TP</button>
-  <button onclick="showSector('kafortunado')">K-AFORTUNADO</button>
-  <button onclick="showSector('kalma')">K-ALMA</button>
+<!-- MENU LATERAL -->
+<div class="menu-lateral" id="menuLateral">
+  <a href="#" onclick="toggleMenuLateral()">Fechar ×</a>
+  <a href="#" onclick="voltarInicio()">Início KORVIL</a>
+  <a href="#" onclick="toggleSubmenu('sistemaKSub')">sistema K <span class="seta">▼</span></a>
+  <div id="sistemaKSub" class="submenu">
+    <a href="#">Serviços gerais</a>
+    <a href="#">Parcerias</a>
+    <a href="#">Terceirizações</a>
+  </div>
+  <a href="#" onclick="toggleSubmenu('KTPSub')">K-TP <span class="seta">▼</span></a>
+  <div id="KTPSub" class="submenu">
+    <a href="#">Projeto TRANSFORMAÇÃO</a>
+    <a href="#">Suplementos</a>
+    <a href="#">Roupas e acessórios</a>
+  </div>
+  <a href="#" onclick="toggleSubmenu('KAFSub')">K-AFORTUNADO <span class="seta">▼</span></a>
+  <div id="KAFSub" class="submenu">
+    <a href="#">Cursos</a>
+    <a href="#">Treinamentos</a>
+  </div>
+  <a href="#" onclick="toggleSubmenu('KALMASub')">K-ALMA <span class="seta">▼</span></a>
+  <div id="KALMASub" class="submenu">
+    <a href="#">Dentistas</a>
+    <a href="#">Médicos</a>
+    <a href="#">Psicólogos</a>
+    <a href="#">Fisioterapeutas</a>
+  </div>
 </div>
 
-<!-- =================== MENU LATERAL =================== -->
-<div id="side-menu">
-  <h3>Menu</h3>
-  <div class="menu-item" onclick="showSector('inicio')">Início</div>
+<!-- HEADER HORIZONTAL -->
+<header style="display:none;" id="mainHeader">
+  <span id="btnMenu" onclick="toggleMenuLateral()">☰</span>
+  <nav>
+    <a href="#" onclick="voltarInicio()">Início KORVIL</a>
+    <a href="#" onclick="abrirSetor('sistemaK')">sistema K</a>
+    <a href="#" onclick="abrirSetor('KTP')">K-TP</a>
+    <a href="#" onclick="abrirSetor('KAF')">K-AFORTUNADO</a>
+    <a href="#" onclick="abrirSetor('KALMA')">K-ALMA</a>
+  </nav>
+</header>
 
-  <div class="menu-item" onclick="toggleSub('sistema')">sistema K &#9662;</div>
-  <div class="submenu" id="sistema-sub">
-    <p>Serviços gerais</p>
-    <p>Parcerias</p>
-    <p>Terceirizações</p>
+<!-- Ícone perfil -->
+<div id="userProfile" style="display:none;" onclick="alert('Perfil do usuário')">U</div>
+
+<!-- TELA INICIAL -->
+<div class="tela" id="telaInicio">
+  <div class="sectores">
+    <div class="sector-card" onclick="abrirSetor('sistemaK')">sistema K<br><small>Tecnologia e Serviços</small></div>
+    <div class="sector-card" onclick="abrirSetor('KTP')">K-TP<br><small>Treinamento Personalizado</small></div>
+    <div class="sector-card" onclick="abrirSetor('KAF')">K-AFORTUNADO<br><small>Empreendedorismo</small></div>
+    <div class="sector-card" onclick="abrirSetor('KALMA')">K-ALMA<br><small>Centro de Cuidados</small></div>
   </div>
+</div>
 
-  <div class="menu-item" onclick="toggleSub('ktp')">K-TP &#9662;</div>
-  <div class="submenu" id="ktp-sub">
-    <p>Projeto TRANSFORMAÇÃO</p>
-    <p>Suplementos</p>
-    <p>Roupas e acessórios fitness</p>
-  </div>
+<!-- Tela pop-up setor -->
+<div class="tela-setor" id="setorTela">
+  <h2 id="tituloSetor"></h2>
+  <p id="descSetor"></p>
+  <button onclick="entrarSetor()">ENTRAR</button>
+</div>
 
-  <div class="menu-item" onclick="toggleSub('kafortunado')">K-AFORTUNADO &#9662;</div>
-  <div class="submenu" id="kafortunado-sub">
-    <p>Cursos</p>
+<!-- K-AI -->
+<div id="kai-chatbot" onclick="abrirChat()">K-AI</div>
+
+<script>
+// LOGIN
+function login(){
+  const email = document.getElementById('loginEmail').value;
+  const senha = document.getElementById('loginSenha').value;
+  if(email && senha){
+    document.getElementById('loginTela').style.display='none';
+    document.getElementById('mainHeader').style.display='flex';
+    document.getElementById('userProfile').style.display='flex';
+    document.getElementById('telaInicio').style.display='flex';
+    alert('Bem-vindo, ' + email);
+  } else {
+    alert('Preencha email e senha');
+  }
+}
+
+// Menu lateral
+function toggleMenuLateral(){
+  const menu = document.getElementById('menuLateral');
+  menu.style.left = (menu.style.left==='0px') ? '-280px':'0px';
+}
+
+// Submenus
+function toggleSubmenu(id){
+  const sub = document.getElementById(id);
+  sub.style.display = (sub.style.display==='block') ? 'none':'block';
+}
+
+// Setores
+let setorAtual = '';
+function abrirSetor(setor){
+  setorAtual = setor;
+  const tela = document.getElementById('setorTela');
+  const titulo = document.getElementById('tituloSetor');
+  const desc = document.getElementById('descSetor');
+
+  if(setor==='sistemaK'){
+    titulo.textContent='sistema K';
+    desc.textContent='Tecnologia e serviços com parcerias e terceirizações para empresas e profissionais.';
+  } else if(setor==='KTP'){
+    titulo.textContent='K-TP';
+    desc.textContent='Centro de treinamento personalizado para várias modalidades esportivas.';
+  } else if(setor==='KAF'){
+    titulo.textContent='K-AFORTUNADO';
+    desc.textContent='Empreendedorismo, cursos e treinamentos para profissionais e empresas.';
+  } else if(setor==='KALMA'){
+    titulo.textContent='K-ALMA';
+    desc.textContent='Centro de cuidados e bem-estar, com serviços de saúde e terapias.';
+  }
+
+  tela.style.display='block';
+  document.getElementById('telaInicio').style.display='none';
+}
+
+// Entrar no setor
+function entrarSetor(){
+  alert('Abrindo página do setor: '+setorAtual+' (sub-abas serão implementadas aqui)');
+}
+
+// Voltar início
+function voltarInicio(){
+  document.getElementById('telaInicio').style.display='flex';
+  document.getElementById('setorTela').style.display='none';
+}
+
+// K-AI Chatbot
+let kaiHistory = [];
+function abrirChat(){
+  const pergunta = prompt('K-AI está online! Pergunte qualquer coisa sobre o Sistema K e KORVIL:');
+  if(pergunta){
+    kaiHistory.push({user: pergunta});
+    let resposta = '';
+    // Aqui você pode expandir lógica do K-AI
+    resposta = 'K-AI: Recebi sua pergunta: "'+pergunta+'". Em breve, respostas detalhadas estarão implementadas.';
+    kaiHistory.push({kai: resposta});
+    alert(resposta);
+  }
+}
+</script>
+</body>
+</html>    <p>Cursos</p>
   </div>
 
   <div class="menu-item" onclick="toggleSub('kalma')">K-ALMA &#9662;</div>
