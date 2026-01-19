@@ -1,114 +1,269 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <title>KORVIL | sistema K</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>KORVIL | Sistema K</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body, html{margin:0;padding:0;font-family:Arial;background:#000;color:#fff;overflow-x:hidden;}
+a{text-decoration:none;color:#0ff;}
+a:hover{color:#00f0ff;}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+/* HEADER HORIZONTAL */
+header{
+  position:fixed;top:0;width:100%;background:#000;border-bottom:2px solid #0ff;
+  z-index:10;padding:10px;display:flex;justify-content:center;gap:30px;
+}
+header button{
+  background:#0ff;color:#000;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;
+  font-weight:bold;transition:0.3s;
+}
+header button:hover{background:#00f0ff;color:#fff;transform:scale(1.1);}
 
-    body {
-      background: #000;
-      color: #fff;
-      line-height: 1.6;
-    }
+/* MENU LATERAL */
+#sideMenu{
+  position:fixed;left:0;top:60px;width:200px;height:100%;background:#111;border-right:2px solid #0ff;padding:15px;
+  display:flex;flex-direction:column;gap:15px;overflow-y:auto;
+}
+#sideMenu h3{margin:0;color:#0ff;font-size:16px;}
+.submenu{display:none;flex-direction:column;margin-left:10px;gap:10px;}
+.menuItem{cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.menuItem:hover{color:#00f0ff;}
 
-    header {
-      background: #000;
-      border-bottom: 1px solid #1e1e1e;
-      padding: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+/* SEÇÕES */
+section{margin-left:220px;padding:80px 20px;display:none;}
+h2,h3{color:#0ff;}
+p{color:#fff;}
+.card{background:#111;border:1px solid #222;padding:20px;border-radius:10px;margin:20px 0;transition:transform 0.5s;}
+.card:hover{transform:rotateY(10deg) scale(1.05);}
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+/* LOGIN SCREEN */
+#loginScreen{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.95);display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:100;
+}
+#loginScreen button{padding:15px 30px;background:#0ff;color:#000;border:none;font-weight:bold;font-size:18px;border-radius:10px;cursor:pointer;transition:0.3s;}
+#loginScreen button:hover{background:#00f0ff;color:#fff;transform:scale(1.1);}
 
-    nav h1 {
-      color: #00e5ff;
-      font-size: 22px;
-    }
+/* ENTRADA SETORES */
+.sector-entry{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;justify-content:center;align-items:center;flex-direction:column;color:#0ff;z-index:99;
+}
+.sector-entry button{padding:12px 25px;margin-top:20px;background:#0ff;color:#000;border:none;font-weight:bold;border-radius:8px;cursor:pointer;transition:0.3s;}
+.sector-entry button:hover{background:#00f0ff;color:#fff;transform:scale(1.05);}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
+/* RODAPÉ */
+footer{margin-left:220px;padding:20px;text-align:center;background:#111;border-top:2px solid #0ff;position:relative;}
 
-    nav ul li a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 14px;
-      transition: 0.3s;
-    }
-
-    nav ul li a:hover {
-      color: #00e5ff;
-    }
-
-    section {
-      padding: 60px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    section h2 {
-      color: #00e5ff;
-      margin-bottom: 15px;
-    }
-
-    .card {
-      background: #111;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      border: 1px solid #1f1f1f;
-    }
-
-    .slogan {
-      color: #00e5ff;
-      font-size: 18px;
-      margin-top: 10px;
-      font-style: italic;
-    }
-
-    footer {
-      background: #000;
-      border-top: 1px solid #1e1e1e;
-      text-align: center;
-      padding: 20px;
-      font-size: 13px;
-      color: #aaa;
-    }
-  </style>
+/* K-AI CHATBOT */
+#kAI{
+  position:fixed;bottom:20px;right:20px;width:60px;height:60px;background:#00f0ff;border-radius:50%;cursor:pointer;
+  display:flex;justify-content:center;align-items:center;z-index:1000;box-shadow:0 0 15px #00f0ff;
+}
+#kAI img{width:40px;height:40px;}
+#chatBox{
+  position:fixed;bottom:90px;right:20px;width:300px;height:400px;background:#111;border:2px solid #00f0ff;border-radius:10px;
+  display:none;flex-direction:column;z-index:1001;
+}
+#chatHeader{background:#00f0ff;color:#000;padding:10px;font-weight:bold;text-align:center;border-top-left-radius:8px;border-top-right-radius:8px;}
+#chatMessages{flex:1;padding:10px;overflow-y:auto;}
+#chatInput{display:flex;}
+#chatInput input{flex:1;padding:10px;border:none;border-top:2px solid #00f0ff;background:#222;color:#fff;border-bottom-left-radius:8px;}
+#chatInput button{padding:10px;background:#00f0ff;color:#000;border:none;border-bottom-right-radius:8px;cursor:pointer;transition:0.3s;}
+#chatInput button:hover{background:#0ff;color:#000;}
+</style>
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <nav>
-      <h1>KORVIL</h1>
-      <ul>
-        <li><a href="#home">Início</a></li>
-        <li><a href="#sistema">sistema K</a></li>
-        <li><a href="#ktp">K-TP</a></li>
-        <li><a href="#kafortunado">K-AFORTUNADO</a></li>
-        <li><a href="#kalma">K-ALMA</a></li>
-        <li><a href="#kai">K-AI</a></li>
-      </ul>
+<!-- HEADER HORIZONTAL -->
+<header>
+  <button onclick="showLogin()">Início</button>
+  <button onclick="openSectorEntry('sistemaK')">sistema K</button>
+  <button onclick="openSectorEntry('KTP')">K-TP</button>
+  <button onclick="openSectorEntry('KAFORTUNADO')">K-AFORTUNADO</button>
+  <button onclick="openSectorEntry('KALMA')">K-ALMA</button>
+</header>
+
+<!-- MENU LATERAL VERTICAL -->
+<div id="sideMenu">
+  <h3>Menu</h3>
+  <div class="menuItem" onclick="showLogin()">Início</div>
+
+  <div class="menuItem" onclick="toggleSubmenu('menuSistemaK')">sistema K &#9662;</div>
+  <div id="menuSistemaK" class="submenu">
+    <div>Serviços Gerais</div>
+    <div>Parcerias</div>
+    <div>Terceirizações</div>
+    <div>Venda de Produtos</div>
+    <div>K-AI Assistente Virtual</div>
+  </div>
+
+  <div class="menuItem" onclick="toggleSubmenu('menuKTP')">K-TP &#9662;</div>
+  <div id="menuKTP" class="submenu">
+    <div>Projeto TRANSFORMAÇÃO</div>
+    <div>Suplementos</div>
+    <div>Produtos Alimentares</div>
+    <div>Roupas e Acessórios Fitness</div>
+  </div>
+
+  <div class="menuItem" onclick="toggleSubmenu('menuKAFORTUNADO')">K-AFORTUNADO &#9662;</div>
+  <div id="menuKAFORTUNADO" class="submenu">
+    <div>Cursos</div>
+    <div>Mentorias</div>
+    <div>Workshops</div>
+  </div>
+
+  <div class="menuItem" onclick="toggleSubmenu('menuKALMA')">K-ALMA &#9662;</div>
+  <div id="menuKALMA" class="submenu">
+    <div>Dentistas</div>
+    <div>Médicos</div>
+    <div>Psicólogos</div>
+    <div>Terapeutas</div>
+    <div>Fisioterapeutas</div>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <h1>Bem-vindo ao KORVIL</h1>
+  <p>Escolha um setor para entrar</p>
+  <div style="display:flex;gap:20px;margin-top:30px;">
+    <button onclick="openSectorEntry('sistemaK')">sistema K</button>
+    <button onclick="openSectorEntry('KTP')">K-TP</button>
+    <button onclick="openSectorEntry('KAFORTUNADO')">K-AFORTUNADO</button>
+    <button onclick="openSectorEntry('KALMA')">K-ALMA</button>
+  </div>
+</div>
+
+<!-- PÁGINAS DE ENTRADA DOS SETORES -->
+<div id="sistemaK" class="sector-entry">
+  <h2>sistema K: Tecnologia e Serviços</h2>
+  <p>Serviços gerais, parcerias, terceirizações, venda de produtos e serviços. Inclui K-AI assistente virtual para tirar dúvidas sobre o Sistema K.</p>
+  <button onclick="enterSector('sistemaKPage')">Entrar</button>
+  <p>ENTRE EM CONTATO CONOSCO AGORA MESMO: 13 99769-0898</p>
+</div>
+
+<div id="KTP" class="sector-entry">
+  <h2>K-TP: Treinamento Personalizado</h2>
+  <p>Centro de treinamento para várias modalidades esportivas, desde cross training à musculação.</p>
+  <button onclick="enterSector('KTPPage')">Entrar</button>
+  <p>ENTRE EM CONTATO CONOSCO AGORA MESMO: 13 99769-0898</p>
+</div>
+
+<div id="KAFORTUNADO" class="sector-entry">
+  <h2>K-AFORTUNADO: Empreendedorismo</h2>
+  <p>Cursos, mentorias e workshops para desenvolvimento pessoal e profissional.</p>
+  <button onclick="enterSector('KAFORTUNADOPage')">Entrar</button>
+  <p>ENTRE EM CONTATO CONOSCO AGORA MESMO: 13 99769-0898</p>
+</div>
+
+<div id="KALMA" class="sector-entry">
+  <h2>K-ALMA: Centro de Cuidados</h2>
+  <p>Serviços de saúde e bem-estar: dentistas, médicos, psicólogos, fisioterapeutas, terapeutas.</p>
+  <button onclick="enterSector('KALMAPage')">Entrar</button>
+  <p>ENTRE EM CONTATO CONOSCO AGORA MESMO: 13 99769-0898</p>
+</div>
+
+<!-- SEÇÕES PRINCIPAIS DOS SETORES -->
+<section id="sistemaKPage">
+  <h2>sistema K</h2>
+  <p>Conteúdos, sub-abas e serviços do setor sistema K.</p>
+</section>
+
+<section id="KTPPage">
+  <h2>K-TP</h2>
+  <p>Sub-abas: Projeto Transformação, Suplementos, Produtos Alimentares, Roupas e Acessórios Fitness</p>
+</section>
+
+<section id="KAFORTUNADOPage">
+  <h2>K-AFORTUNADO</h2>
+  <p>Sub-abas: Cursos, Mentorias, Workshops</p>
+</section>
+
+<section id="KALMAPage">
+  <h2>K-ALMA</h2>
+  <p>Sub-abas: Serviços de saúde e bem-estar</p>
+</section>
+
+<!-- CHATBOT K-AI -->
+<div id="kAI" onclick="toggleChat()">
+  <img src="https://i.imgur.com/0fU0Y5B.png" alt="K-AI Logo">
+</div>
+<div id="chatBox">
+  <div id="chatHeader">K-AI Assistente Virtual</div>
+  <div id="chatMessages"><p>Olá! Eu sou o K-AI. Posso tirar dúvidas sobre o Sistema K e a marca KORVIL.</p></div>
+  <div id="chatInput">
+    <input type="text" id="userInput" placeholder="Digite sua pergunta...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2026 KORVIL | Contato: 13 99769-0898
+</footer>
+
+<script>
+function toggleSubmenu(id){
+  let el = document.getElementById(id);
+  el.style.display = el.style.display==='flex'?'none':'flex';
+}
+function openSectorEntry(id){
+  document.getElementById('loginScreen').style.display='none';
+  closeAllEntries();
+  document.getElementById(id).style.display='flex';
+}
+function closeAllEntries(){
+  let entries = document.querySelectorAll('.sector-entry');
+  entries.forEach(e=>e.style.display='none');
+}
+function enterSector(pageId){
+  closeAllEntries();
+  hideAllSections();
+  document.getElementById(pageId).style.display='block';
+}
+function hideAllSections(){
+  let sections = document.querySelectorAll('section');
+  sections.forEach(s=>s.style.display='none');
+}
+function showLogin(){
+  hideAllSections();
+  closeAllEntries();
+  document.getElementById('loginScreen').style.display='flex';
+}
+
+// K-AI CHATBOT
+function toggleChat(){
+  let box = document.getElementById('chatBox');
+  box.style.display = box.style.display==='flex'?'none':'flex';
+}
+function sendMessage(){
+  let input = document.getElementById('userInput');
+  let msg = input.value.trim();
+  if(msg==='') return;
+  let chat = document.getElementById('chatMessages');
+  let p = document.createElement('p');
+  p.textContent = "Você: "+msg;
+  chat.appendChild(p);
+  let bot = document.createElement('p');
+  bot.textContent = "K-AI: "+getResponse(msg);
+  chat.appendChild(bot);
+  chat.scrollTop = chat.scrollHeight;
+  input.value='';
+}
+function getResponse(msg){
+  // Respostas básicas, pode expandir depois
+  msg = msg.toLowerCase();
+  if(msg.includes('sistema k')) return 'O sistema K oferece serviços tecnológicos, parcerias e terceirizações.';
+  if(msg.includes('k-tp')) return 'O K-TP é o centro de treinamento personalizado para diversas modalidades.';
+  if(msg.includes('k-afortunado')) return 'O K-AFORTUNADO ajuda no empreendedorismo, cursos e mentorias.';
+  if(msg.includes('k-alma')) return 'O K-ALMA oferece serviços de saúde e bem-estar.';
+  return 'Posso tirar dúvidas sobre qualquer setor do Sistema K e da marca KORVIL.';
+}
+</script>
+
+</body>
+</html>      </ul>
     </nav>
   </header>
 
