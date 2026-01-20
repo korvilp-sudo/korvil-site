@@ -1,114 +1,301 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KORVIL • Sistema K</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KORVIL | Sistema K Integrado</title>
 
 <style>
 :root{
   --bg:#0b0b0b;
-  --panel:#121212;
-  --line:#1f1f1f;
-  --neon:#00eaff;
-  --text:#e0e0e0;
+  --card:#141414;
+  --text:#eaeaea;
+  --muted:#9aa0a6;
+  --accent:#17d4c4;
+  --accent-2:#0aa3a3;
 }
+
+/* RESET */
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
+  font-family:Inter,system-ui,Segoe UI,Roboto,Arial;
+  background:linear-gradient(180deg,#070707,#0b0b0b);
   color:var(--text);
+  overflow-x:hidden;
 }
-#app{display:flex;min-height:100vh}
 
-/* MENU */
-aside{
-  width:260px;
-  background:#0f0f0f;
-  border-right:1px solid var(--line);
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#0b0b0b;
+  border-bottom:1px solid #1f1f1f;
 }
-aside h2{
-  color:var(--neon);
-  text-align:center;
-  padding:15px;
-  margin:0;
+
+.wrap{
+  max-width:1200px;
+  margin:auto;
+  padding:16px;
 }
+
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.logo{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:radial-gradient(circle at 30% 30%,var(--accent),#0b6b6b);
+  box-shadow:0 0 0 2px #0e3b3b inset;
+}
+
+nav{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
 nav button{
-  width:100%;
-  background:none;
-  border:none;
+  background:#101010;
   color:var(--text);
-  padding:14px;
-  text-align:left;
-  cursor:pointer;
-  border-bottom:1px solid var(--line);
-}
-nav button:hover{background:#151515}
-
-/* CONTEÚDO */
-main{
-  flex:1;
-  padding:20px;
-}
-section{display:none}
-section.active{display:block}
-
-/* CARD */
-.card{
-  background:var(--panel);
-  border:1px solid var(--line);
+  border:1px solid #1f1f1f;
   border-radius:10px;
-  padding:15px;
-  margin-bottom:15px;
-}
-h1,h2,h3{color:var(--neon)}
-.btn{
-  background:var(--neon);
-  color:#000;
-  border:none;
   padding:10px 14px;
-  border-radius:6px;
   cursor:pointer;
+  transition:.3s;
+}
+
+nav button:hover,
+nav button.active{
+  border-color:var(--accent);
+  transform:translateY(-1px);
+  box-shadow:0 4px 20px rgba(23,212,196,.15);
+}
+
+/* HERO CAPAS */
+.hero{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  background:#000;
+}
+
+.hero img{
+  width:100%;
+  max-width:1600px;
+  height:auto;
+  display:block;
+  object-fit:cover;
+}
+
+/* MAIN */
+main{
+  padding:24px;
+}
+
+/* SEÇÕES */
+section{
+  opacity:0;
+  transform:translateY(20px);
+  pointer-events:none;
+  transition:.5s ease;
+}
+section.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:16px;
+}
+.card{
+  grid-column:span 12;
+  background:var(--card);
+  border:1px solid #1f1f1f;
+  border-radius:18px;
+  padding:18px;
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(0,0,0,.5);
+}
+
+@media(min-width:768px){
+  .span-6{grid-column:span 6}
+}
+
+/* ELEMENTOS */
+.muted{color:var(--muted)}
+.pill{
+  display:inline-flex;
+  border:1px solid #1f1f1f;
+  border-radius:999px;
+  padding:6px 10px;
+  background:#0f0f0f;
+}
+
+.btn{
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  border:none;
+  border-radius:14px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+footer{
+  border-top:1px solid #1f1f1f;
+  padding:20px;
+  text-align:center;
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<header>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <strong>KORVIL</strong>
+        <div class="muted">Sistema K • Ecossistema Integrado</div>
+      </div>
+    </div>
+    <nav>
+      <button class="active" data-go="home">Home</button>
+      <button data-go="sistema">Sistema K</button>
+      <button data-go="ktp">K-TP</button>
+      <button data-go="kaf">K-AFORTUNADO</button>
+      <button data-go="kalma">K-ALMA</button>
+    </nav>
+  </div>
+</header>
 
-<!-- MENU LATERAL -->
-<aside>
-  <h2>KORVIL</h2>
-  <nav>
-    <button onclick="openSection('inicio')">Início</button>
-    <button onclick="openSection('sistemaK')">Sistema K</button>
-    <button onclick="openSection('ktp')">K-TP</button>
-    <button onclick="openSection('kafortunado')">K-AFORTUNADO</button>
-    <button onclick="openSection('kalma')">K-ALMA</button>
-  </nav>
-</aside>
-
-<!-- CONTEÚDO -->
 <main>
 
-<!-- INÍCIO -->
-<section id="inicio" class="active">
-  <div class="card">
-    <h1>KORVIL</h1>
-    <p>Ecossistema integrado de saúde, treinamento, empreendedorismo e consciência.</p>
+<!-- HOME -->
+<section id="home" class="active">
+
+  <!-- CAPA KORVIL -->
+  <div class="hero">
+    <img src="images/Logo capa fundo Korvil site.png" alt="KORVIL Sistema K">
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <h1>Ecossistema KORVIL</h1>
+        <p class="muted">
+          Plataforma central de evolução humana integrando corpo,
+          mente, finanças e propósito.
+        </p>
+        <span class="pill">Sistema K</span>
+        <span class="pill">TRÍADE</span>
+        <span class="pill">Automação</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- SISTEMA K -->
-<section id="sistemaK">
-  <div class="card">
-    <h2>Sistema K</h2>
-    <p>
-      Plataforma central que conecta todos os setores do KORVIL.
-      Gestão, serviços, vendas, dados, usuários e automações.
-    </p>
+<section id="sistema">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card span-6">
+        <h2>Sistema K</h2>
+        <p class="muted">Núcleo central de dados e automações.</p>
+      </div>
+      <div class="card span-6">
+        <button class="btn">Ver Arquitetura</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- K-TP -->
+<section id="ktp">
+
+  <!-- CAPA K-TP -->
+  <div class="hero">
+    <img src="images/Logo K-TP.png" alt="K-TP Treinamento Personalizado">
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="card span-6">
+        <h2>K-TP | Projeto Transformação</h2>
+        <p class="muted">
+          Treinamento personalizado com progressão inteligente.
+        </p>
+      </div>
+
+      <div class="card span-6">
+        <span class="pill">Manutenção</span>
+        <span class="pill">Resistência</span>
+        <span class="pill">Força</span>
+        <span class="pill">Hipertrofia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- K-AFORTUNADO -->
+<section id="kaf">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card span-6">
+        <h2>K-AFORTUNADO</h2>
+        <p class="muted">Empreendedorismo e sistemas de renda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- K-ALMA -->
+<section id="kalma">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card span-6">
+        <h2>K-ALMA</h2>
+        <p class="muted">Centro de cuidados e equilíbrio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © KORVIL — Sistema K Integrado
+</footer>
+
+<script>
+const buttons=document.querySelectorAll('[data-go]');
+const sections=document.querySelectorAll('section');
+
+function go(id){
+  sections.forEach(s=>s.classList.toggle('active',s.id===id));
+  buttons.forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+}
+
+buttons.forEach(b=>{
+  b.onclick=()=>go(b.dataset.go);
+});
+</script>
+
+</body>
+      </html>    </p>
     <ul>
       <li>K-Store (loja online integrada)</li>
       <li>Pagamentos presenciais e digitais</li>
