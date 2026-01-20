@@ -3,445 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KORVIL | Sistema K</title>
+<title>KORVIL • Sistema K</title>
 
 <style>
 :root{
-  --bg:#000;
-  --panel:#0f0f0f;
+  --bg:#0b0b0b;
+  --panel:#121212;
+  --line:#1f1f1f;
   --neon:#00eaff;
   --text:#e0e0e0;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{margin:0;background:linear-gradient(180deg,#000,#050505);color:var(--text)}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+#app{display:flex;min-height:100vh}
 
-/* MENU TOPO */
-.topbar{
-  position:fixed;top:0;left:0;right:0;
-  background:#050505;border-bottom:1px solid #00eaff55;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:10px 16px;z-index:1000
+/* MENU */
+aside{
+  width:260px;
+  background:#0f0f0f;
+  border-right:1px solid var(--line);
 }
-.topbar nav a{
-  color:#ccc;text-decoration:none;margin:0 8px;font-size:14px;
+aside h2{
+  color:var(--neon);
+  text-align:center;
+  padding:15px;
+  margin:0;
 }
-.topbar nav a:hover{color:var(--neon)}
-
-/* BOTÃO MENU LATERAL */
-.menu-btn{cursor:pointer;font-size:20px;color:var(--neon)}
-
-/* MENU LATERAL */
-.sidebar{
-  position:fixed;top:0;left:-260px;width:260px;height:100%;
-  background:#070707;border-right:1px solid #00eaff55;
-  padding:60px 12px;transition:.3s;z-index:999
+nav button{
+  width:100%;
+  background:none;
+  border:none;
+  color:var(--text);
+  padding:14px;
+  text-align:left;
+  cursor:pointer;
+  border-bottom:1px solid var(--line);
 }
-.sidebar.active{left:0}
-.sidebar h3{color:var(--neon);font-size:14px;margin-top:20px}
-.sidebar a{
-  display:block;color:#ccc;text-decoration:none;
-  padding:6px 0;font-size:13px
-}
-.sidebar a:hover{color:var(--neon)}
+nav button:hover{background:#151515}
 
 /* CONTEÚDO */
-main{padding:80px 16px 40px;max-width:1100px;margin:auto}
-section{display:none;animation:fade .4s}
+main{
+  flex:1;
+  padding:20px;
+}
+section{display:none}
 section.active{display:block}
-@keyframes fade{from{opacity:0}to{opacity:1}}
 
+/* CARD */
 .card{
-  background:#0f0f0f;border:1px solid #00eaff33;
-  border-radius:10px;padding:16px;margin-bottom:20px
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
 }
-
-/* BOTÕES */
+h1,h2,h3{color:var(--neon)}
 .btn{
-  background:var(--neon);color:#000;
-  border:none;padding:10px 16px;
-  border-radius:8px;font-weight:bold;cursor:pointer
-}
-
-/* K-AI */
-.kai{
-  position:fixed;bottom:20px;right:20px;z-index:2000
-}
-.scene{width:64px;height:64px;perspective:600px;cursor:pointer}
-.cube{
-  width:64px;height:64px;position:relative;
-  transform-style:preserve-3d;
-  animation:spin 6s linear infinite
-}
-.cube-face{
-  position:absolute;width:64px;height:64px;
-  background:linear-gradient(135deg,#00eaff,#007a8a);
-  border:2px solid #00eaff;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:bold;border-radius:6px
-}
-.front{transform:rotateY(0) translateZ(32px)}
-.back{transform:rotateY(180deg) translateZ(32px)}
-.right{transform:rotateY(90deg) translateZ(32px)}
-.left{transform:rotateY(-90deg) translateZ(32px)}
-.top{transform:rotateX(90deg) translateZ(32px)}
-.bottom{transform:rotateX(-90deg) translateZ(32px)}
-@keyframes spin{
-  from{transform:rotateX(-15deg) rotateY(0)}
-  to{transform:rotateX(-15deg) rotateY(360deg)}
-}
-
-/* FORM */
-input,select,textarea{
-  width:100%;padding:8px;margin-bottom:8px;
-  background:#050505;border:1px solid #333;
-  color:#ccc;border-radius:6px
+  background:var(--neon);
+  color:#000;
+  border:none;
+  padding:10px 14px;
+  border-radius:6px;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+<div id="app">
+
+<!-- MENU LATERAL -->
+<aside>
+  <h2>KORVIL</h2>
   <nav>
-    <a onclick="openSection('home')">Início</a>
-    <a onclick="openSection('sistema')">sistema K</a>
-    <a onclick="openSection('ktp')">K-TP</a>
-    <a onclick="openSection('kafortunado')">K-AFORTUNADO</a>
-    <a onclick="openSection('kalma')">K-ALMA</a>
+    <button onclick="openSection('inicio')">Início</button>
+    <button onclick="openSection('sistemaK')">Sistema K</button>
+    <button onclick="openSection('ktp')">K-TP</button>
+    <button onclick="openSection('kafortunado')">K-AFORTUNADO</button>
+    <button onclick="openSection('kalma')">K-ALMA</button>
   </nav>
-</div>
+</aside>
 
-<div class="sidebar" id="sidebar">
-  <h3>Setores</h3>
-  <a onclick="openSection('sistema')">sistema K</a>
-  <a onclick="openSection('ktp')">K-TP</a>
-  <a onclick="openSection('kafortunado')">K-AFORTUNADO</a>
-  <a onclick="openSection('kalma')">K-ALMA</a>
-</div>
-
+<!-- CONTEÚDO -->
 <main>
 
-<section id="home" class="active">
+<!-- INÍCIO -->
+<section id="inicio" class="active">
   <div class="card">
     <h1>KORVIL</h1>
-    <p><strong>somos uma ideia, somos uma marca, somos KORVIL</strong></p>
+    <p>Ecossistema integrado de saúde, treinamento, empreendedorismo e consciência.</p>
   </div>
 </section>
 
+<!-- SISTEMA K -->
+<section id="sistemaK">
+  <div class="card">
+    <h2>Sistema K</h2>
+    <p>
+      Plataforma central que conecta todos os setores do KORVIL.
+      Gestão, serviços, vendas, dados, usuários e automações.
+    </p>
+    <ul>
+      <li>K-Store (loja online integrada)</li>
+      <li>Pagamentos presenciais e digitais</li>
+      <li>Relatórios e controle</li>
+    </ul>
+  </div>
+</section>
+
+<!-- K-TP -->
 <section id="ktp">
   <div class="card">
-    <h2>K-TP | Treinamento Personalizado</h2>
-    <p>Centro de treinamento para todas as idades e objetivos.</p>
-  </div>
+    <h2>K-TP • Projeto TRANSFORMAÇÃO</h2>
 
-  <div class="card">
-    <h3>Projeto TRANSFORMAÇÃO</h3>
+    <p><strong>Treinador fundador:</strong> Say Korvil</p>
 
-    <h4>Objetivos</h4>
+    <p>
+      Programa para crianças (10+), adultos, idosos e atletas.
+    </p>
+
+    <h3>Objetivos</h3>
     <ul>
       <li>Emagrecimento</li>
-      <li><strong>Ganho de peso</strong></li>
+      <li>Ganho de peso</li>
+      <li>Condicionamento físico</li>
       <li>Definição muscular</li>
       <li>Hipertrofia</li>
-      <li><strong>Condicionamento físico</strong></li>
-      <li>Saúde</li>
-      <li>Reabilitação</li>
+      <li>Saúde e reabilitação</li>
     </ul>
 
-    <h4>Faixa Etária</h4>
-    <p>Crianças a partir de 10 anos, adultos, idosos e atletas.</p>
-
-    <h4>Metodologia</h4>
-    <ol>
+    <h3>Metodologia</h3>
+    <ul>
       <li>Semana 1 – Manutenção</li>
       <li>Semana 2 – Resistência</li>
       <li>Semana 3 – Força</li>
       <li>Semana 4 – Hipertrofia</li>
-    </ol>
-
-    <h4>Planos Presenciais</h4>
-    <p>Matrícula R$50 válida até 12/2026</p>
-    <ul>
-      <li>1x semana – R$60</li>
-      <li>2x semana – R$80</li>
-      <li>3x semana – R$100</li>
-      <li>4x semana – R$130</li>
-      <li>5x semana – R$150</li>
     </ul>
 
-    <h4>Plano Online</h4>
-    <p>Matrícula R$50 • Mensalidade R$60 (seg–sex)</p>
-  </div>
-
-  <div class="card">
-    <h4>Inscrição</h4>
-    <input placeholder="Nome completo">
-    <input placeholder="WhatsApp">
-    <select>
-      <option>Emagrecimento</option>
-      <option>Ganho de peso</option>
-      <option>Definição muscular</option>
-      <option>Hipertrofia</option>
-      <option>Condicionamento físico</option>
-      <option>Saúde</option>
-      <option>Reabilitação</option>
-    </select>
-    <textarea placeholder="Observações"></textarea>
-    <button class="btn" onclick="whats()">Enviar via WhatsApp</button>
+    <h3>Planos</h3>
+    <p>Matrícula: R$ 50 (válida até dezembro do ano letivo)</p>
+    <p>Presencial: R$ 60 a R$ 150</p>
+    <p>Online: R$ 60 (segunda a sexta)</p>
   </div>
 </section>
 
-<section id="sistema">
-  <div class="card">
-    <h2>sistema K</h2>
-    <p>Tecnologia e Serviços integrados do KORVIL.</p>
-  </div>
-</section>
-
+<!-- K-AFORTUNADO -->
 <section id="kafortunado">
   <div class="card">
     <h2>K-AFORTUNADO</h2>
-    <p>Empreendedorismo, cursos e oportunidades.</p>
+    <p>
+      Setor voltado ao empreendedorismo, mentalidade, renda,
+      educação financeira e projetos independentes.
+    </p>
+    <ul>
+      <li>Projeto SER</li>
+      <li>Economia e administração</li>
+      <li>Gerenciamento e investimentos</li>
+      <li>Conteúdos educacionais e digitais</li>
+    </ul>
   </div>
 </section>
 
+<!-- K-ALMA -->
 <section id="kalma">
   <div class="card">
     <h2>K-ALMA</h2>
-    <p>Centro de cuidados e bem-estar.</p>
+    <p>
+      Centro de cuidados físicos, mentais, emocionais e espirituais.
+    </p>
+    <ul>
+      <li>Projeto Paz</li>
+      <li>Cuidados e terapias</li>
+      <li>Jejuns e práticas conscientes</li>
+      <li>Estudo e desenvolvimento pessoal</li>
+    </ul>
   </div>
 </section>
 
 </main>
-
-<!-- K-AI -->
-<div class="kai">
-  <div class="scene">
-    <div class="cube">
-      <div class="cube-face front">K-AI</div>
-      <div class="cube-face back">K-AI</div>
-      <div class="cube-face right">K-AI</div>
-      <div class="cube-face left">K-AI</div>
-      <div class="cube-face top">K-AI</div>
-      <div class="cube-face bottom">K-AI</div>
-    </div>
-  </div>
 </div>
 
 <script>
-function toggleMenu(){
-  document.getElementById('sidebar').classList.toggle('active')
-}
 function openSection(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'))
-  document.getElementById(id).classList.add('active')
-  document.getElementById('sidebar').classList.remove('active')
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
-function whats(){
-  window.open("https://wa.me/5513997690898","_blank")
-}
-</script>
-
-</body>
-</html>/* ===== CONTEÚDO ===== */
-main{
-  padding:140px 20px 40px;
-  text-align:center;
-}
-
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-}
-
-.card{
-  width:260px;
-  background:#0b0b0b;
-  border:1px solid var(--ciano);
-  border-radius:12px;
-  padding:20px;
-}
-
-.card h3{
-  color:var(--ciano);
-  margin-bottom:10px;
-}
-
-.card p{
-  font-size:14px;
-  opacity:0.8;
-}
-
-.card button{
-  margin-top:15px;
-  width:100%;
-  padding:10px;
-  background:var(--ciano);
-  border:none;
-  border-radius:6px;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-/* ===== K-AI ===== */
-#kai{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
-  background:var(--ciano);
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 20px rgba(0,255,240,.6);
-  z-index:300;
-}
-
-#kai-chat{
-  position:fixed;
-  bottom:90px;
-  right:20px;
-  width:300px;
-  background:#000;
-  border:1px solid var(--ciano);
-  border-radius:12px;
-  display:none;
-}
-
-#kai-chat header{
-  padding:10px;
-  color:var(--ciano);
-  border-bottom:1px solid var(--ciano);
-}
-
-#kai-chat textarea{
-  width:100%;
-  height:70px;
-  background:#000;
-  border:none;
-  color:#fff;
-  padding:10px;
-}
-
-#kai-chat button{
-  width:100%;
-  padding:10px;
-  background:var(--ciano);
-  border:none;
-  font-weight:bold;
-}
-
-/* ===== RESPONSIVO ===== */
-@media(max-width:600px){
-  nav{
-    flex-wrap:wrap;
-    gap:10px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <span class="menu-btn" onclick="toggleMenu()">☰</span>
-  <h1>KORVIL</h1>
-</header>
-
-<nav>
-  <button onclick="home()">Início</button>
-  <button onclick="openSector('Sistema K')">sistema K</button>
-  <button onclick="openSector('K-TP')">K-TP</button>
-  <button onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</button>
-  <button onclick="openSector('K-ALMA')">K-ALMA</button>
-</nav>
-
-<aside id="side">
-  <h3>Navegação</h3>
-  <button onclick="home()">Início</button>
-  <button onclick="openSector('Sistema K')">sistema K</button>
-  <button onclick="openSector('K-TP')">K-TP</button>
-  <button onclick="openSector('K-AFORTUNADO')">K-AFORTUNADO</button>
-  <button onclick="openSector('K-ALMA')">K-ALMA</button>
-</aside>
-
-<main id="content"></main>
-
-<!-- K-AI -->
-<div id="kai" onclick="toggleKai()">K-AI</div>
-
-<div id="kai-chat">
-  <header>K-AI • Assistente</header>
-  <textarea placeholder="Pergunte algo sobre o KORVIL..."></textarea>
-  <button>Enviar</button>
-</div>
-
-<script>
-function toggleMenu(){
-  const side = document.getElementById("side");
-  side.style.left = side.style.left === "0px" ? "-260px" : "0px";
-}
-
-function home(){
-  document.getElementById("content").innerHTML = `
-    <h2>Bem-vindo ao KORVIL</h2>
-    <p>Um ecossistema de sistemas, projetos e soluções</p><br>
-    <div class="cards">
-      ${card("Sistema K","Tecnologia e Serviços")}
-      ${card("K-TP","Treinamento Personalizado")}
-      ${card("K-AFORTUNADO","Empreendedorismo")}
-      ${card("K-ALMA","Centro de Cuidados")}
-    </div>
-  `;
-}
-
-function card(nome,desc){
-  return `
-    <div class="card">
-      <h3>${nome}</h3>
-      <p>${desc}</p>
-      <button onclick="openSector('${nome}')">Entrar</button>
-    </div>
-  `;
-}
-
-function openSector(nome){
-  document.getElementById("content").innerHTML = `
-    <h2>Sobre ${nome}</h2>
-    <p>Área dedicada ao setor ${nome} dentro do ecossistema KORVIL.</p>
-    <br>
-    <button style="padding:12px 20px;background:var(--ciano);border:none;border-radius:8px;font-weight:bold"
-      onclick="sectorHome('${nome}')">
-      Entrar no setor
-    </button>
-    <p style="margin-top:20px;font-size:13px">
-      ENTRE EM CONTATO CONOSCO: <br><strong>13 99769-0898</strong>
-    </p>
-  `;
-}
-
-function sectorHome(nome){
-  document.getElementById("content").innerHTML = `
-    <h2>${nome}</h2>
-    <p>Página inicial oficial do setor ${nome}</p>
-  `;
-}
-
-function toggleKai(){
-  const chat = document.getElementById("kai-chat");
-  chat.style.display = chat.style.display === "block" ? "none" : "block";
-}
-
-home();
 </script>
 
 </body>
