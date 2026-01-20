@@ -303,6 +303,404 @@ section.active{display:block}
 <button id="menuToggle" onclick="toggleMenu()">☰</button>
 <div class="nav-links">
 <button onclick="go('home')">Home</button>
+<button onclick="showLogin('sistemak')">Sistema K</button>
+<button onclick="showLogin('ktp')">K-TP</button>
+<button onclick="showLogin('kafortunado')">K-AFORTUNADO</button>
+<button onclick="showLogin('kalma')">K-ALMA</button>
+<button onclick="showLogin('kstore')">K-Store</button>
+<button onclick="go('checkout')">Checkout</button>
+</div>
+</nav>
+</header>
+
+<div id="sideMenu">
+<h3>KORVIL</h3>
+
+<div class="menu-group">
+<strong>Sistema K</strong>
+<button onclick="showLogin('sistemak');toggleMenu()">Dashboard</button>
+<button onclick="showLogin('sistemak');toggleMenu()">Notificações</button>
+</div>
+
+<div class="menu-group">
+<strong>K-TP</strong>
+<button onclick="showLogin('ktp');toggleMenu()">Projeto Transformação</button>
+<button onclick="showLogin('ktp');toggleMenu()">Treinos</button>
+<button onclick="showLogin('ktp');toggleMenu()">Avaliações</button>
+</div>
+
+<div class="menu-group">
+<strong>K-AFORTUNADO</strong>
+<button onclick="showLogin('kafortunado');toggleMenu()">Empreendedorismo</button>
+<button onclick="showLogin('kafortunado');toggleMenu()">Investimentos</button>
+</div>
+
+<div class="menu-group">
+<strong>K-ALMA</strong>
+<button onclick="showLogin('kalma');toggleMenu()">Cuidados</button>
+<button onclick="showLogin('kalma');toggleMenu()">Paz</button>
+</div>
+
+<div class="menu-group">
+<strong>K-Store</strong>
+<button onclick="showLogin('kstore');toggleMenu()">Planos</button>
+</div>
+</div>
+
+<main>
+<section id="home" class="active">
+<img src="images/capa-korvil.jpg" class="capa">
+<h1>Sistema K</h1>
+<p>Ecossistema integrado KORVIL</p>
+</section>
+
+<section id="sistemak">
+<h2>Sistema K</h2>
+<p>Dashboard central do Sistema K, integração de todos os setores, notificações e relatórios automáticos.</p>
+<div class="grid">
+<div class="card">
+<h4>Relatórios</h4>
+<p>Visualize os dados atualizados de cada setor.</p>
+<button class="btn">Acessar</button>
+</div>
+<div class="card">
+<h4>Notificações</h4>
+<p>Receba avisos e alertas do Sistema K.</p>
+<button class="btn">Verificar</button>
+</div>
+</div>
+</section>
+
+<section id="ktp">
+<img src="images/logo-ktp.png" class="capa">
+<h2>K-TP | Projeto Transformação</h2>
+<p>Treinamento inteligente, progressivo e integrado.</p>
+</section>
+
+<section id="kafortunado">
+<h2>K-AFORTUNADO</h2>
+<p>Empreendedorismo e investimentos avançados.</p>
+</section>
+
+<section id="kalma">
+<h2>K-ALMA</h2>
+<p>Cuidados, meditação e bem-estar.</p>
+</section>
+
+<section id="kstore">
+<h2>K-Store</h2>
+<div class="grid">
+<div class="card">
+<h4>Plano K-TP</h4>
+<p>R$ 99,00</p>
+<button class="btn" onclick="addCart('Plano K-TP',99)">Adicionar</button>
+</div>
+</div>
+</section>
+
+<section id="checkout">
+<h2>Checkout</h2>
+<form name="checkout" method="POST" data-netlify="true" onsubmit="sendOrder()">
+<input type="hidden" name="form-name" value="checkout">
+<input type="hidden" name="pedido" id="pedido">
+<p><input name="nome" placeholder="Nome" required></p>
+<p><input name="email" placeholder="Email" required></p>
+<button class="btn">Finalizar</button>
+</form>
+</section>
+
+</main>
+
+<!-- MODAL LOGIN -->
+<div id="modalLogin">
+<div class="modal-content">
+<h2>Entrar no setor</h2>
+<input id="loginName" placeholder="Digite seu nome">
+<button onclick="enterSector()">Entrar</button>
+</div>
+</div>
+
+<div id="cartBox">
+<strong>Carrinho</strong>
+<div id="cartItems"></div>
+<div id="cartTotal"></div>
+</div>
+
+<div id="kaiContainer">
+<div id="chatBox">
+<div id="chatMessages"></div>
+<input id="chatInput" placeholder="Digite..." onkeydown="if(event.key==='Enter')sendChat()">
+</div>
+
+<div class="scene">
+<div class="cube" onclick="toggleChat()">
+<div class="cube-face front">K-AI</div>
+<div class="cube-face back">K-AI</div>
+<div class="cube-face right">K-AI</div>
+<div class="cube-face left">K-AI</div>
+<div class="cube-face top">K-AI</div>
+<div class="cube-face bottom">K-AI</div>
+</div>
+</div>
+</div>
+
+<script>
+let targetSector = ''; // guarda o setor que o usuário quer entrar
+
+function showLogin(sector){
+  targetSector = sector;
+  document.getElementById('modalLogin').style.display='flex';
+}
+
+function enterSector(){
+  const name = document.getElementById('loginName').value.trim();
+  if(!name){ alert('Digite seu nome'); return; }
+  document.getElementById('modalLogin').style.display='none';
+  document.getElementById('loginName').value='';
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(targetSector).classList.add('active');
+}
+
+/* MENU MOBILE */
+function toggleMenu(){
+  document.getElementById('sideMenu').classList.toggle('show');
+}
+
+/* Navegação simples */
+function go(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* CARRINHO */
+let cart=JSON.parse(localStorage.getItem('cart'))||[];
+function addCart(n,p){
+  cart.push({n,p});
+  localStorage.setItem('cart',JSON.stringify(cart));
+  renderCart();
+}
+function renderCart(){
+  let t=0,h='';
+  cart.forEach(i=>{t+=i.p;h+=`<div>${i.n} - R$${i.p}</div>`});
+  cartItems.innerHTML=h;
+  cartTotal.innerText='Total: R$ '+t;
+}
+function sendOrder(){
+  pedido.value=JSON.stringify(cart);
+  localStorage.clear();
+}
+renderCart();
+
+/* K-AI */
+function toggleChat(){
+  chatBox.style.display=chatBox.style.display==='block'?'none':'block';
+}
+function sendChat(){
+  let i=chatInput.value;
+  chatInput.value='';
+  chatMessages.innerHTML+=`<div><b>Você:</b> ${i}</div>`;
+  let r="Registro feito. Sistema K atualizado.";
+  chatMessages.innerHTML+=`<div><b>K-AI:</b> ${r}</div>`;
+  speechSynthesis.speak(new SpeechSynthesisUtterance(r));
+}
+</script>
+
+</body>
+</html>
+/* CAPAS */
+.capa{
+  width:100%;
+  max-height:280px;
+  object-fit:contain;
+  border-radius:14px;
+  margin-bottom:20px;
+  background:#000;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid #222;
+  border-radius:14px;
+  padding:16px;
+}
+
+.btn{
+  background:var(--accent);
+  color:#003;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  width:100%;
+  margin-top:8px;
+}
+
+/* CARRINHO */
+#cartBox{
+  position:fixed;
+  right:16px;
+  bottom:120px;
+  background:#111;
+  border:1px solid #222;
+  padding:12px;
+  border-radius:14px;
+  width:240px;
+  z-index:200;
+}
+
+/* ================= K-AI ================= */
+#kaiContainer{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  z-index:300;
+}
+
+#chatBox{
+  display:none;
+  width:260px;
+  background:#0e0e0e;
+  border:2px solid var(--accent);
+  border-radius:14px;
+  padding:10px;
+  margin-bottom:8px;
+}
+
+#chatMessages{
+  max-height:160px;
+  overflow:auto;
+  font-size:14px;
+}
+
+#chatInput{
+  width:100%;
+  margin-top:6px;
+  padding:6px;
+  background:#111;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:6px;
+}
+
+/* Cubo */
+.scene{
+  width:56px;
+  height:56px;
+  perspective:600px;
+}
+.cube{
+  width:56px;
+  height:56px;
+  position:relative;
+  transform-style:preserve-3d;
+  animation:spin 6s linear infinite;
+}
+.cube-face{
+  position:absolute;
+  width:56px;
+  height:56px;
+  background:linear-gradient(135deg,#00eaff,#007a8a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:#fff;
+  border-radius:6px;
+}
+.front{transform:translateZ(28px)}
+.back{transform:rotateY(180deg) translateZ(28px)}
+.right{transform:rotateY(90deg) translateZ(28px)}
+.left{transform:rotateY(-90deg) translateZ(28px)}
+.top{transform:rotateX(90deg) translateZ(28px)}
+.bottom{transform:rotateX(-90deg) translateZ(28px)}
+
+@keyframes spin{
+  from{transform:rotateX(-15deg) rotateY(0)}
+  to{transform:rotateX(-15deg) rotateY(360deg)}
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  #menuToggle{display:block}
+  .nav-links{display:none}
+
+  #sideMenu{
+    transform:translateX(-100%);
+    z-index:150;
+  }
+  #sideMenu.show{
+    transform:translateX(0);
+  }
+
+  main{
+    margin-left:0;
+    padding:90px 14px;
+  }
+
+  #cartBox{
+    left:10px;
+    right:10px;
+    bottom:90px;
+    width:auto;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ================= MODAL LOGIN SETOR ================= */
+#modalLogin{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:500;
+}
+
+#modalLogin .modal-content{
+  background:var(--card);
+  padding:20px;
+  border-radius:14px;
+  text-align:center;
+  width:90%;
+  max-width:360px;
+}
+
+#modalLogin input{
+  width:100%;
+  padding:8px;
+  margin:8px 0;
+  border-radius:6px;
+  border:1px solid #333;
+  background:#111;
+  color:#fff;
+}
+#modalLogin button{
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<nav>
+<button id="menuToggle" onclick="toggleMenu()">☰</button>
+<div class="nav-links">
+<button onclick="go('home')">Home</button>
 <button onclick="showLogin('ktp')">K-TP</button>
 <button onclick="showLogin('kstore')">K-Store</button>
 <button onclick="go('checkout')">Checkout</button>
