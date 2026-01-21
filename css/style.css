@@ -1,156 +1,269 @@
-:root{
-  --bg:#000;
-  --card:#0d0d0d;
-  --accent:#00eaff;
-  --text:#eaeaea;
+:root {
+  --bg: #000000;
+  --card: #0d0d0d;
+  --accent: #00eaff;
+  --text: #eaeaea;
+  --shadow: rgba(0,234,255,0.45);
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-  background:radial-gradient(circle at top, #001a1f, #000);
-  color:var(--text);
+/* ===== BODY ===== */
+body {
+  background: radial-gradient(circle at top, #001a1f, var(--bg));
+  color: var(--text);
+  line-height: 1.5;
 }
 
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 20px;
-  background:#111;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.header .logo{
-  font-size:1.6rem;
-  font-weight:bold;
-  color:var(--accent);
-}
-.menu button{
-  margin-left:10px;
-  padding:8px 16px;
-  background:none;
-  border:1px solid var(--accent);
-  border-radius:8px;
-  color:var(--accent);
-  cursor:pointer;
-  transition:.3s;
-}
-.menu button:hover{
-  background:var(--accent);
-  color:#000;
+/* ===== HEADER / MENU ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: var(--card);
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* SEÇÕES */
-.topo, .setores, .contato{
-  padding:60px 20px;
-  text-align:center;
+.header .logo {
+  font-size: 1.8rem;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 
-/* TOPO */
-.topo h1{
-  font-size:4rem;
-  letter-spacing:8px;
-  color:var(--accent);
-  text-shadow:0 0 30px rgba(0,234,255,.6);
-}
-.topo p{
-  max-width:640px;
-  margin:20px auto 0;
-  opacity:.9;
-  font-size:1.05rem;
+.menu button {
+  background: none;
+  border: none;
+  color: var(--text);
+  margin-left: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
-/* CARDS */
-.grid{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:24px;
-}
-.card{
-  background:var(--card);
-  border:1px solid #222;
-  border-radius:18px;
-  padding:26px;
-  transition:.4s;
-  position:relative;
-}
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(0,234,255,.45);
-}
-.card h3{
-  color:var(--accent);
-  margin-bottom:12px;
-}
-.card p{
-  opacity:.85;
-}
-.btn{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#00eaff,#007a8a);
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-.btn:hover{
-  box-shadow:0 0 18px var(--accent);
-  transform:translateY(-2px);
+.menu button:hover {
+  background: linear-gradient(135deg, #00eaff, #007a8a);
+  color: #000;
 }
 
-/* CONTATO */
-.contato a{
-  display:inline-block;
-  margin-top:24px;
-  padding:14px 34px;
-  border-radius:30px;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  text-decoration:none;
+/* ===== CONTEÚDO ===== */
+main {
+  padding: 40px 20px;
 }
 
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-.modal-box{
-  background:#050505;
-  border:1px solid var(--accent);
-  border-radius:18px;
-  padding:30px;
-  width:90%;
-  max-width:400px;
-  text-align:center;
-}
-.modal-box input{
-  width:100%;
-  padding:12px;
-  margin-bottom:14px;
-  border-radius:8px;
-  border:none;
+/* ===== SEÇÕES ===== */
+section {
+  margin-bottom: 80px;
 }
 
-/* RESPONSIVO */
-@media(max-width:600px){
-  .topo h1{font-size:3rem;}
-  .menu button{margin:5px 0;}
+/* ===== HOME / TOPO ===== */
+.topo {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
 }
+
+.topo h1 {
+  font-size: 4rem;
+  letter-spacing: 8px;
+  color: var(--accent);
+  text-shadow: 0 0 30px rgba(0,234,255,0.6);
+}
+
+.topo p {
+  max-width: 640px;
+  margin-top: 20px;
+  opacity: 0.9;
+  font-size: 1.05rem;
+}
+
+/* ===== CARDS DE SETORES ===== */
+.setores h2 {
+  text-align: center;
+  font-size: 2.3rem;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid #222;
+  border-radius: 18px;
+  padding: 26px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.4s;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(45deg, transparent, rgba(0,234,255,0.5), transparent);
+  transform: rotate(0deg);
+  transition: 0.8s;
+}
+
+.card:hover::before {
+  transform: rotate(45deg);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px var(--shadow);
+}
+
+.card h3 {
+  position: relative;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+}
+
+.card p {
+  position: relative;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ===== BOTÕES ===== */
+.btn {
+  position: relative;
+  margin-top: 18px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00eaff, #007a8a);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  box-shadow: 0 0 18px var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ===== CONTATO ===== */
+.contato {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.contato h2 {
+  font-size: 2rem;
+}
+
+.contato a {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 14px 34px;
+  border-radius: 30px;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contato a:hover {
+  box-shadow: 0 0 25px var(--accent);
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #050505;
+  border: 1px solid var(--accent);
+  border-radius: 18px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-box h3 {
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.modal-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: none;
+}
+
+.modal-box button {
+  margin-top: 10px;
+}
+
+/* BOTÃO FECHAR */
+.fechar {
+  background: none;
+  border: none;
+  color: var(--accent);
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: var(--card);
+  border-top: 1px solid #222;
+  font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 600px) {
+  .topo h1 {
+    font-size: 3rem;
+  }
+
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .menu button {
+    margin: 8px;
+  }
+  }
