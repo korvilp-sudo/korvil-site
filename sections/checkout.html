@@ -1,115 +1,169 @@
-<section id="checkout">
-  <h2>Checkout</h2>
-  <p>Finalize seu acesso ao ecossistema KORVIL</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KORVIL | Checkout</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ===== CHECKOUT ===== */
+.checkout-container {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px;
+  background: var(--card);
+  border-radius: 18px;
+  box-shadow: 0 0 20px var(--shadow);
+}
 
-  <!-- RESUMO DO PEDIDO -->
-  <div class="card" style="margin:20px 0">
-    <h3>Resumo do Pedido</h3>
-    <div id="checkoutItems"></div>
-    <strong id="checkoutTotal"></strong>
-  </div>
+.checkout-container h2 {
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  <!-- FORMULÁRIO -->
-  <form 
-    name="checkout" 
-    method="POST" 
-    data-netlify="true" 
-    netlify-honeypot="bot-field"
-    onsubmit="prepareCheckout()"
-  >
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-    <!-- Netlify -->
-    <input type="hidden" name="form-name" value="checkout">
-    <input type="hidden" name="pedido" id="pedido">
-    <input type="hidden" name="valor_total" id="valor_total">
-    <input type="hidden" name="setores" id="setores">
+form label {
+  font-weight: bold;
+  color: var(--text);
+}
 
-    <!-- Anti-bot -->
-    <p style="display:none">
-      <input name="bot-field">
-    </p>
+form input, form select, form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #222;
+  background: #0d0d0d;
+  color: var(--text);
+}
 
-    <p>
-      <input 
-        name="nome" 
-        placeholder="Nome completo" 
-        required 
-        minlength="3">
-    </p>
+form input:focus, form select:focus, form textarea:focus {
+  outline: 2px solid var(--accent);
+}
 
-    <p>
-      <input 
-        name="email" 
-        type="email" 
-        placeholder="Email" 
-        required>
-    </p>
+.cart-summary {
+  margin-top: 20px;
+  padding: 20px;
+  background: #111;
+  border-radius: 12px;
+}
 
-    <p>
-      <input 
-        name="telefone" 
-        type="tel" 
-        placeholder="WhatsApp (opcional)">
-    </p>
+.cart-summary h3 {
+  color: var(--accent);
+  margin-bottom: 10px;
+}
 
-    <p>
-      <select name="forma_pagamento" required>
-        <option value="">Forma de pagamento</option>
-        <option value="Pix">Pix</option>
-        <option value="Cartão">Cartão</option>
-        <option value="Boleto">Boleto</option>
-      </select>
-    </p>
+.cart-summary ul {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-left: 0;
+}
 
-    <p>
-      <label style="font-size:14px">
-        <input type="checkbox" required>
-        Concordo com os termos do Sistema K
-      </label>
-    </p>
+.cart-summary li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #222;
+}
 
-    <button class="btn">Finalizar Pedido</button>
+.total {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  box-shadow: 0 0 18px var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ===== RESPONSIVO ===== */
+@media(max-width:600px){
+  .checkout-container {
+    padding: 20px;
+    margin: 30px 10px;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="checkout-container">
+  <h2>Finalize sua compra</h2>
+
+  <form name="checkout-form" data-netlify="true">
+    <input type="hidden" name="cart-data" id="cart-data">
+
+    <label for="name">Nome Completo</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="phone">Telefone</label>
+    <input type="tel" id="phone" name="phone">
+
+    <label for="address">Endereço</label>
+    <textarea id="address" name="address" rows="3" required></textarea>
+
+    <div class="cart-summary">
+      <h3>Resumo do pedido</h3>
+      <ul id="cart-items"></ul>
+      <div class="total">Total: R$ <span id="cart-total">0,00</span></div>
+    </div>
+
+    <button type="submit" class="submit-btn">Finalizar Compra</button>
   </form>
 </section>
 
 <script>
-/* ===== CHECKOUT ===== */
-function prepareCheckout(){
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+// ===== Recupera carrinho do localStorage =====
+const cart = JSON.parse(localStorage.getItem('korvil-cart')) || [];
 
-  if(cart.length === 0){
-    alert('Seu carrinho está vazio');
-    event.preventDefault();
-    return;
-  }
+const cartItemsEl = document.getElementById('cart-items');
+const cartTotalEl = document.getElementById('cart-total');
+const cartDataInput = document.getElementById('cart-data');
 
-  let total = 0;
-  let setores = [];
+let total = 0;
 
-  cart.forEach(i=>{
-    total += i.p;
-    setores.push(i.n);
-  });
+// Preenche lista de itens do carrinho
+cart.forEach(item => {
+  const li = document.createElement('li');
+  li.innerHTML = `<span>${item.name} x ${item.quantity}</span><span>R$ ${(item.price * item.quantity).toFixed(2)}</span>`;
+  cartItemsEl.appendChild(li);
+  total += item.price * item.quantity;
+});
 
-  document.getElementById('pedido').value = JSON.stringify(cart);
-  document.getElementById('valor_total').value = total;
-  document.getElementById('setores').value = setores.join(', ');
+// Atualiza total
+cartTotalEl.innerText = total.toFixed(2);
 
-  localStorage.removeItem('cart');
-}
+// Converte carrinho para JSON e envia no hidden input
+cartDataInput.value = JSON.stringify(cart);
 
-/* ===== RENDER RESUMO ===== */
-(function renderCheckout(){
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let html = '';
-  let total = 0;
-
-  cart.forEach(i=>{
-    total += i.p;
-    html += `<div>${i.n} — R$ ${i.p.toFixed(2)}</div>`;
-  });
-
-  checkoutItems.innerHTML = html || '<em>Nenhum item</em>';
-  checkoutTotal.innerText = 'Total: R$ ' + total.toFixed(2);
-})();
+// Limpa carrinho ao enviar
+document.querySelector('form').addEventListener('submit', function(e){
+  // opcional: alert de confirmação
+  alert('Pedido enviado com sucesso! Obrigado por comprar no KORVIL.');
+  localStorage.removeItem('korvil-cart');
+});
 </script>
+
+</body>
+</html>
