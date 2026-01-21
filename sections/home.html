@@ -1,151 +1,61 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KORVIL | Home</title>
+<!-- HOME -->
+<section class="topo">
+  <h1>KORVIL</h1>
+  <p>
+    Você está no ecossistema KORVIL.  
+    Um sistema integrado de evolução física, mental, espiritual e financeira.
+  </p>
+</section>
 
-<style>
-:root{
-  --bg:#000;
-  --card:#0d0d0d;
-  --accent:#00eaff;
-  --text:#eaeaea;
-}
+<!-- SETORES -->
+<section class="setores">
+  <h2>Escolha um setor</h2>
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, Helvetica, sans-serif;
-}
+  <div class="grid">
 
-body{
-  background:radial-gradient(circle at top, #001a1f, #000);
-  color:var(--text);
-}
+    <div class="card">
+      <h3>Sistema K</h3>
+      <p>Central de organização, serviços e automações do KORVIL.</p>
+      <button class="btn" onclick="abrir('Sistema K')">Entrar</button>
+    </div>
 
-/* ===== TOPO ===== */
-.topo{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:40px 20px;
-}
+    <div class="card">
+      <h3>K-TP</h3>
+      <p>Projeto Transformação e Treinamento Personalizado.</p>
+      <button class="btn" onclick="abrir('K-TP')">Entrar</button>
+    </div>
 
-.topo h1{
-  font-size:4rem;
-  letter-spacing:8px;
-  color:var(--accent);
-  text-shadow:0 0 30px rgba(0,234,255,.6);
-}
+    <div class="card">
+      <h3>K-AFORTUNADO</h3>
+      <p>Empreendedorismo, gestão e crescimento financeiro.</p>
+      <button class="btn" onclick="abrir('K-AFORTUNADO')">Entrar</button>
+    </div>
 
-.topo p{
-  max-width:640px;
-  margin-top:20px;
-  opacity:.9;
-  font-size:1.05rem;
-}
+    <div class="card">
+      <h3>K-ALMA</h3>
+      <p>Cuidados, equilíbrio emocional e Projeto Paz.</p>
+      <button class="btn" onclick="abrir('K-ALMA')">Entrar</button>
+    </div>
 
-/* ===== SETORES ===== */
-.setores{
-  padding:80px 20px;
-  text-align:center;
-}
+  </div>
+</section>
 
-.setores h2{
-  font-size:2.3rem;
-  margin-bottom:40px;
-}
+<!-- CONTATO -->
+<section class="contato">
+  <h2>Entre em contato conosco agora mesmo</h2>
+  <a href="mailto:sistemak.srv@gmail.com">Falar com o Sistema K</a>
+</section>
 
-.grid{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:24px;
-}
-
-/* ===== CARD ===== */
-.card{
-  background:var(--card);
-  border:1px solid #222;
-  border-radius:18px;
-  padding:26px;
-  position:relative;
-  overflow:hidden;
-  transition:.4s;
-}
-
-.card::before{
-  content:'';
-  position:absolute;
-  inset:-50%;
-  background:linear-gradient(
-    45deg,
-    transparent,
-    rgba(0,234,255,.5),
-    transparent
-  );
-  transform:rotate(0deg);
-  transition:.8s;
-}
-
-.card:hover::before{
-  transform:rotate(45deg);
-}
-
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(0,234,255,.45);
-}
-
-.card h3{
-  position:relative;
-  color:var(--accent);
-  margin-bottom:12px;
-  font-size:1.3rem;
-}
-
-.card p{
-  position:relative;
-  font-size:.95rem;
-  opacity:.85;
-}
-
-/* ===== BOTÃO ===== */
-.btn{
-  position:relative;
-  margin-top:18px;
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#00eaff,#007a8a);
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.btn:hover{
-  box-shadow:0 0 18px var(--accent);
-  transform:translateY(-2px);
-}
-
-/* ===== CONTATO ===== */
-.contato{
-  padding:80px 20px;
-  text-align:center;
-}
-
-.contato h2{
-  font-size:2rem;
-}
-
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 id="tituloModal"></h3>
+    <input type="email" placeholder="Seu e-mail">
+    <input type="password" placeholder="Senha">
+    <button class="btn">Acessar</button>
+    <button class="fechar" onclick="fechar()">Fechar</button>
+  </div>
+</div>
 .contato a{
   display:inline-block;
   margin-top:24px;
