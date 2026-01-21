@@ -4,26 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KORVIL | Sistema K Integrado</title>
+
+  <!-- CSS Global -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
   <!-- HEADER / MENU -->
   <header class="header">
     <div class="logo">KORVIL</div>
     <nav class="menu">
-      <button onclick="loadSection('home')">Home</button>
-      <button onclick="loadSection('sistemak')">Sistema K</button>
-      <button onclick="loadSection('ktp')">K-TP</button>
-      <button onclick="loadSection('kafortunado')">K-AFORTUNADO</button>
-      <button onclick="loadSection('kalma')">K-ALMA</button>
-      <button onclick="loadSection('checkout')">Checkout</button>
+      <button onclick="loadSection('home.html')">Home</button>
+      <button onclick="loadSection('sistemak.html')">Sistema K</button>
+      <button onclick="loadSection('ktp.html')">K-TP</button>
+      <button onclick="loadSection('kafortunado.html')">K-AFORTUNADO</button>
+      <button onclick="loadSection('kalma.html')">K-ALMA</button>
+      <button onclick="loadSection('kstore.html')">K-Store</button>
+      <button onclick="loadSection('checkout.html')">Checkout</button>
     </nav>
   </header>
 
   <!-- CONTEÚDO DINÂMICO -->
   <main>
-    <div id="content"></div>
+    <div id="content">
+      <!-- Seções carregadas dinamicamente -->
+    </div>
   </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 KORVIL — Sistema K Integrado</p>
+  </footer>
 
   <!-- MODAL LOGIN -->
   <div class="modal" id="modal">
@@ -31,12 +42,13 @@
       <h3 id="tituloModal"></h3>
       <input type="email" placeholder="Seu e-mail">
       <input type="password" placeholder="Senha">
-      <button class="btn" onclick="login()">Acessar</button>
-      <button class="fechar" onclick="fecharModal()">Fechar</button>
+      <button class="btn">Acessar</button>
+      <button class="fechar" onclick="fechar()">Fechar</button>
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- JS Global -->
   <script src="js/main.js"></script>
+
 </body>
 </html>
