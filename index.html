@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KORVIL | sistema K Integrado</title>
+  <title>KORVIL | Sistema K Integrado</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- HEADER -->
+  <!-- HEADER / MENU -->
   <header class="header">
     <div class="logo">KORVIL</div>
     <nav class="menu">
@@ -17,14 +16,13 @@
       <button onclick="loadSection('ktp')">K-TP</button>
       <button onclick="loadSection('kafortunado')">K-AFORTUNADO</button>
       <button onclick="loadSection('kalma')">K-ALMA</button>
-      <button onclick="loadSection('kstore')">K-Store</button>
       <button onclick="loadSection('checkout')">Checkout</button>
     </nav>
   </header>
 
   <!-- CONTEÚDO DINÂMICO -->
   <main>
-    <div id="content">Carregando...</div>
+    <div id="content"></div>
   </main>
 
   <!-- MODAL LOGIN -->
@@ -33,11 +31,12 @@
       <h3 id="tituloModal"></h3>
       <input type="email" placeholder="Seu e-mail">
       <input type="password" placeholder="Senha">
-      <button class="btn" onclick="loginSetor()">Acessar</button>
+      <button class="btn" onclick="login()">Acessar</button>
       <button class="fechar" onclick="fecharModal()">Fechar</button>
     </div>
   </div>
 
+  <!-- JS -->
   <script src="js/main.js"></script>
 </body>
 </html>
