@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KORVIL | Sistema K Integrado</title>
-
-  <!-- CSS Global -->
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KORVIL | sistema K Integrado</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-  <!-- HEADER / MENU -->
+  <!-- HEADER -->
   <header class="header">
     <div class="logo">KORVIL</div>
-
     <nav class="menu">
       <button onclick="loadSection('home')">Home</button>
       <button onclick="loadSection('sistemak')">Sistema K</button>
@@ -28,18 +24,20 @@
 
   <!-- CONTEÚDO DINÂMICO -->
   <main>
-    <div id="content">
-      <!-- As seções serão carregadas aqui -->
-    </div>
+    <div id="content">Carregando...</div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2026 KORVIL — Sistema K Integrado</p>
-  </footer>
+  <!-- MODAL LOGIN -->
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h3 id="tituloModal"></h3>
+      <input type="email" placeholder="Seu e-mail">
+      <input type="password" placeholder="Senha">
+      <button class="btn" onclick="loginSetor()">Acessar</button>
+      <button class="fechar" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
 
-  <!-- JS Global -->
   <script src="js/main.js"></script>
-
 </body>
 </html>
