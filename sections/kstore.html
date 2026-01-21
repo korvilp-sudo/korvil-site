@@ -1,16 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Store | KORVIL</title>
 
-<section id="kstore">
-  <h2>K-Store</h2>
-  <div class="grid">
-    <div class="card">
-      <h4>Plano K-TP</h4>
-      <p>R$ 99,00</p>
-      <button class="btn" onclick="addCart('Plano K-TP',99)">Adicionar</button>
-    </div>
-    <div class="card">
-      <h4>Plano K-AFORTUNADO</h4>
-      <p>R$ 149,00</p>
-      <button class="btn" onclick="addCart('Plano K-AFORTUNADO',149)">Adicionar</button>
-    </div>
+<style>
+:root{
+  --bg:#0b0b0b;
+  --card:#141414;
+  --text:#eaeaea;
+  --accent:#17d4c4;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+header{
+  padding:16px;
+  border-bottom:2px solid var(--accent);
+  background:#000;
+  text-align:center;
+}
+
+main{
+  padding:20px;
+}
+
+h1,h2{
+  color:var(--accent);
+  text-align:center;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid #222;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+
+.card strong{
+  display:block;
+  margin:10px 0;
+  font-size:18px;
+}
+
+.btn{
+  background:linear-gradient(135deg,#00eaff,#007a8a);
+  color:#003;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  width:100%;
+  margin-top:8px;
+}
+
+/* FILTROS */
+.filters{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+/* CARRINHO */
+#cartBox{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  background:#111;
+  border:1px solid #222;
+  padding:12px;
+  border-radius:14px;
+  width:260px;
+}
+
+#cartBox h3{
+  margin-top:0;
+  color:var(--accent);
+}
+
+@media(max-width:768px){
+  #cartBox{
+    left:10px;
+    right:10px;
+    width:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>K-Store</h1>
+  <p>Marketplace oficial do ecossistema KORVIL</p>
+</header>
+
+<main>
+
+<!-- FILTROS -->
+<div class="filters">
+  <button class="btn" onclick="filterStore('all')">Todos</button>
+  <button class="btn" onclick="filterStore('ktp')">K-TP</button>
+  <button class="btn" onclick="filterStore('kafortunado')">K-AFORTUNADO</button>
+  <button class="btn" onclick="filterStore('kalma')">K-ALMA</button>
+</div>
+
+<!-- PRODUTOS -->
+<div class="grid" id="storeGrid">
+
+  <!-- K-TP -->
+  <div class="card store-item ktp">
+    <h3>Plano K-TP</h3>
+    <p>Projeto Transformação completo</p>
+    <strong>R$ 99,00</strong>
+    <button class="btn" onclick="addCart('Plano K-TP',99)">Adicionar</button>
   </div>
-</section>
+
+  <div class="card store-item ktp">
+    <h3>K-TP Premium</h3>
+    <p>Treinos + Avaliações + Suporte</p>
+    <strong>R$ 149,00</strong>
+    <button class="btn" onclick="addCart('K-TP Premium',149)">Adicionar</button>
+  </div>
+
+  <!-- K-AFORTUNADO -->
+  <div class="card store-item kafortunado">
+    <h3>Projeto SER</h3>
+    <p>Empreendedorismo e mentalidade</p>
+    <strong>R$ 79,00</strong>
+    <button class="btn" onclick="addCart('Projeto SER',79)">Adicionar</button>
+  </div>
+
+  <div class="card store-item kafortunado">
+    <h3>Mentoria Financeira</h3>
+    <p>Administração e investimentos</p>
+    <strong>R$ 199,00</strong>
+    <button class="btn" onclick="addCart('Mentoria Financeira',199)">Adicionar</button>
+  </div>
+
+  <!-- K-ALMA -->
+  <div class="card store-item kalma">
+    <h3>Projeto Paz</h3>
+    <p>Cuidados e equilíbrio</p>
+    <strong>R$ 59,00</strong>
+    <button class="btn" onclick="addCart('Projeto Paz',59)">Adicionar</button>
+  </div>
+
+  <div class="card store-item kalma">
+    <h3>K-ALMA Completo</h3>
+    <p>Práticas + estudos + cuidados</p>
+    <strong>R$ 119,00</strong>
+    <button class="btn" onclick="addCart('K-ALMA Completo',119)">Adicionar</button>
+  </div>
+
+</div>
+
+</main>
+
+<!-- CARRINHO -->
+<div id="cartBox">
+  <h3>Carrinho</h3>
+  <div id="cartItems"></div>
+  <div id="cartTotal"></div>
+
+  <form name="checkout" method="POST" data-netlify="true" onsubmit="sendOrder()">
+    <input type="hidden" name="form-name" value="checkout">
+    <input type="hidden" name="pedido" id="pedido">
+    <input name="nome" placeholder="Nome" required>
+    <input name="email" placeholder="Email" required>
+    <button class="btn">Finalizar Pedido</button>
+  </form>
+</div>
+
+<script>
+/* FILTRO */
+function filterStore(type){
+  document.querySelectorAll('.store-item').forEach(item=>{
+    item.style.display = (type==='all' || item.classList.contains(type))
+      ? 'block' : 'none';
+  });
+}
+
+/* CARRINHO */
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+function addCart(name,price){
+  cart.push({name,price});
+  localStorage.setItem('cart',JSON.stringify(cart));
+  renderCart();
+}
+
+function renderCart(){
+  let total = 0;
+  let html = '';
+  cart.forEach(i=>{
+    total += i.price;
+    html += `<div>${i.name} - R$ ${i.price}</div>`;
+  });
+  cartItems.innerHTML = html;
+  cartTotal.innerHTML = `<strong>Total: R$ ${total}</strong>`;
+}
+
+function sendOrder(){
+  document.getElementById('pedido').value = JSON.stringify(cart);
+  localStorage.removeItem('cart');
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
