@@ -1,114 +1,33 @@
-<!-- HOME -->
 <section class="topo">
   <h1>KORVIL</h1>
-  <p>
-    Você está no ecossistema KORVIL.  
-    Um sistema integrado de evolução física, mental, espiritual e financeira.
-  </p>
+  <p>Você está no KORVIL site. Um sistema integrado de autodesenvolvimento.</p>
 </section>
 
-<!-- SETORES -->
 <section class="setores">
   <h2>Escolha um setor</h2>
-
   <div class="grid">
-
     <div class="card">
       <h3>Sistema K</h3>
       <p>Central de organização, serviços e automações do KORVIL.</p>
-      <button class="btn" onclick="abrir('Sistema K')">Entrar</button>
+      <button class="btn" onclick="abrirModal('Sistema K')">Entrar</button>
     </div>
-
     <div class="card">
       <h3>K-TP</h3>
       <p>Projeto Transformação e Treinamento Personalizado.</p>
-      <button class="btn" onclick="abrir('K-TP')">Entrar</button>
+      <button class="btn" onclick="abrirModal('K-TP')">Entrar</button>
     </div>
-
     <div class="card">
       <h3>K-AFORTUNADO</h3>
       <p>Empreendedorismo, gestão e crescimento financeiro.</p>
-      <button class="btn" onclick="abrir('K-AFORTUNADO')">Entrar</button>
+      <button class="btn" onclick="abrirModal('K-AFORTUNADO')">Entrar</button>
     </div>
-
     <div class="card">
       <h3>K-ALMA</h3>
       <p>Cuidados, equilíbrio emocional e Projeto Paz.</p>
-      <button class="btn" onclick="abrir('K-ALMA')">Entrar</button>
+      <button class="btn" onclick="abrirModal('K-ALMA')">Entrar</button>
     </div>
-
   </div>
-</section>
-
-<!-- CONTATO -->
-<section class="contato">
-  <h2>Entre em contato conosco agora mesmo</h2>
-  <a href="mailto:sistemak.srv@gmail.com">Falar com o Sistema K</a>
-</section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h3 id="tituloModal"></h3>
-    <input type="email" placeholder="Seu e-mail">
-    <input type="password" placeholder="Senha">
-    <button class="btn">Acessar</button>
-    <button class="fechar" onclick="fechar()">Fechar</button>
-  </div>
-</div>
-.contato a{
-  display:inline-block;
-  margin-top:24px;
-  padding:14px 34px;
-  border-radius:30px;
-  background:var(--accent);
-  color:#000;
-  font-weight:bold;
-  text-decoration:none;
-  transition:.3s;
-}
-
-.contato a:hover{
-  box-shadow:0 0 25px var(--accent);
-}
-
-/* ===== MODAL ===== */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
-.modal-box{
-  background:#050505;
-  border:1px solid var(--accent);
-  border-radius:18px;
-  padding:30px;
-  width:90%;
-  max-width:400px;
-  text-align:center;
-}
-
-.modal-box h3{
-  color:var(--accent);
-  margin-bottom:20px;
-}
-
-.modal-box input{
-  width:100%;
-  padding:12px;
-  margin-bottom:14px;
-  border-radius:8px;
-  border:none;
-}
-
-.modal-box button{
-  margin-top:10px;
-}
+</section>}
 
 .fechar{
   background:none;
