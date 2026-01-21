@@ -1,17 +1,115 @@
-<section id="ktp">
-  <img src="images/logo-ktp.png" class="capa">
-  <h2>K-TP | Projeto Transformação</h2>
-  <p>Treinamento inteligente, progressivo e integrado.</p>
-  <div class="grid">
-    <div class="card">
-      <h4>Treinos</h4>
-      <p>Planos personalizados para força, resistência e hipertrofia.</p>
-      <button class="btn">Acessar</button>
-    </div>
-    <div class="card">
-      <h4>Avaliações</h4>
-      <p>Monitore sua evolução com avaliações regulares.</p>
-      <button class="btn">Verificar</button>
-    </div>
+<section id="checkout">
+  <h2>Checkout</h2>
+  <p>Finalize seu acesso ao ecossistema KORVIL</p>
+
+  <!-- RESUMO DO PEDIDO -->
+  <div class="card" style="margin:20px 0">
+    <h3>Resumo do Pedido</h3>
+    <div id="checkoutItems"></div>
+    <strong id="checkoutTotal"></strong>
   </div>
+
+  <!-- FORMULÁRIO -->
+  <form 
+    name="checkout" 
+    method="POST" 
+    data-netlify="true" 
+    netlify-honeypot="bot-field"
+    onsubmit="prepareCheckout()"
+  >
+
+    <!-- Netlify -->
+    <input type="hidden" name="form-name" value="checkout">
+    <input type="hidden" name="pedido" id="pedido">
+    <input type="hidden" name="valor_total" id="valor_total">
+    <input type="hidden" name="setores" id="setores">
+
+    <!-- Anti-bot -->
+    <p style="display:none">
+      <input name="bot-field">
+    </p>
+
+    <p>
+      <input 
+        name="nome" 
+        placeholder="Nome completo" 
+        required 
+        minlength="3">
+    </p>
+
+    <p>
+      <input 
+        name="email" 
+        type="email" 
+        placeholder="Email" 
+        required>
+    </p>
+
+    <p>
+      <input 
+        name="telefone" 
+        type="tel" 
+        placeholder="WhatsApp (opcional)">
+    </p>
+
+    <p>
+      <select name="forma_pagamento" required>
+        <option value="">Forma de pagamento</option>
+        <option value="Pix">Pix</option>
+        <option value="Cartão">Cartão</option>
+        <option value="Boleto">Boleto</option>
+      </select>
+    </p>
+
+    <p>
+      <label style="font-size:14px">
+        <input type="checkbox" required>
+        Concordo com os termos do Sistema K
+      </label>
+    </p>
+
+    <button class="btn">Finalizar Pedido</button>
+  </form>
 </section>
+
+<script>
+/* ===== CHECKOUT ===== */
+function prepareCheckout(){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  if(cart.length === 0){
+    alert('Seu carrinho está vazio');
+    event.preventDefault();
+    return;
+  }
+
+  let total = 0;
+  let setores = [];
+
+  cart.forEach(i=>{
+    total += i.p;
+    setores.push(i.n);
+  });
+
+  document.getElementById('pedido').value = JSON.stringify(cart);
+  document.getElementById('valor_total').value = total;
+  document.getElementById('setores').value = setores.join(', ');
+
+  localStorage.removeItem('cart');
+}
+
+/* ===== RENDER RESUMO ===== */
+(function renderCheckout(){
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let html = '';
+  let total = 0;
+
+  cart.forEach(i=>{
+    total += i.p;
+    html += `<div>${i.n} — R$ ${i.p.toFixed(2)}</div>`;
+  });
+
+  checkoutItems.innerHTML = html || '<em>Nenhum item</em>';
+  checkoutTotal.innerText = 'Total: R$ ' + total.toFixed(2);
+})();
+</script>
