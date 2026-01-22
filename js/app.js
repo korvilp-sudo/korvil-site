@@ -1,114 +1,28 @@
-// =========================
-// Navegação entre páginas
-// =========================
-document.addEventListener("DOMContentLoaded", () => {
-  const app = document.getElementById("app");
-  const links = document.querySelectorAll(".nav__link");
+const navLinks = document.querySelectorAll('.nav__link');
+const app = document.getElementById('app');
+const menuBtn = document.getElementById('menuBtn');
+const nav = document.getElementById('nav');
 
-  async function loadSection(section) {
-    try {
-      const res = await fetch(`sections/${section}.html`);
-      if (!res.ok) throw new Error("Erro ao carregar a seção");
-      const html = await res.text();
-      app.innerHTML = html;
-      // Pode inicializar scripts específicos da seção aqui
-    } catch (err) {
-      app.innerHTML = `<h2>Erro ao carregar a seção: ${section}</h2>`;
-    }
-  }
+menuBtn.addEventListener('click', ()=>nav.classList.toggle('is-open'));
 
-  links.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-      links.forEach(l => l.classList.remove("is-active"));
-      link.classList.add("is-active");
-      const section = link.getAttribute("data-go");
-      loadSection(section);
-    });
+navLinks.forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    navLinks.forEach(l=>l.classList.remove('is-active'));
+    link.classList.add('is-active');
+
+    const page = link.dataset.go;
+    fetch(`sections/${page}.html`)
+      .then(r=>r.text())
+      .then(html=>app.innerHTML = html)
+      .catch(err=>app.innerHTML=`<p>Erro ao carregar a página ${page}</p>`);
   });
+});
 
-  // Carregar home por padrão
-  loadSection("home");
-});function renderStoreIfOnPage() {
-  const grid = document.getElementById("kstoreProducts");
-  if (!grid) return;
-
-  const cat = document.getElementById("kstoreCategory");
-  const search = document.getElementById("kstoreSearch");
-  const sort = document.getElementById("kstoreSort");
-  if (!cat || !search || !sort) return;
-
-  const cats = ["all", ...Array.from(new Set(KSTORE.products.map((p) => p.category)))];
-  cat.innerHTML = cats.map((c) => `<option value="${c}">${c === "all" ? "Todas" : c}</option>`).join("");
-
-  function filtered() {
-    const q = (search.value || "").trim().toLowerCase();
-    const c = cat.value;
-
-    let list = KSTORE.products.slice();
-    if (c !== "all") list = list.filter((p) => p.category === c);
-    if (q) list = list.filter((p) => (p.name + " " + p.desc).toLowerCase().includes(q));
-
-    if (sort.value === "priceAsc") list.sort((a, b) => a.price - b.price);
-    if (sort.value === "priceDesc") list.sort((a, b) => b.price - a.price);
-    if (sort.value === "nameAsc") list.sort((a, b) => a.name.localeCompare(b.name));
-
-    return list;
-  }
-
-  function draw() {
-    const list = filtered();
-    grid.innerHTML = list
-      .map(
-        (p) => `
-        <article class="card" style="grid-column: span 6;">
-          <div style="display:flex; gap:12px; align-items:center;">
-            <img src="${p.img}" alt="${p.name}" class="k-cartThumb" style="width:72px;height:72px;border-radius:16px;" />
-            <div style="flex:1; min-width:160px;">
-              <h3 class="card__title" style="margin:0;">${p.name}</h3>
-              <div class="muted">${p.category} • Estoque: ${p.stock}</div>
-              <div class="k-price">${brl(p.price)}</div>
-            </div>
-          </div>
-          <div class="card__row" style="margin-top:12px;">
-            <span class="tag">K-Store</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <button class="btn" data-kstore-view="${p.id}">Ver</button>
-              <button class="btn btn--accent" data-kstore-add="${p.id}">Adicionar</button>
-            </div>
-          </div>
-        </article>
-      `
-      )
-      .join("");
-
-    updateCartCount();
-  }
-
-  ["input", "change"].forEach((evt) => {
-    search.addEventListener(evt, draw);
-    cat.addEventListener(evt, draw);
-    sort.addEventListener(evt, draw);
-  });
-
-  draw();
-}
-
-/* -------- Modal Produto -------- */
-function openProductModal(id) {
-  const p = KSTORE.products.find((x) => x.id === id);
-  if (!p) return;
-
-  const overlay = document.getElementById("kstoreProductOverlay");
-  if (!overlay) return;
-
-  overlay.classList.add("is-open");
-  overlay.setAttribute("aria-hidden", "false");
-
-  document.getElementById("kstoreProductTitle")?.replaceChildren(document.createTextNode(p.name));
-  document.getElementById("kstoreProductDesc")?.replaceChildren(document.createTextNode(p.desc));
-
-  const img = document.getElementById("kstoreProductImg");
+// Carregar home por padrão
+fetch('sections/home.html')
+  .then(r=>r.text())
+  .then(html=>app.innerHTML = html);  const img = document.getElementById("kstoreProductImg");
   if (img) img.src = p.img;
 
   document.getElementById("kstoreProductPrice")?.replaceChildren(document.createTextNode(brl(p.price)));
