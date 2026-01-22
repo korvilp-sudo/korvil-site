@@ -1,83 +1,83 @@
+// ===== K-AI JS =====
+document.addEventListener("DOMContentLoaded", () => {
 
-// ===== K-AI Widget e Lógica =====
-const kaiButton = document.createElement("div");
-kaiButton.id = "kai-button";
-kaiButton.textContent = "🤖";
-document.body.appendChild(kaiButton);
+    // Criar cubo flutuante
+    const kaiCube = document.createElement('div');
+    kaiCube.id = 'kaiCube';
+    kaiCube.textContent = 'K-AI';
+    document.body.appendChild(kaiCube);
 
-const kaiPanel = document.createElement("div");
-kaiPanel.id = "kai-panel";
-kaiPanel.innerHTML = `
-  <div id="kai-header">
-    <span>K-AI Assistente</span>
-    <button id="kai-close">×</button>
-  </div>
-  <div id="kai-messages"></div>
-  <div id="kai-input-container">
-    <input type="text" id="kai-input" placeholder="Pergunte qualquer coisa..." />
-    <button id="kai-send">Enviar</button>
-  </div>
-`;
-document.body.appendChild(kaiPanel);
+    // Criar painel
+    const kaiPanel = document.createElement('div');
+    kaiPanel.id = 'kaiPanel';
+    kaiPanel.innerHTML = `
+        <header>
+            <span>K-AI</span>
+            <button id="kaiCloseBtn">&times;</button>
+        </header>
+        <div class="kaiBody" id="kaiBody"></div>
+        <div class="kaiInputRow">
+            <input type="text" id="kaiInput" class="kaiInput" placeholder="Digite sua pergunta..." />
+            <button id="kaiSendBtn" class="kaiSendBtn">Enviar</button>
+        </div>
+    `;
+    document.body.appendChild(kaiPanel);
 
-const kaiClose = document.getElementById("kai-close");
-const kaiSend = document.getElementById("kai-send");
-const kaiInput = document.getElementById("kai-input");
-const kaiMessages = document.getElementById("kai-messages");
-
-// Abrir/fechar
-kaiButton.addEventListener("click", ()=>{
-    kaiPanel.style.display = kaiPanel.style.display==="flex"?"none":"flex";
-    kaiPanel.style.flexDirection="column";
-});
-kaiClose.addEventListener("click", ()=>kaiPanel.style.display="none");
-
-// Adicionar mensagem
-function addMessage(text,sender){
-    const div=document.createElement("div");
-    div.classList.add("kai-message",sender);
-    div.textContent=text;
-    kaiMessages.appendChild(div);
-    kaiMessages.scrollTop=kaiMessages.scrollHeight;
-}
-
-// Fala K-AI
-function speak(text){
-    const utter=new SpeechSynthesisUtterance(text);
-    utter.lang='pt-BR';
-    utter.voice=speechSynthesis.getVoices().find(v=>v.name.includes("Male")||v.name.includes("Masculino"))||speechSynthesis.getVoices()[0];
-    utter.pitch=1;
-    utter.rate=1;
-    speechSynthesis.speak(utter);
-}
-
-// Função de resposta
-function kaiResponse(userText){
-    userText=userText.toLowerCase();
-    let response="Desculpe, não entendi. Pergunte sobre a loja, produtos, carrinho, frete ou diga 'crie algo'.";
-    
-    kaiResponses.forEach(obj=>{
-        obj.trigger.forEach(trigger=>{
-            if(userText.includes(trigger)){
-                response=obj.response;
-            }
-        });
+    // Abrir/fechar painel
+    kaiCube.addEventListener('click', () => {
+        kaiPanel.style.display = kaiPanel.style.display === 'flex' ? 'none' : 'flex';
+        kaiPanel.style.flexDirection = 'column';
     });
-    
-    addMessage(response,"kai");
-    speak(response);
-}
 
-// Enviar mensagem
-kaiSend.addEventListener("click", ()=>{
-    const text=kaiInput.value.trim();
-    if(!text) return;
-    addMessage(text,"user");
-    kaiResponse(text);
-    kaiInput.value="";
-});
+    document.getElementById('kaiCloseBtn').addEventListener('click', () => {
+        kaiPanel.style.display = 'none';
+    });
 
-// Enviar com Enter
-kaiInput.addEventListener("keypress",(e)=>{
-    if(e.key==="Enter") kaiSend.click();
+    // Função de responder
+    function kaiRespond(message) {
+        message = message.toLowerCase();
+        let response = kaiResponses[message] || kaiResponses["default"];
+
+        // Mostrar no painel
+        const kaiBody = document.getElementById('kaiBody');
+        const userMsg = document.createElement('div');
+        userMsg.textContent = "Você: " + message;
+        userMsg.style.marginTop = '6px';
+        userMsg.style.fontWeight = 'bold';
+        kaiBody.appendChild(userMsg);
+
+        const kaiMsg = document.createElement('div');
+        kaiMsg.textContent = "K-AI: " + response;
+        kaiMsg.style.marginBottom = '6px';
+        kaiBody.appendChild(kaiMsg);
+
+        kaiBody.scrollTop = kaiBody.scrollHeight;
+
+        // Voz masculina
+        const utterance = new SpeechSynthesisUtterance(response);
+        utterance.voice = speechSynthesis.getVoices().find(v => v.lang === 'pt-BR') || null;
+        utterance.pitch = 1;
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+    }
+
+    // Enviar mensagem
+    const kaiInput = document.getElementById('kaiInput');
+    document.getElementById('kaiSendBtn').addEventListener('click', () => {
+        if(kaiInput.value.trim() !== "") {
+            kaiRespond(kaiInput.value.trim());
+            kaiInput.value = "";
+        }
+    });
+
+    // Enviar ao pressionar Enter
+    kaiInput.addEventListener('keydown', (e) => {
+        if(e.key === "Enter") {
+            e.preventDefault();
+            if(kaiInput.value.trim() !== "") {
+                kaiRespond(kaiInput.value.trim());
+                kaiInput.value = "";
+            }
+        }
+    });
 });
