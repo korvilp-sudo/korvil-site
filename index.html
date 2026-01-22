@@ -11,8 +11,9 @@
   <!-- K-AI CSS -->
   <link rel="stylesheet" href="./kai-core/kai.css" />
 </head>
+
 <body>
-  <!-- TOPO / MENU -->
+  <!-- ===== TOPO ===== -->
   <header class="topo">
     <div class="topo__wrap">
       <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
@@ -24,25 +25,23 @@
 
       <nav class="nav" id="nav">
         <a class="nav__link is-active" href="#" data-go="home">Home</a>
-        <a class="nav__link" href="#" data-go="sistema-k">Sistema K</a>
-        <a class="nav__link" href="#" data-go="k-tp">K-TP</a>
+        <a class="nav__link" href="#" data-go="sistemak">Sistema K</a>
+        <a class="nav__link" href="#" data-go="ktp">K-TP</a>
         <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
         <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
-        <a class="nav__link" href="#" data-go="k-store">K-Store</a>
+        <a class="nav__link" href="#" data-go="kstore">K-Store</a>
         <a class="nav__link" href="#" data-go="checkout">Checkout</a>
       </nav>
     </div>
   </header>
 
-  <!-- ÁREA DE SEÇÕES -->
-  <main id="app" class="app" aria-live="polite">
-    <!-- Conteúdo será carregado via JS -->
-  </main>
+  <!-- ===== APP (SECTIONS) ===== -->
+  <main id="app" class="app" aria-live="polite"></main>
 
-  <!-- MODAIS -->
+  <!-- ===== MODAIS ===== -->
   <div id="modalHost"></div>
 
-  <!-- RODAPÉ -->
+  <!-- ===== RODAPÉ ===== -->
   <footer class="rodape">
     <div class="rodape__wrap">
       <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
@@ -50,10 +49,10 @@
     </div>
   </footer>
 
-  <!-- JS PRINCIPAL -->
+  <!-- JS principal -->
   <script src="./js/app.js" defer></script>
 
-  <!-- K-AI INTEGRADO -->
+  <!-- K-AI -->
   <script src="./kai-core/kai-data.js" defer></script>
   <script src="./kai-core/kai.js" defer></script>
 </body>
