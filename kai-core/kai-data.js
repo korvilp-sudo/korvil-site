@@ -1,10 +1,5 @@
-// =========================
-// K-AI DATA
-// =========================
-
 const kaiResponses = {
-  "olá": "Olá! Eu sou o K-AI, seu assistente virtual do Sistema K.",
-  "oi": "Oi! Como posso te ajudar hoje?",
-  "tudo bem?": "Tudo ótimo! E você?",
+  "oi": "Olá! Eu sou o K-AI, assistente do KORVIL.",
+  "como vai": "Estou funcionando perfeitamente!",
   "default": "Desculpe, não entendi. Pode reformular?"
 };
