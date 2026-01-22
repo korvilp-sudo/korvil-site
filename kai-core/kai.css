@@ -1,3 +1,6 @@
+/* =========================
+   K-AI CSS
+========================= */
 #kaiCube {
   position: fixed;
   bottom: 20px;
@@ -13,17 +16,17 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10001;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  user-select: none;
+  transition: transform 0.2s ease;
 }
-
-#kaiCube:hover {
-  transform: scale(1.1);
-}
+#kaiCube:hover { transform: scale(1.1); }
 
 #kaiPanel {
   display: none;
   position: fixed;
-  bottom: 90px;
+  bottom: 100px;
   right: 20px;
   width: 320px;
   max-width: 90%;
@@ -31,12 +34,11 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  z-index: 10002;
+  z-index: 10000;
   flex-direction: column;
   overflow: hidden;
   font-family: Arial, sans-serif;
 }
-
 #kaiPanel header {
   background: #4a90e2;
   color: white;
@@ -46,7 +48,6 @@
   align-items: center;
   font-weight: bold;
 }
-
 #kaiCloseBtn {
   background: transparent;
   border: none;
@@ -54,25 +55,19 @@
   font-size: 20px;
   cursor: pointer;
 }
-
 .kaiBody {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
   background: #f5f5f5;
 }
-
-.kaiBody div {
-  margin-bottom: 6px;
-}
-
+.kaiBody div { margin-bottom: 6px; }
 .kaiInputRow {
   display: flex;
   padding: 10px;
   border-top: 1px solid #ddd;
   gap: 6px;
 }
-
 .kaiInput {
   flex: 1;
   padding: 6px 10px;
@@ -80,7 +75,6 @@
   border: 1px solid #ccc;
   font-size: 14px;
 }
-
 .kaiSendBtn {
   background: #4a90e2;
   color: white;
@@ -89,12 +83,4 @@
   border-radius: 6px;
   cursor: pointer;
 }
-
-.kaiSendBtn:hover {
-  background: #357abd;
-}
-
-.kai-show {
-  display: flex !important;
-  flex-direction: column;
-}
+.kaiSendBtn:hover { background: #357abd; }
