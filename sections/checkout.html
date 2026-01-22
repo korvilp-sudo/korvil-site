@@ -1,169 +1,109 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KORVIL | Checkout</title>
-<link rel="stylesheet" href="css/style.css">
-<style>
-/* ===== CHECKOUT ===== */
-.checkout-container {
-  max-width: 900px;
-  margin: 60px auto;
-  padding: 40px;
-  background: var(--card);
-  border-radius: 18px;
-  box-shadow: 0 0 20px var(--shadow);
-}
-
-.checkout-container h2 {
-  color: var(--accent);
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-form label {
-  font-weight: bold;
-  color: var(--text);
-}
-
-form input, form select, form textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #222;
-  background: #0d0d0d;
-  color: var(--text);
-}
-
-form input:focus, form select:focus, form textarea:focus {
-  outline: 2px solid var(--accent);
-}
-
-.cart-summary {
-  margin-top: 20px;
-  padding: 20px;
-  background: #111;
-  border-radius: 12px;
-}
-
-.cart-summary h3 {
-  color: var(--accent);
-  margin-bottom: 10px;
-}
-
-.cart-summary ul {
-  list-style: none;
-  max-height: 200px;
-  overflow-y: auto;
-  padding-left: 0;
-}
-
-.cart-summary li {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
-  border-bottom: 1px solid #222;
-}
-
-.total {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-top: 10px;
-}
-
-.submit-btn {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: #000;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.submit-btn:hover {
-  box-shadow: 0 0 18px var(--accent);
-  transform: translateY(-2px);
-}
-
-/* ===== RESPONSIVO ===== */
-@media(max-width:600px){
-  .checkout-container {
-    padding: 20px;
-    margin: 30px 10px;
-  }
-}
-</style>
-</head>
-<body>
-
-<section class="checkout-container">
-  <h2>Finalize sua compra</h2>
-
-  <form name="checkout-form" data-netlify="true">
-    <input type="hidden" name="cart-data" id="cart-data">
-
-    <label for="name">Nome Completo</label>
-    <input type="text" id="name" name="name" required>
-
-    <label for="email">E-mail</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="phone">Telefone</label>
-    <input type="tel" id="phone" name="phone">
-
-    <label for="address">Endereço</label>
-    <textarea id="address" name="address" rows="3" required></textarea>
-
-    <div class="cart-summary">
-      <h3>Resumo do pedido</h3>
-      <ul id="cart-items"></ul>
-      <div class="total">Total: R$ <span id="cart-total">0,00</span></div>
-    </div>
-
-    <button type="submit" class="submit-btn">Finalizar Compra</button>
-  </form>
+<section class="hero">
+  <h1 class="hero__title">Checkout</h1>
+  <p class="hero__sub">Finalize sua compra no K-Store (PIX / Cartão). Sem boleto.</p>
+  <div class="hero__ctaRow">
+    <button class="btn" data-go="k-store">Voltar à loja</button>
+    <button class="btn btn--accent" data-kstore-open-cart>Ver carrinho</button>
+  </div>
 </section>
 
-<script>
-// ===== Recupera carrinho do localStorage =====
-const cart = JSON.parse(localStorage.getItem('korvil-cart')) || [];
+<section class="grid">
+  <article class="card" style="grid-column: span 12;">
+    <h2 class="card__title">Endereço</h2>
 
-const cartItemsEl = document.getElementById('cart-items');
-const cartTotalEl = document.getElementById('cart-total');
-const cartDataInput = document.getElementById('cart-data');
+    <div class="k-formGrid">
+      <div>
+        <label class="muted">Nome completo</label>
+        <input class="k-input" id="ckName" placeholder="Seu nome" />
+      </div>
+      <div>
+        <label class="muted">WhatsApp</label>
+        <input class="k-input" id="ckPhone" placeholder="(00) 00000-0000" inputmode="tel" />
+      </div>
+      <div>
+        <label class="muted">CEP</label>
+        <input class="k-input" id="ckCep" placeholder="00000-000" inputmode="numeric" />
+      </div>
+      <div>
+        <label class="muted">Cidade/UF</label>
+        <input class="k-input" id="ckCity" placeholder="Cidade - UF" />
+      </div>
+      <div style="grid-column: span 2;">
+        <label class="muted">Endereço</label>
+        <input class="k-input" id="ckAddr" placeholder="Rua, número, bairro" />
+      </div>
+      <div style="grid-column: span 2;">
+        <label class="muted">Complemento</label>
+        <input class="k-input" id="ckComp" placeholder="Opcional" />
+      </div>
+    </div>
+  </article>
 
-let total = 0;
+  <article class="card">
+    <h2 class="card__title">Pagamento</h2>
+    <p class="card__text">Escolha como pagar:</p>
 
-// Preenche lista de itens do carrinho
-cart.forEach(item => {
-  const li = document.createElement('li');
-  li.innerHTML = `<span>${item.name} x ${item.quantity}</span><span>R$ ${(item.price * item.quantity).toFixed(2)}</span>`;
-  cartItemsEl.appendChild(li);
-  total += item.price * item.quantity;
-});
+    <div class="k-payOptions">
+      <label class="k-payOpt">
+        <input type="radio" name="pay" value="pix" checked />
+        <div>
+          <strong>PIX</strong>
+          <div class="muted">Pagamento rápido (simulado)</div>
+        </div>
+      </label>
 
-// Atualiza total
-cartTotalEl.innerText = total.toFixed(2);
+      <label class="k-payOpt">
+        <input type="radio" name="pay" value="card" />
+        <div>
+          <strong>Cartão</strong>
+          <div class="muted">Crédito/Débito (simulado)</div>
+        </div>
+      </label>
+    </div>
 
-// Converte carrinho para JSON e envia no hidden input
-cartDataInput.value = JSON.stringify(cart);
+    <div id="pixBox" class="k-payBox">
+      <p class="card__text"><strong>PIX (simulado)</strong></p>
+      <p class="muted">Chave PIX: <code>korvil@kstore</code></p>
+      <button class="btn btn--accent" id="copyPixBtn">Copiar chave</button>
+    </div>
 
-// Limpa carrinho ao enviar
-document.querySelector('form').addEventListener('submit', function(e){
-  // opcional: alert de confirmação
-  alert('Pedido enviado com sucesso! Obrigado por comprar no KORVIL.');
-  localStorage.removeItem('korvil-cart');
-});
-</script>
+    <div id="cardBox" class="k-payBox" style="display:none;">
+      <p class="card__text"><strong>Cartão (simulado)</strong></p>
+      <div class="k-formGrid" style="grid-template-columns:1fr 1fr;">
+        <div style="grid-column: span 2;">
+          <label class="muted">Número do cartão</label>
+          <input class="k-input" placeholder="0000 0000 0000 0000" inputmode="numeric" />
+        </div>
+        <div>
+          <label class="muted">Validade</label>
+          <input class="k-input" placeholder="MM/AA" inputmode="numeric" />
+        </div>
+        <div>
+          <label class="muted">CVV</label>
+          <input class="k-input" placeholder="000" inputmode="numeric" />
+        </div>
+      </div>
+      <p class="muted">* Para pagamento real, integramos Mercado Pago/Stripe depois.</p>
+    </div>
+  </article>
 
-</body>
-</html>
+  <article class="card">
+    <h2 class="card__title">Resumo do pedido</h2>
+    <div id="ckItems" class="muted">Carregando…</div>
+
+    <div class="k-summary" style="margin-top:12px;">
+      <div class="muted">Subtotal</div><div id="ckSubtotal">R$ 0,00</div>
+      <div class="muted">Frete</div><div id="ckShipping">R$ 0,00</div>
+      <div class="muted">Total</div><div id="ckTotal"><strong>R$ 0,00</strong></div>
+    </div>
+
+    <div class="hero__ctaRow" style="margin-top:12px;">
+      <button class="btn btn--accent" id="finishBtn">Finalizar pedido</button>
+      <button class="btn" data-go="k-store">Continuar comprando</button>
+    </div>
+
+    <p class="muted" style="margin-top:10px;">
+      Ao finalizar, você pode enviar o pedido por WhatsApp para confirmar.
+    </p>
+  </article>
+</section>
