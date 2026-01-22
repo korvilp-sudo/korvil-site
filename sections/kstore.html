@@ -1,230 +1,106 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K-Store | KORVIL</title>
+<section class="hero">
+  <h1 class="hero__title">K-Store</h1>
+  <p class="hero__sub">Loja virtual do ecossistema KORVIL — estilo Sistema K.</p>
 
-<style>
-:root{
-  --bg:#0b0b0b;
-  --card:#141414;
-  --text:#eaeaea;
-  --accent:#17d4c4;
-}
+  <div class="hero__ctaRow">
+    <button class="btn btn--accent" data-kstore-open-cart>🛒 Carrinho <span class="tag" id="kstoreCartCount">0</span></button>
+    <button class="btn" data-go="checkout">Ir para Checkout</button>
+  </div>
+</section>
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+<section class="grid" aria-label="Controles da loja">
+  <article class="card" style="grid-column: span 12;">
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+      <div style="flex:1; min-width:240px;">
+        <label class="muted" for="kstoreSearch">Buscar</label>
+        <input id="kstoreSearch" class="k-input" placeholder="Pesquisar produto (ex.: whey, luva, camiseta)..." />
+      </div>
 
-header{
-  padding:16px;
-  border-bottom:2px solid var(--accent);
-  background:#000;
-  text-align:center;
-}
+      <div style="min-width:220px;">
+        <label class="muted" for="kstoreCategory">Categoria</label>
+        <select id="kstoreCategory" class="k-input">
+          <option value="all">Todas</option>
+        </select>
+      </div>
 
-main{
-  padding:20px;
-}
+      <div style="min-width:220px;">
+        <label class="muted" for="kstoreSort">Ordenar</label>
+        <select id="kstoreSort" class="k-input">
+          <option value="relevance">Relevância</option>
+          <option value="priceAsc">Menor preço</option>
+          <option value="priceDesc">Maior preço</option>
+          <option value="nameAsc">A–Z</option>
+        </select>
+      </div>
+    </div>
+  </article>
+</section>
 
-h1,h2{
-  color:var(--accent);
-  text-align:center;
-}
+<section class="grid" aria-label="Produtos" id="kstoreProducts"></section>
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
-  margin-top:20px;
-}
+<!-- Modal Produto -->
+<div class="modalOverlay" id="kstoreProductOverlay" aria-hidden="true">
+  <div class="modal">
+    <h2 id="kstoreProductTitle">Produto</h2>
+    <p id="kstoreProductDesc" class="muted"></p>
 
-.card{
-  background:var(--card);
-  border:1px solid #222;
-  border-radius:14px;
-  padding:16px;
-  text-align:center;
-}
+    <div class="k-productRow">
+      <img id="kstoreProductImg" class="k-productImg" alt="Imagem do produto" />
+      <div class="k-productInfo">
+        <div class="k-price" id="kstoreProductPrice"></div>
+        <div class="muted" id="kstoreProductMeta"></div>
 
-.card strong{
-  display:block;
-  margin:10px 0;
-  font-size:18px;
-}
-
-.btn{
-  background:linear-gradient(135deg,#00eaff,#007a8a);
-  color:#003;
-  border:none;
-  padding:10px;
-  border-radius:10px;
-  cursor:pointer;
-  width:100%;
-  margin-top:8px;
-}
-
-/* FILTROS */
-.filters{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-/* CARRINHO */
-#cartBox{
-  position:fixed;
-  right:16px;
-  bottom:20px;
-  background:#111;
-  border:1px solid #222;
-  padding:12px;
-  border-radius:14px;
-  width:260px;
-}
-
-#cartBox h3{
-  margin-top:0;
-  color:var(--accent);
-}
-
-@media(max-width:768px){
-  #cartBox{
-    left:10px;
-    right:10px;
-    width:auto;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>K-Store</h1>
-  <p>Marketplace oficial do ecossistema KORVIL</p>
-</header>
-
-<main>
-
-<!-- FILTROS -->
-<div class="filters">
-  <button class="btn" onclick="filterStore('all')">Todos</button>
-  <button class="btn" onclick="filterStore('ktp')">K-TP</button>
-  <button class="btn" onclick="filterStore('kafortunado')">K-AFORTUNADO</button>
-  <button class="btn" onclick="filterStore('kalma')">K-ALMA</button>
+        <div class="hero__ctaRow" style="margin-top:12px;">
+          <button class="btn btn--accent" id="kstoreAddToCartBtn">Adicionar ao carrinho</button>
+          <button class="btn" id="kstoreCloseProductBtn">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- PRODUTOS -->
-<div class="grid" id="storeGrid">
+<!-- Drawer Carrinho -->
+<div class="k-drawerOverlay" id="kstoreCartOverlay" aria-hidden="true">
+  <aside class="k-drawer">
+    <header class="k-drawerHeader">
+      <div>
+        <h2 style="margin:0;">Seu carrinho</h2>
+        <p class="muted" style="margin:6px 0 0 0;">K-Store • Sistema K</p>
+      </div>
+      <button class="btn" id="kstoreCloseCartBtn">Fechar</button>
+    </header>
 
-  <!-- K-TP -->
-  <div class="card store-item ktp">
-    <h3>Plano K-TP</h3>
-    <p>Projeto Transformação completo</p>
-    <strong>R$ 99,00</strong>
-    <button class="btn" onclick="addCart('Plano K-TP',99)">Adicionar</button>
-  </div>
+    <div class="k-drawerBody">
+      <div id="kstoreCartItems"></div>
 
-  <div class="card store-item ktp">
-    <h3>K-TP Premium</h3>
-    <p>Treinos + Avaliações + Suporte</p>
-    <strong>R$ 149,00</strong>
-    <button class="btn" onclick="addCart('K-TP Premium',149)">Adicionar</button>
-  </div>
+      <div class="card" style="margin-top:14px;">
+        <h3 class="card__title">Frete (simulado)</h3>
+        <p class="card__text">Digite seu CEP para estimar prazo e valor.</p>
 
-  <!-- K-AFORTUNADO -->
-  <div class="card store-item kafortunado">
-    <h3>Projeto SER</h3>
-    <p>Empreendedorismo e mentalidade</p>
-    <strong>R$ 79,00</strong>
-    <button class="btn" onclick="addCart('Projeto SER',79)">Adicionar</button>
-  </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
+          <div style="flex:1; min-width:170px;">
+            <label class="muted" for="kstoreCep">CEP</label>
+            <input id="kstoreCep" class="k-input" placeholder="00000-000" inputmode="numeric" />
+          </div>
+          <button class="btn btn--accent" id="kstoreCalcShippingBtn">Calcular</button>
+        </div>
 
-  <div class="card store-item kafortunado">
-    <h3>Mentoria Financeira</h3>
-    <p>Administração e investimentos</p>
-    <strong>R$ 199,00</strong>
-    <button class="btn" onclick="addCart('Mentoria Financeira',199)">Adicionar</button>
-  </div>
+        <div class="muted" id="kstoreShippingResult" style="margin-top:10px;"></div>
+      </div>
 
-  <!-- K-ALMA -->
-  <div class="card store-item kalma">
-    <h3>Projeto Paz</h3>
-    <p>Cuidados e equilíbrio</p>
-    <strong>R$ 59,00</strong>
-    <button class="btn" onclick="addCart('Projeto Paz',59)">Adicionar</button>
-  </div>
+      <div class="card" style="margin-top:14px;">
+        <h3 class="card__title">Resumo</h3>
+        <div class="k-summary">
+          <div class="muted">Subtotal</div><div id="kstoreSubtotal">R$ 0,00</div>
+          <div class="muted">Frete</div><div id="kstoreShipping">R$ 0,00</div>
+          <div class="muted">Total</div><div id="kstoreTotal"><strong>R$ 0,00</strong></div>
+        </div>
 
-  <div class="card store-item kalma">
-    <h3>K-ALMA Completo</h3>
-    <p>Práticas + estudos + cuidados</p>
-    <strong>R$ 119,00</strong>
-    <button class="btn" onclick="addCart('K-ALMA Completo',119)">Adicionar</button>
-  </div>
-
+        <div class="hero__ctaRow" style="margin-top:12px;">
+          <button class="btn btn--accent" data-go="checkout">Ir para Checkout</button>
+          <button class="btn" id="kstoreClearCartBtn">Esvaziar</button>
+        </div>
+      </div>
+    </div>
+  </aside>
 </div>
-
-</main>
-
-<!-- CARRINHO -->
-<div id="cartBox">
-  <h3>Carrinho</h3>
-  <div id="cartItems"></div>
-  <div id="cartTotal"></div>
-
-  <form name="checkout" method="POST" data-netlify="true" onsubmit="sendOrder()">
-    <input type="hidden" name="form-name" value="checkout">
-    <input type="hidden" name="pedido" id="pedido">
-    <input name="nome" placeholder="Nome" required>
-    <input name="email" placeholder="Email" required>
-    <button class="btn">Finalizar Pedido</button>
-  </form>
-</div>
-
-<script>
-/* FILTRO */
-function filterStore(type){
-  document.querySelectorAll('.store-item').forEach(item=>{
-    item.style.display = (type==='all' || item.classList.contains(type))
-      ? 'block' : 'none';
-  });
-}
-
-/* CARRINHO */
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-function addCart(name,price){
-  cart.push({name,price});
-  localStorage.setItem('cart',JSON.stringify(cart));
-  renderCart();
-}
-
-function renderCart(){
-  let total = 0;
-  let html = '';
-  cart.forEach(i=>{
-    total += i.price;
-    html += `<div>${i.name} - R$ ${i.price}</div>`;
-  });
-  cartItems.innerHTML = html;
-  cartTotal.innerHTML = `<strong>Total: R$ ${total}</strong>`;
-}
-
-function sendOrder(){
-  document.getElementById('pedido').value = JSON.stringify(cart);
-  localStorage.removeItem('cart');
-}
-
-renderCart();
-</script>
-
-</body>
-</html>
