@@ -1,8 +1,10 @@
+<!-- Cole este conteúdo no arquivo: sections/home.html (substituindo o atual, ou inserindo as partes indicadas) -->
+
 <section class="hero">
   <h1 class="hero__title">KORVIL</h1>
-  <p class="hero__sub">
-    Você está no ecossistema KORVIL. Um sistema integrado de evolução física, mental, espiritual e financeira.
-  </p>
+
+  <!-- ✅ texto pedido -->
+  <p class="hero__sub">Você está em KORVIL- Site</p>
 
   <div class="hero__ctaRow">
     <button class="btn btn--accent" data-go="sistema-k">Explorar Sistema K</button>
@@ -10,13 +12,14 @@
   </div>
 </section>
 
+<!-- ✅ título pedido -->
 <section class="grid" aria-label="Escolha um setor">
   <article class="card">
     <h2 class="card__title">Sistema K</h2>
     <p class="card__text">Central de organização, serviços e automações do KORVIL.</p>
     <div class="card__row">
       <span class="tag">Core</span>
-      <button class="btn btn--accent" data-login="Sistema K">Entrar</button>
+      <button class="btn btn--accent" data-go="sistema-k">Entrar</button>
     </div>
   </article>
 
@@ -34,7 +37,7 @@
     <p class="card__text">Empreendedorismo, gestão e crescimento financeiro.</p>
     <div class="card__row">
       <span class="tag">Negócios</span>
-      <button class="btn btn--accent" data-login="K-AFORTUNADO">Entrar</button>
+      <button class="btn btn--accent" data-go="k-afortunado">Entrar</button>
     </div>
   </article>
 
@@ -43,7 +46,16 @@
     <p class="card__text">Cuidados, equilíbrio emocional e Projeto Paz.</p>
     <div class="card__row">
       <span class="tag">Bem-estar</span>
-      <button class="btn btn--accent" data-login="K-ALMA">Entrar</button>
+      <button class="btn btn--accent" data-go="k-alma">Entrar</button>
+    </div>
+  </article>
+
+  <!-- ✅ bloco pedido no final da home -->
+  <article class="card" style="grid-column: span 12;">
+    <h3 class="card__title">ENTRE EM CONTATO CONOSCO AGORA MESMO:</h3>
+    <p class="card__text">Clique no botão abaixo para falar diretamente conosco.</p>
+    <div class="hero__ctaRow" style="margin-top:14px;">
+      <button class="btn btn--accent" data-cta="ktp-whatsapp">Falar no WhatsApp</button>
     </div>
   </article>
 </section>
