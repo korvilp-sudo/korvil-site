@@ -1,15 +1,9 @@
-// =========================
-// K-AI JS
-// =========================
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Criar cubo flutuante
   const kaiCube = document.createElement('div');
   kaiCube.id = 'kaiCube';
   kaiCube.textContent = 'K-AI';
   document.body.appendChild(kaiCube);
 
-  // Criar painel
   const kaiPanel = document.createElement('div');
   kaiPanel.id = 'kaiPanel';
   kaiPanel.innerHTML = `
@@ -25,39 +19,27 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.body.appendChild(kaiPanel);
 
-  // Abrir/fechar painel
-  kaiCube.addEventListener('click', () => {
-    kaiPanel.style.display = kaiPanel.style.display === 'flex' ? 'none' : 'flex';
-    kaiPanel.style.flexDirection = 'column';
-  });
-  document.getElementById('kaiCloseBtn').addEventListener('click', () => {
-    kaiPanel.style.display = 'none';
-  });
+  kaiCube.addEventListener('click', () => kaiPanel.classList.toggle('kai-show'));
+  document.getElementById('kaiCloseBtn').addEventListener('click', () => kaiPanel.classList.remove('kai-show'));
 
-  // Elementos
   const kaiBody = document.getElementById('kaiBody');
   const kaiInput = document.getElementById('kaiInput');
 
-  // Função de resposta
   function kaiRespond(msg) {
     const message = msg.toLowerCase();
     const response = kaiResponses[message] || kaiResponses["default"];
 
-    // Mensagem do usuário
     const userDiv = document.createElement('div');
     userDiv.textContent = "Você: " + msg;
     userDiv.style.fontWeight = 'bold';
     kaiBody.appendChild(userDiv);
 
-    // Mensagem K-AI
     const kaiDiv = document.createElement('div');
     kaiDiv.textContent = "K-AI: " + response;
     kaiBody.appendChild(kaiDiv);
 
-    // Scroll para baixo
     kaiBody.scrollTop = kaiBody.scrollHeight;
 
-    // Voz
     const utterance = new SpeechSynthesisUtterance(response);
     const voices = speechSynthesis.getVoices();
     utterance.voice = voices.find(v => v.lang === 'pt-BR') || null;
@@ -66,19 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
     speechSynthesis.speak(utterance);
   }
 
-  // Botão enviar
   document.getElementById('kaiSendBtn').addEventListener('click', () => {
-    if(kaiInput.value.trim()) {
+    if (kaiInput.value.trim()) {
       kaiRespond(kaiInput.value.trim());
       kaiInput.value = "";
     }
   });
 
-  // Enter envia
   kaiInput.addEventListener('keydown', (e) => {
-    if(e.key === "Enter") {
+    if (e.key === "Enter") {
       e.preventDefault();
-      if(kaiInput.value.trim()) {
+      if (kaiInput.value.trim()) {
         kaiRespond(kaiInput.value.trim());
         kaiInput.value = "";
       }
