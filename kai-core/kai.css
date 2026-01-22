@@ -6,15 +6,14 @@
   height: 60px;
   background: linear-gradient(135deg,#4a90e2,#9013fe);
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  user-select: none;
-  transition: transform 0.2s ease;
+  z-index: 10001;
 }
 
 #kaiCube:hover {
@@ -22,17 +21,80 @@
 }
 
 #kaiPanel {
+  display: none;
   position: fixed;
   bottom: 90px;
   right: 20px;
   width: 320px;
-  max-height: 400px;
-  background: rgba(17,17,17,0.95); /* escuro transparente */
-  color: #fff;
-  display: none; /* inicia escondido */
-  flex-direction: column;
+  max-width: 90%;
+  height: 400px;
+  background: white;
   border-radius: 12px;
-  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  z-index: 10002;
+  flex-direction: column;
   overflow: hidden;
   font-family: Arial, sans-serif;
+}
+
+#kaiPanel header {
+  background: #4a90e2;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+#kaiCloseBtn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.kaiBody {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.kaiBody div {
+  margin-bottom: 6px;
+}
+
+.kaiInputRow {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  gap: 6px;
+}
+
+.kaiInput {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.kaiSendBtn {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.kaiSendBtn:hover {
+  background: #357abd;
+}
+
+.kai-show {
+  display: flex !important;
+  flex-direction: column;
 }
