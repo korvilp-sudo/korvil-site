@@ -1,61 +1,44 @@
-<!-- Cole este conteúdo no arquivo: sections/home.html (substituindo o atual, ou inserindo as partes indicadas) -->
-
-<section class="hero">
-  <h1 class="hero__title">KORVIL</h1>
-
-  <!-- ✅ texto pedido -->
-  <p class="hero__sub">Você está em KORVIL- Site</p>
-
-  <div class="hero__ctaRow">
-    <button class="btn btn--accent" data-go="sistema-k">Explorar Sistema K</button>
-    <button class="btn" data-go="k-tp">Abrir K-TP</button>
+<section class="home">
+  <!-- Banner -->
+  <div class="home__banner">
+    <img src="./assets/images/capa-korvil.jpg" alt="Capa KORVIL" style="width:100%; border-radius:12px;" />
   </div>
-</section>
 
-<!-- ✅ título pedido -->
-<section class="grid" aria-label="Escolha um setor">
-  <article class="card">
-    <h2 class="card__title">Sistema K</h2>
-    <p class="card__text">Central de organização, serviços e automações do KORVIL.</p>
-    <div class="card__row">
-      <span class="tag">Core</span>
-      <button class="btn btn--accent" data-go="sistema-k">Entrar</button>
-    </div>
-  </article>
+  <!-- Introdução -->
+  <div class="home__intro">
+    <h1>Bem-vindo ao KORVIL — Sistema K</h1>
+    <p>Explore nossos setores, conheça nossos serviços, participe do K-TP, compre na K-Store e muito mais!</p>
+  </div>
 
-  <article class="card">
-    <h2 class="card__title">K-TP</h2>
-    <p class="card__text">Projeto Transformação e Treinamento Personalizado.</p>
-    <div class="card__row">
-      <span class="tag">Fitness</span>
-      <button class="btn btn--accent" data-go="k-tp">Entrar</button>
+  <!-- Setores -->
+  <div class="home__grid grid">
+    <div class="card">
+      <h2 class="card__title">Sistema K</h2>
+      <p class="card__text">Armas, serviços e soluções integradas.</p>
+      <div class="card__row">
+        <button class="btn btn--accent" data-go="sistemak">Entrar</button>
+      </div>
     </div>
-  </article>
-
-  <article class="card">
-    <h2 class="card__title">K-AFORTUNADO</h2>
-    <p class="card__text">Empreendedorismo, gestão e crescimento financeiro.</p>
-    <div class="card__row">
-      <span class="tag">Negócios</span>
-      <button class="btn btn--accent" data-go="k-afortunado">Entrar</button>
+    <div class="card">
+      <h2 class="card__title">K-TP</h2>
+      <p class="card__text">Projeto Transformação — participe do nosso programa exclusivo.</p>
+      <div class="card__row">
+        <button class="btn btn--accent" data-go="ktp">Entrar</button>
+      </div>
     </div>
-  </article>
-
-  <article class="card">
-    <h2 class="card__title">K-ALMA</h2>
-    <p class="card__text">Cuidados, equilíbrio emocional e Projeto Paz.</p>
-    <div class="card__row">
-      <span class="tag">Bem-estar</span>
-      <button class="btn btn--accent" data-go="k-alma">Entrar</button>
+    <div class="card">
+      <h2 class="card__title">K-AFORTUNADO</h2>
+      <p class="card__text">Cursos e empreendedorismo para crescer nos negócios.</p>
+      <div class="card__row">
+        <button class="btn btn--accent" data-go="k-afortunado">Entrar</button>
+      </div>
     </div>
-  </article>
-
-  <!-- ✅ bloco pedido no final da home -->
-  <article class="card" style="grid-column: span 12;">
-    <h3 class="card__title">ENTRE EM CONTATO CONOSCO AGORA MESMO:</h3>
-    <p class="card__text">Clique no botão abaixo para falar diretamente conosco.</p>
-    <div class="hero__ctaRow" style="margin-top:14px;">
-      <button class="btn btn--accent" data-cta="ktp-whatsapp">Falar no WhatsApp</button>
+    <div class="card">
+      <h2 class="card__title">K-ALMA</h2>
+      <p class="card__text">Centro de Cuidados e serviços de saúde.</p>
+      <div class="card__row">
+        <button class="btn btn--accent" data-go="k-alma">Entrar</button>
+      </div>
     </div>
-  </article>
+  </div>
 </section>
