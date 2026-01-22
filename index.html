@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  <!-- ===== TOPO ===== -->
+  <!-- ===== CABEÇALHO / MENU ===== -->
   <header class="topo">
     <div class="topo__wrap">
       <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
@@ -35,7 +35,7 @@
     </div>
   </header>
 
-  <!-- ===== APP (SECTIONS) ===== -->
+  <!-- ===== ÁREA PRINCIPAL ===== -->
   <main id="app" class="app" aria-live="polite"></main>
 
   <!-- ===== MODAIS ===== -->
@@ -49,11 +49,25 @@
     </div>
   </footer>
 
+  <!-- ===== K-AI CUBO 3D ===== -->
+  <div class="scene" id="cubeScene">
+    <div class="cube" id="cubeKAI">
+      <div class="cube-face front">K-AI</div>
+      <div class="cube-face back">K-AI</div>
+      <div class="cube-face right">K-AI</div>
+      <div class="cube-face left">K-AI</div>
+      <div class="cube-face top">K-AI</div>
+      <div class="cube-face bottom">K-AI</div>
+    </div>
+  </div>
+  <div class="message-box" id="cubeMessage"></div>
+
   <!-- JS principal -->
   <script src="./js/app.js" defer></script>
 
   <!-- K-AI -->
   <script src="./kai-core/kai-data.js" defer></script>
   <script src="./kai-core/kai.js" defer></script>
+  <script src="./kai-core/cube-kai.js" defer></script>
 </body>
 </html>
