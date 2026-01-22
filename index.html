@@ -1,3 +1,6 @@
+<!-- =========================
+1) index.html  (RAIZ DO REPO)
+========================= -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -5,14 +8,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KORVIL — Sistema K</title>
 
-  <!-- CSS principal (NÃO use /css... use caminho relativo) -->
+  <!-- ✅ CSS (tem que ser exatamente assim) -->
   <link rel="stylesheet" href="./css/style.css" />
-
-  <!-- Preload opcional de fonte do sistema (sem libs) -->
 </head>
 
 <body>
-  <!-- Header / Topo -->
+  <!-- ===== TOPO ===== -->
   <header class="topo">
     <div class="topo__wrap">
       <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
@@ -20,9 +21,7 @@
         <span class="brand__name">KORVIL</span>
       </a>
 
-      <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
-        ☰
-      </button>
+      <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
       <nav class="nav" id="nav">
         <a class="nav__link is-active" href="#" data-go="home">Home</a>
@@ -36,13 +35,13 @@
     </div>
   </header>
 
-  <!-- Conteúdo dinâmico (sections) -->
+  <!-- ===== APP (SECTIONS) ===== -->
   <main id="app" class="app" aria-live="polite"></main>
 
-  <!-- Modal (carregado do components/) -->
+  <!-- ===== MODAIS ===== -->
   <div id="modalHost"></div>
 
-  <!-- Footer -->
+  <!-- ===== RODAPÉ ===== -->
   <footer class="rodape">
     <div class="rodape__wrap">
       <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
@@ -50,7 +49,7 @@
     </div>
   </footer>
 
-  <!-- JS principal -->
+  <!-- ✅ JS (tem que ser exatamente assim) -->
   <script src="./js/app.js" defer></script>
 </body>
 </html>
