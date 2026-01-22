@@ -1,115 +1,62 @@
-<section id="checkout">
-  <h2>Checkout</h2>
-  <p>Finalize seu acesso ao ecossistema KORVIL</p>
+<section class="hero">
+  <h1 class="hero__title">K-TP — Projeto TRANSFORMAÇÃO</h1>
+  <p class="hero__sub">Você está no KORVIL-Site</p>
 
-  <!-- RESUMO DO PEDIDO -->
-  <div class="card" style="margin:20px 0">
-    <h3>Resumo do Pedido</h3>
-    <div id="checkoutItems"></div>
-    <strong id="checkoutTotal"></strong>
+  <div class="hero__ctaRow">
+    <button class="btn btn--accent" data-cta="ktp-whatsapp">Falar no WhatsApp</button>
+    <button class="btn" data-go="home">Voltar ao início</button>
   </div>
-
-  <!-- FORMULÁRIO -->
-  <form 
-    name="checkout" 
-    method="POST" 
-    data-netlify="true" 
-    netlify-honeypot="bot-field"
-    onsubmit="prepareCheckout()"
-  >
-
-    <!-- Netlify -->
-    <input type="hidden" name="form-name" value="checkout">
-    <input type="hidden" name="pedido" id="pedido">
-    <input type="hidden" name="valor_total" id="valor_total">
-    <input type="hidden" name="setores" id="setores">
-
-    <!-- Anti-bot -->
-    <p style="display:none">
-      <input name="bot-field">
-    </p>
-
-    <p>
-      <input 
-        name="nome" 
-        placeholder="Nome completo" 
-        required 
-        minlength="3">
-    </p>
-
-    <p>
-      <input 
-        name="email" 
-        type="email" 
-        placeholder="Email" 
-        required>
-    </p>
-
-    <p>
-      <input 
-        name="telefone" 
-        type="tel" 
-        placeholder="WhatsApp (opcional)">
-    </p>
-
-    <p>
-      <select name="forma_pagamento" required>
-        <option value="">Forma de pagamento</option>
-        <option value="Pix">Pix</option>
-        <option value="Cartão">Cartão</option>
-        <option value="Boleto">Boleto</option>
-      </select>
-    </p>
-
-    <p>
-      <label style="font-size:14px">
-        <input type="checkbox" required>
-        Concordo com os termos do Sistema K
-      </label>
-    </p>
-
-    <button class="btn">Finalizar Pedido</button>
-  </form>
 </section>
 
-<script>
-/* ===== CHECKOUT ===== */
-function prepareCheckout(){
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+<section class="grid">
+  <article class="card" style="grid-column: span 12;">
+    <h2 class="card__title">Say Korvil</h2>
+    <p class="card__text">
+      O <strong>K-TP Projeto TRANSFORMAÇÃO</strong> é um programa abrangente que atende a todas as faixas etárias,
+      proporcionando resultados efetivos para pessoas de diferentes idades. Independentemente da idade do participante,
+      o programa é adaptado para atender às necessidades individuais e garantir resultados positivos.
+    </p>
+    <p class="card__text" style="margin-top:10px;">
+      O fundador <strong>Say Korvil</strong>, profissional de ed. física, treinador bodybuilder, terapeuta holístico,
+      lidera o projeto com sua experiência de <strong>15 anos</strong> no campo do fitness, saúde e do desenvolvimento pessoal.
+      Ao longo dos anos, tem ajudado muitas pessoas a alcançarem seus objetivos de forma eficaz e mais rápida.
+    </p>
+    <p class="card__text" style="margin-top:10px;">
+      Para o objetivo individual de cada participante, é necessário que o estado atual esteja alinhado com as etapas do projeto.
+      Serão ajustadas as etapas para atender o objetivo específico, de forma que você poderá seguir o plano de acordo com as etapas
+      do projeto, garantindo resultados efetivos.
+    </p>
+  </article>
 
-  if(cart.length === 0){
-    alert('Seu carrinho está vazio');
-    event.preventDefault();
-    return;
-  }
+  <article class="card">
+    <h3 class="card__title">Como funciona</h3>
+    <p class="card__text">
+      Avaliação → Plano personalizado → Ajustes por etapa → Acompanhamento contínuo.
+    </p>
+    <div class="card__row">
+      <span class="tag">Protocolo</span>
+      <button class="btn" data-go="sistema-k">Ver Sistema K</button>
+    </div>
+  </article>
 
-  let total = 0;
-  let setores = [];
+  <article class="card">
+    <h3 class="card__title">Para quem é</h3>
+    <p class="card__text">
+      Iniciantes e avançados, diferentes idades e objetivos (definição, ganho de massa, recomposição).
+    </p>
+    <div class="card__row">
+      <span class="tag">Todos níveis</span>
+      <button class="btn btn--accent" data-cta="ktp-whatsapp">Entrar em contato</button>
+    </div>
+  </article>
 
-  cart.forEach(i=>{
-    total += i.p;
-    setores.push(i.n);
-  });
-
-  document.getElementById('pedido').value = JSON.stringify(cart);
-  document.getElementById('valor_total').value = total;
-  document.getElementById('setores').value = setores.join(', ');
-
-  localStorage.removeItem('cart');
-}
-
-/* ===== RENDER RESUMO ===== */
-(function renderCheckout(){
-  let cart = JSON.parse(localStorage.getItem('cart')) || [];
-  let html = '';
-  let total = 0;
-
-  cart.forEach(i=>{
-    total += i.p;
-    html += `<div>${i.n} — R$ ${i.p.toFixed(2)}</div>`;
-  });
-
-  checkoutItems.innerHTML = html || '<em>Nenhum item</em>';
-  checkoutTotal.innerText = 'Total: R$ ' + total.toFixed(2);
-})();
-</script>
+  <article class="card" style="grid-column: span 12;">
+    <h3 class="card__title">ENTRE EM CONTATO CONOSCO AGORA MESMO:</h3>
+    <p class="card__text">
+      Clique no botão abaixo para falar diretamente com o K-TP e iniciar seu atendimento.
+    </p>
+    <div class="hero__ctaRow" style="margin-top:14px;">
+      <button class="btn btn--accent" data-cta="ktp-whatsapp">Falar com o K-TP no WhatsApp</button>
+    </div>
+  </article>
+</section>
