@@ -1,78 +1,68 @@
-document.addEventListener("DOMContentLoaded", () => {
+<!-- =========================
+1) index.html  (RAIZ DO REPO)
+========================= -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KORVIL — Sistema K</title>
 
-  // Criar cubo flutuante
-  const kaiCube = document.createElement('div');
-  kaiCube.id = 'kaiCube';
-  kaiCube.textContent = 'K-AI';
-  document.body.appendChild(kaiCube);
+  <!-- ✅ CSS (tem que ser exatamente assim) -->
+  <link rel="stylesheet" href="./css/style.css" />
+  
+  <!-- ===== K-AI CSS ===== -->
+  <link rel="stylesheet" href="kai-core/kai.css" />
+</head>
 
-  // Criar painel
-  const kaiPanel = document.createElement('div');
-  kaiPanel.id = 'kaiPanel';
-  kaiPanel.innerHTML = `
-    <header>
-      <span>K-AI</span>
-      <button id="kaiCloseBtn">&times;</button>
-    </header>
-    <div class="kaiBody" id="kaiBody"></div>
-    <div class="kaiInputRow">
-      <input type="text" id="kaiInput" class="kaiInput" placeholder="Digite sua pergunta..." />
-      <button id="kaiSendBtn" class="kaiSendBtn">Enviar</button>
+<body>
+  <!-- ===== TOPO ===== -->
+  <header class="topo">
+    <div class="topo__wrap">
+      <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
+        <span class="brand__logo">K</span>
+        <span class="brand__name">KORVIL</span>
+      </a>
+
+      <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+      <nav class="nav" id="nav">
+        <a class="nav__link is-active" href="#" data-go="home">Home</a>
+        <a class="nav__link" href="#" data-go="sistema-k">Sistema K</a>
+        <a class="nav__link" href="#" data-go="k-tp">K-TP</a>
+        <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
+        <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
+        <a class="nav__link" href="#" data-go="k-store">K-Store</a>
+        <a class="nav__link" href="#" data-go="checkout">Checkout</a>
+      </nav>
     </div>
-  `;
-  document.body.appendChild(kaiPanel);
+  </header>
 
-  // Abrir/fechar
-  kaiCube.addEventListener('click', () => {
-    kaiPanel.style.display = kaiPanel.style.display === 'flex' ? 'none' : 'flex';
-    kaiPanel.style.flexDirection = 'column';
-  });
-  document.getElementById('kaiCloseBtn').addEventListener('click', () => kaiPanel.style.display = 'none');
+  <!-- ===== APP (SECTIONS) ===== -->
+  <main id="app" class="app" aria-live="polite"></main>
 
-  // Função de responder
-  const kaiBody = document.getElementById('kaiBody');
-  const kaiInput = document.getElementById('kaiInput');
+  <!-- ===== MODAIS ===== -->
+  <div id="modalHost"></div>
 
-  function kaiRespond(msg) {
-    const message = msg.toLowerCase();
-    const response = kaiResponses[message] || kaiResponses["default"];
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="rodape">
+    <div class="rodape__wrap">
+      <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
+      <a class="link" href="#" id="contactBtn">Entre em contato conosco agora mesmo</a>
+    </div>
+  </footer>
 
-    // Mensagens no painel
-    const userDiv = document.createElement('div');
-    userDiv.textContent = "Você: " + msg;
-    userDiv.style.fontWeight = 'bold';
-    kaiBody.appendChild(userDiv);
+  <!-- ======================
+       JS PRINCIPAL
+  ====================== -->
+  <script src="./js/app.js" defer></script>
 
-    const kaiDiv = document.createElement('div');
-    kaiDiv.textContent = "K-AI: " + response;
-    kaiBody.appendChild(kaiDiv);
+  <!-- ======================
+       K-AI INTEGRADO
+  ====================== -->
+  <link rel="stylesheet" href="kai-core/kai.css">
+  <script src="kai-core/kai-data.js" defer></script>
+  <script src="kai-core/kai.js" defer></script>
 
-    kaiBody.scrollTop = kaiBody.scrollHeight;
-
-    // Voz masculina
-    const utterance = new SpeechSynthesisUtterance(response);
-    const voices = speechSynthesis.getVoices();
-    utterance.voice = voices.find(v => v.lang === 'pt-BR') || null;
-    utterance.pitch = 1;
-    utterance.rate = 1;
-    speechSynthesis.speak(utterance);
-  }
-
-  // Enviar
-  document.getElementById('kaiSendBtn').addEventListener('click', () => {
-    if(kaiInput.value.trim()) {
-      kaiRespond(kaiInput.value.trim());
-      kaiInput.value = "";
-    }
-  });
-  kaiInput.addEventListener('keydown', (e) => {
-    if(e.key === "Enter") {
-      e.preventDefault();
-      if(kaiInput.value.trim()) {
-        kaiRespond(kaiInput.value.trim());
-        kaiInput.value = "";
-      }
-    }
-  });
-
-});
+</body>
+</html>
