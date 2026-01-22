@@ -1,108 +1,214 @@
-<section class="hero">
-  <h1 class="hero__title">K-Store</h1>
-  <p class="hero__sub">Loja do ecossistema KORVIL — estilo Sistema K.</p>
-
-  <div class="hero__ctaRow">
-    <button class="btn btn--accent" data-kstore-open-cart>
-      🛒 Carrinho <span class="tag" id="kstoreCartCount">0</span>
-    </button>
-    <button class="btn" data-go="checkout">Ir para Checkout</button>
-  </div>
-</section>
-
-<section class="grid" aria-label="Controles da loja">
-  <article class="card" style="grid-column: span 12;">
-    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-      <div style="flex:1; min-width:240px;">
-        <label class="muted" for="kstoreSearch">Buscar</label>
-        <input id="kstoreSearch" class="k-input" placeholder="Pesquisar produto..." />
-      </div>
-
-      <div style="min-width:220px;">
-        <label class="muted" for="kstoreCategory">Categoria</label>
-        <select id="kstoreCategory" class="k-input">
-          <option value="all">Todas</option>
-        </select>
-      </div>
-
-      <div style="min-width:220px;">
-        <label class="muted" for="kstoreSort">Ordenar</label>
-        <select id="kstoreSort" class="k-input">
-          <option value="relevance">Relevância</option>
-          <option value="priceAsc">Menor preço</option>
-          <option value="priceDesc">Maior preço</option>
-          <option value="nameAsc">A–Z</option>
-        </select>
-      </div>
-    </div>
-  </article>
-</section>
-
-<section class="grid" aria-label="Produtos" id="kstoreProducts"></section>
-
-<!-- Modal Produto -->
-<div class="modalOverlay" id="kstoreProductOverlay" aria-hidden="true">
-  <div class="modal">
-    <h2 id="kstoreProductTitle">Produto</h2>
-    <p id="kstoreProductDesc" class="muted"></p>
-
-    <div class="k-productRow">
-      <img id="kstoreProductImg" class="k-productImg" alt="Imagem do produto" />
-      <div class="k-productInfo">
-        <div class="k-price" id="kstoreProductPrice"></div>
-        <div class="muted" id="kstoreProductMeta"></div>
-
-        <div class="hero__ctaRow" style="margin-top:12px;">
-          <button class="btn btn--accent" id="kstoreAddToCartBtn">Adicionar ao carrinho</button>
-          <button class="btn" id="kstoreCloseProductBtn">Fechar</button>
+<!-- ============================================= -->
+<!-- K-AI Chatbot -->
+<div id="kai-chat-widget">
+    <div id="kai-button">💬</div>
+    <div id="kai-chatbox">
+        <div id="kai-header">
+            <span>K-AI Assistente</span>
+            <button id="kai-close">×</button>
         </div>
-      </div>
+        <div id="kai-messages"></div>
+        <div id="kai-input-container">
+            <input type="text" id="kai-input" placeholder="Digite sua pergunta..." />
+            <button id="kai-send">Enviar</button>
+        </div>
     </div>
-  </div>
 </div>
 
-<!-- Drawer Carrinho -->
-<div class="k-drawerOverlay" id="kstoreCartOverlay" aria-hidden="true">
-  <aside class="k-drawer">
-    <header class="k-drawerHeader">
-      <div>
-        <h2 style="margin:0;">Seu carrinho</h2>
-        <p class="muted" style="margin:6px 0 0 0;">K-Store • Sistema K</p>
-      </div>
-      <button class="btn" id="kstoreCloseCartBtn">Fechar</button>
-    </header>
+<style>
+    /* ===== K-AI Chatbot ===== */
+    #kai-chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        font-family: 'Roboto', sans-serif;
+    }
 
-    <div class="k-drawerBody">
-      <div id="kstoreCartItems"></div>
+    #kai-button {
+        background-color: #ff6b00;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 28px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: transform 0.2s;
+    }
 
-      <div class="card" style="margin-top:14px;">
-        <h3 class="card__title">Frete (simulado)</h3>
-        <p class="card__text">Digite seu CEP para estimar prazo e valor.</p>
+    #kai-button:hover {
+        transform: scale(1.1);
+    }
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:end;">
-          <div style="flex:1; min-width:170px;">
-            <label class="muted" for="kstoreCep">CEP</label>
-            <input id="kstoreCep" class="k-input" placeholder="00000-000" inputmode="numeric" />
-          </div>
-          <button class="btn btn--accent" id="kstoreCalcShippingBtn">Calcular</button>
-        </div>
+    #kai-chatbox {
+        display: none;
+        width: 320px;
+        max-height: 400px;
+        background-color: #1a1a1a;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        overflow: hidden;
+        flex-direction: column;
+    }
 
-        <div class="muted" id="kstoreShippingResult" style="margin-top:10px;"></div>
-      </div>
+    #kai-header {
+        background-color: #ff6b00;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+    }
 
-      <div class="card" style="margin-top:14px;">
-        <h3 class="card__title">Resumo</h3>
-        <div class="k-summary">
-          <div class="muted">Subtotal</div><div id="kstoreSubtotal">R$ 0,00</div>
-          <div class="muted">Frete</div><div id="kstoreShipping">R$ 0,00</div>
-          <div class="muted">Total</div><div id="kstoreTotal"><strong>R$ 0,00</strong></div>
-        </div>
+    #kai-messages {
+        padding: 10px;
+        height: 250px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #0f0f0f;
+    }
 
-        <div class="hero__ctaRow" style="margin-top:12px;">
-          <button class="btn btn--accent" data-go="checkout">Ir para Checkout</button>
-          <button class="btn" id="kstoreClearCartBtn">Esvaziar</button>
-        </div>
-      </div>
-    </div>
-  </aside>
-</div>
+    .kai-message {
+        background-color: #333;
+        padding: 8px 12px;
+        border-radius: 10px;
+        max-width: 80%;
+    }
+
+    .kai-message.user {
+        background-color: #ff6b00;
+        color: #fff;
+        align-self: flex-end;
+    }
+
+    .kai-message.kai {
+        background-color: #1f1f1f;
+        color: #fff;
+        align-self: flex-start;
+    }
+
+    #kai-input-container {
+        display: flex;
+        border-top: 1px solid #333;
+    }
+
+    #kai-input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+        outline: none;
+        background-color: #111;
+        color: #fff;
+    }
+
+    #kai-send {
+        padding: 10px;
+        background-color: #ff6b00;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    #kai-close {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    // ===== K-AI Chatbot Funcionalidade =====
+    const kaiButton = document.getElementById("kai-button");
+    const kaiChatbox = document.getElementById("kai-chatbox");
+    const kaiClose = document.getElementById("kai-close");
+    const kaiSend = document.getElementById("kai-send");
+    const kaiInput = document.getElementById("kai-input");
+    const kaiMessages = document.getElementById("kai-messages");
+
+    // Abrir/Fechar chatbot
+    kaiButton.addEventListener("click", () => {
+        kaiChatbox.style.display = kaiChatbox.style.display === "flex" ? "none" : "flex";
+        kaiChatbox.style.flexDirection = "column";
+    });
+
+    kaiClose.addEventListener("click", () => {
+        kaiChatbox.style.display = "none";
+    });
+
+    // Função para adicionar mensagens
+    function addMessage(text, sender) {
+        const div = document.createElement("div");
+        div.classList.add("kai-message", sender);
+        div.textContent = text;
+        kaiMessages.appendChild(div);
+        kaiMessages.scrollTop = kaiMessages.scrollHeight;
+    }
+
+    // Função para falar
+    function speak(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'pt-BR';
+        utterance.voice = speechSynthesis.getVoices().find(v => v.name.includes("Male") || v.name.includes("Masculino")) || speechSynthesis.getVoices()[0];
+        utterance.pitch = 1;
+        utterance.rate = 1;
+        speechSynthesis.speak(utterance);
+    }
+
+    // Respostas automáticas K-AI
+    function kaiResponse(userText) {
+        userText = userText.toLowerCase();
+        let response = "Desculpe, não entendi. Pergunte sobre produtos, carrinho, frete ou checkout.";
+
+        if (userText.includes("produtos") || userText.includes("loja")) {
+            response = "Na K-Store você encontra diversos produtos KORVIL. Navegue pela página principal para ver todos!";
+        } else if (userText.includes("carrinho")) {
+            response = `Você pode adicionar produtos ao carrinho clicando em "Adicionar ao Carrinho". O total é mostrado no final do carrinho.`;
+        } else if (userText.includes("frete") || userText.includes("cep")) {
+            response = "Para calcular o frete, digite seu CEP no campo 'Calcular Frete' e clique no botão.";
+        } else if (userText.includes("checkout") || userText.includes("comprar")) {
+            response = "Para finalizar a compra, preencha seus dados no formulário do cliente e clique em 'Finalizar Compra'.";
+        } else if (userText.includes("oi") || userText.includes("olá")) {
+            response = "Olá! Eu sou o K-AI, seu assistente virtual. Posso te ajudar a navegar pela K-Store!";
+        }
+
+        addMessage(response, "kai");
+        speak(response);
+    }
+
+    // Enviar mensagem
+    kaiSend.addEventListener("click", () => {
+        const text = kaiInput.value.trim();
+        if (!text) return;
+        addMessage(text, "user");
+        kaiResponse(text);
+        kaiInput.value = "";
+    });
+
+    // Enviar mensagem com Enter
+    kaiInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            kaiSend.click();
+        }
+    });
+</script>        kaiResponse(text);
+        kaiInput.value = "";
+    });
+
+    // Enviar mensagem com Enter
+    kaiInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            kaiSend.click();
+        }
+    });
+</script>
