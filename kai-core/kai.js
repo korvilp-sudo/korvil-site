@@ -19,8 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
   document.body.appendChild(kaiPanel);
 
-  kaiCube.addEventListener('click', () => kaiPanel.classList.toggle('kai-show'));
-  document.getElementById('kaiCloseBtn').addEventListener('click', () => kaiPanel.classList.remove('kai-show'));
+  kaiCube.addEventListener('click', () => {
+    kaiPanel.style.display = kaiPanel.style.display === 'flex' ? 'none' : 'flex';
+    kaiPanel.style.flexDirection = 'column';
+  });
+  document.getElementById('kaiCloseBtn').addEventListener('click', () => {
+    kaiPanel.style.display = 'none';
+  });
 
   const kaiBody = document.getElementById('kaiBody');
   const kaiInput = document.getElementById('kaiInput');
@@ -49,16 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.getElementById('kaiSendBtn').addEventListener('click', () => {
-    if (kaiInput.value.trim()) {
+    if(kaiInput.value.trim()) {
       kaiRespond(kaiInput.value.trim());
       kaiInput.value = "";
     }
   });
 
   kaiInput.addEventListener('keydown', (e) => {
-    if (e.key === "Enter") {
+    if(e.key === "Enter") {
       e.preventDefault();
-      if (kaiInput.value.trim()) {
+      if(kaiInput.value.trim()) {
         kaiRespond(kaiInput.value.trim());
         kaiInput.value = "";
       }
