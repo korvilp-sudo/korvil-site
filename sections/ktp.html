@@ -17,7 +17,7 @@
     </p>
     <p class="card__text" style="margin-top:10px;">
       O fundador <strong>Say Korvil</strong>, profissional de ed. física, treinador bodybuilder, terapeuta holístico,
-      lidera o projeto com sua experiência de <strong>15 anos</strong> no campo do fitness, saúde e desenvolvimento pessoal.
+      lidera o projeto com sua experiência de <strong>16 anos</strong> no campo do fitness, saúde e desenvolvimento pessoal.
     </p>
     <p class="card__text" style="margin-top:10px;">
       Para o objetivo individual de cada participante, o estado atual precisa estar alinhado com as etapas do projeto.
@@ -32,3 +32,31 @@
     </div>
   </article>
 </section>
+
+<section>
+  <h1>K-TP - Projeto TRANSFORMAÇÃO</h1>
+  <form id="ktpForm">
+    <label>Nome completo:<br><input type="text" name="nome" required></label><br>
+    <label>Idade:<br><input type="number" name="idade" required></label><br>
+    <label>Objetivo:<br>
+      <select name="objetivo" required>
+        <option value="emagrecimento">Emagrecimento</option>
+        <option value="ganho_peso">Ganho de peso</option>
+        <option value="definicao">Definição</option>
+        <option value="hipertrofia">Hipertrofia</option>
+        <option value="condicionament_fisico">Condicionamento Físico</option>
+        <option value="saude">Saúde</option>
+        <option value="reabilitação">Reabilitação</option>
+      </select>
+    </label><br>
+    <label>Mensalidade:<br><input type="number" name="mensalidade" value="100" required></label><br>
+    <button type="submit">Participar do Projeto</button>
+  </form>
+</section>
+
+<script>
+document.getElementById('ktpForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert('Inscrição enviada com sucesso!');
+});
+</script>
