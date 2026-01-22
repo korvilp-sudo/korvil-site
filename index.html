@@ -1,6 +1,3 @@
-<!-- =========================
-1) index.html  (RAIZ DO REPO)
-========================= -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -8,15 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KORVIL — Sistema K</title>
 
-  <!-- ✅ CSS principal -->
+  <!-- CSS principal -->
   <link rel="stylesheet" href="./css/style.css" />
 
-  <!-- ===== K-AI CSS ===== -->
+  <!-- K-AI CSS -->
   <link rel="stylesheet" href="./kai-core/kai.css" />
 </head>
-
 <body>
-  <!-- ===== TOPO ===== -->
+  <!-- TOPO / MENU -->
   <header class="topo">
     <div class="topo__wrap">
       <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
@@ -38,13 +34,15 @@
     </div>
   </header>
 
-  <!-- ===== APP (SECTIONS) ===== -->
-  <main id="app" class="app" aria-live="polite"></main>
+  <!-- ÁREA DE SEÇÕES -->
+  <main id="app" class="app" aria-live="polite">
+    <!-- Conteúdo será carregado via JS -->
+  </main>
 
-  <!-- ===== MODAIS ===== -->
+  <!-- MODAIS -->
   <div id="modalHost"></div>
 
-  <!-- ===== RODAPÉ ===== -->
+  <!-- RODAPÉ -->
   <footer class="rodape">
     <div class="rodape__wrap">
       <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
@@ -52,16 +50,11 @@
     </div>
   </footer>
 
-  <!-- ======================
-       JS PRINCIPAL
-  ====================== -->
+  <!-- JS PRINCIPAL -->
   <script src="./js/app.js" defer></script>
 
-  <!-- ======================
-       K-AI INTEGRADO
-  ====================== -->
+  <!-- K-AI INTEGRADO -->
   <script src="./kai-core/kai-data.js" defer></script>
   <script src="./kai-core/kai.js" defer></script>
-
 </body>
 </html>
