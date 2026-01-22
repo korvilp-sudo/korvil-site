@@ -1,54 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KORVIL | Sistema K Integrado</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KORVIL — Sistema K</title>
 
-  <!-- CSS Global -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS principal (NÃO use /css... use caminho relativo) -->
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <!-- Preload opcional de fonte do sistema (sem libs) -->
 </head>
-<body>
 
-  <!-- HEADER / MENU -->
-  <header class="header">
-    <div class="logo">KORVIL</div>
-    <nav class="menu">
-      <button onclick="loadSection('home.html')">Home</button>
-      <button onclick="loadSection('sistemak.html')">Sistema K</button>
-      <button onclick="loadSection('ktp.html')">K-TP</button>
-      <button onclick="loadSection('kafortunado.html')">K-AFORTUNADO</button>
-      <button onclick="loadSection('kalma.html')">K-ALMA</button>
-      <button onclick="loadSection('kstore.html')">K-Store</button>
-      <button onclick="loadSection('checkout.html')">Checkout</button>
-    </nav>
+<body>
+  <!-- Header / Topo -->
+  <header class="topo">
+    <div class="topo__wrap">
+      <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
+        <span class="brand__logo">K</span>
+        <span class="brand__name">KORVIL</span>
+      </a>
+
+      <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <nav class="nav" id="nav">
+        <a class="nav__link is-active" href="#" data-go="home">Home</a>
+        <a class="nav__link" href="#" data-go="sistema-k">Sistema K</a>
+        <a class="nav__link" href="#" data-go="k-tp">K-TP</a>
+        <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
+        <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
+        <a class="nav__link" href="#" data-go="k-store">K-Store</a>
+        <a class="nav__link" href="#" data-go="checkout">Checkout</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- CONTEÚDO DINÂMICO -->
-  <main>
-    <div id="content">
-      <!-- Seções carregadas dinamicamente -->
-    </div>
-  </main>
+  <!-- Conteúdo dinâmico (sections) -->
+  <main id="app" class="app" aria-live="polite"></main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2026 KORVIL — Sistema K Integrado</p>
+  <!-- Modal (carregado do components/) -->
+  <div id="modalHost"></div>
+
+  <!-- Footer -->
+  <footer class="rodape">
+    <div class="rodape__wrap">
+      <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
+      <a class="link" href="#" id="contactBtn">Entre em contato conosco agora mesmo</a>
+    </div>
   </footer>
 
-  <!-- MODAL LOGIN -->
-  <div class="modal" id="modal">
-    <div class="modal-box">
-      <h3 id="tituloModal"></h3>
-      <input type="email" placeholder="Seu e-mail">
-      <input type="password" placeholder="Senha">
-      <button class="btn">Acessar</button>
-      <button class="fechar" onclick="fechar()">Fechar</button>
-    </div>
-  </div>
-
-  <!-- JS Global -->
-  <script src="js/main.js"></script>
-
+  <!-- JS principal -->
+  <script src="./js/app.js" defer></script>
 </body>
 </html>
