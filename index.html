@@ -1,332 +1,197 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KORVIL — Sistema K</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KORVIL — Sistema K</title>
 
-<!-- CSS principal -->
-<link rel="stylesheet" href="./css/style.css">
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="./css/style.css" />
 
-<style>
-/* ====== Header e Menu ====== */
-header.topo {
-  background: rgba(16,24,38,.95);
-  border-bottom: 2px solid #00eaff;
-  padding: 10px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 900;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-header .brand { display: flex; align-items: center; text-decoration: none; color: #00eaff; font-weight: bold; font-size: 20px; }
-header .menuBtn { font-size: 24px; background: none; border: none; color: #00eaff; cursor: pointer; }
-nav.nav { display: flex; gap: 12px; }
-nav.nav.is-open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 20px; background: rgba(16,24,38,.95); padding: 10px; border-radius: 6px; }
-.nav__link { text-decoration: none; color: #fff; padding: 4px 8px; border-radius: 4px; transition: all 0.3s; }
-.nav__link.is-active, .nav__link:hover { background: #00eaff; color: #0b0f14; }
+  <!-- Estilos do K-AI (apenas o necessário pro cubo/chat) -->
+  <style>
+    /* ====== K-AI Chatbot (canto inferior direito) ====== */
+    .kai-chatbot{
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 64px;
+      height: 64px;
+      z-index: 9999;
+      font-family: Arial, sans-serif;
+    }
+    .kai-chatbot .scene{ width:64px; height:64px; perspective:600px; }
+    .kai-chatbot .cube{
+      width:64px; height:64px; position:relative;
+      transform-style:preserve-3d;
+      animation: kaiSpin 6s linear infinite;
+      cursor:pointer;
+      transition: transform .5s, width .5s, height .5s;
+    }
+    .kai-chatbot .cube.expanded{ width:128px; height:128px; }
+    .kai-chatbot .cube-face{
+      position:absolute; width:64px; height:64px;
+      background: linear-gradient(135deg,#00eaff,#007a8a);
+      border:2px solid #00eaff;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; color:#fff; font-size:14px;
+      border-radius:6px;
+      box-shadow: 0 6px 20px rgba(0,230,255,.5);
+      user-select:none;
+    }
+    .kai-chatbot .front  { transform: rotateY(0deg) translateZ(32px); }
+    .kai-chatbot .back   { transform: rotateY(180deg) translateZ(32px); }
+    .kai-chatbot .right  { transform: rotateY(90deg) translateZ(32px); }
+    .kai-chatbot .left   { transform: rotateY(-90deg) translateZ(32px); }
+    .kai-chatbot .top    { transform: rotateX(90deg) translateZ(32px); }
+    .kai-chatbot .bottom { transform: rotateX(-90deg) translateZ(32px); }
+    @keyframes kaiSpin{
+      0%{transform:rotateX(-15deg) rotateY(0deg);}
+      100%{transform:rotateX(-15deg) rotateY(360deg);}
+    }
 
-/* ====== Setores na home ====== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-  margin: 30px;
-}
-.card {
-  background: rgba(16,24,38,.7);
-  border: 2px solid #00eaff;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer;
-}
-.card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,230,255,0.5); }
-.card h2 { color: #00eaff; font-size: 20px; margin-bottom: 10px; }
-.card p { color: #fff; font-size: 14px; margin-bottom: 15px; }
-.btn-enter { padding: 8px 14px; border-radius: 12px; border: none; background: #00eaff; color: #0b0f14; font-weight: bold; cursor: pointer; transition: all 0.3s; }
-.btn-enter:hover { background: #007a8a; color: #fff; }
+    .kai-message{
+      position: absolute;
+      bottom: 78px;
+      right: 0;
+      max-width: 280px;
+      padding: 10px 12px;
+      background: rgba(0,230,255,0.08);
+      border: 2px solid #00eaff;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 13px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all .25s;
+      pointer-events:none;
+    }
+    .kai-message.show{ opacity:1; transform: translateY(0); }
 
-/* ====== Footer ====== */
-footer.rodape { background: rgba(16,24,38,.95); border-top: 2px solid #00eaff; padding: 12px 20px; text-align: center; color: #fff; }
-footer a.link { color: #00eaff; text-decoration: none; }
-footer a.link:hover { text-decoration: underline; }
-
-/* ====== K-AI Chatbot ====== */
-.kai-chatbot {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 64px;
-  height: 64px;
-  z-index: 9999;
-  font-family: Arial, sans-serif;
-}
-.scene { width: 64px; height: 64px; perspective: 600px; }
-.cube { width: 64px; height: 64px; position: relative; transform-style: preserve-3d; animation: spin 6s linear infinite; cursor: pointer; transition: transform 0.5s; }
-.cube.expanded { width: 128px; height: 128px; }
-.cube-face { position: absolute; width: 64px; height: 64px; background: linear-gradient(135deg,#00eaff,#007a8a); border: 2px solid #00eaff; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 14px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0,230,255,0.5); }
-.front { transform: rotateY(0deg) translateZ(32px); }
-.back { transform: rotateY(180deg) translateZ(32px); }
-.right { transform: rotateY(90deg) translateZ(32px); }
-.left { transform: rotateY(-90deg) translateZ(32px); }
-.top { transform: rotateX(90deg) translateZ(32px); }
-.bottom { transform: rotateX(-90deg) translateZ(32px); }
-@keyframes spin {0%{transform:rotateX(-15deg) rotateY(0deg);}100%{transform:rotateX(-15deg) rotateY(360deg);}}
-
-.message-box {
-  position: absolute; top: -60px; right: 0;
-  max-width: 300px; padding: 12px;
-  background: rgba(0,230,255,0.08);
-  border: 2px solid #00eaff;
-  border-radius: 10px; color: #fff; font-size: 14px;
-  opacity: 0; transition: all 0.4s;
-  z-index: 999;
-}
-.message-box.show { opacity: 1; }
-
-.kai-chat-window {
-  display: none;
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  width: 280px;
-  max-height: 400px;
-  background: rgba(16,24,38,0.95);
-  border: 2px solid #00eaff;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.kai-header { background: #00eaff; color: #0b0f14; padding: 8px 12px; font-weight: bold; text-align: center; }
-.kai-body { flex: 1; padding: 10px; overflow-y: auto; color: #fff; font-size: 14px; }
-#kaiInput { border: none; padding: 8px 10px; font-size: 14px; outline: none; border-top: 1px solid #00eaff; background: rgba(255,255,255,0.05); color: #fff; }
-#kaiInput::placeholder { color: #aaa; }
-</style>
+    .kai-window{
+      display:none;
+      position:absolute;
+      bottom: 78px;
+      right: 0;
+      width: 300px;
+      max-height: 420px;
+      background: rgba(16,24,38,0.96);
+      border: 2px solid #00eaff;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .kai-window.open{ display:flex; }
+    .kai-head{
+      background:#00eaff;
+      color:#0b0f14;
+      padding: 8px 12px;
+      font-weight: 900;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .kai-close{
+      border:none;
+      background: rgba(0,0,0,.12);
+      color:#0b0f14;
+      font-weight:900;
+      border-radius:8px;
+      padding:4px 10px;
+      cursor:pointer;
+    }
+    .kai-body{
+      padding: 10px;
+      overflow:auto;
+      color:#fff;
+      font-size: 14px;
+      line-height: 1.35;
+      flex:1;
+    }
+    .kai-row{
+      border-top: 1px solid rgba(0,230,255,.35);
+      display:flex;
+      gap:8px;
+      padding: 10px;
+      align-items:center;
+      background: rgba(255,255,255,0.03);
+    }
+    .kai-input{
+      flex:1;
+      border: 1px solid rgba(0,230,255,.35);
+      background: rgba(0,0,0,.2);
+      color:#fff;
+      border-radius: 10px;
+      padding: 10px 10px;
+      outline:none;
+      font-size: 14px;
+    }
+    .kai-send{
+      border:none;
+      background:#00eaff;
+      color:#0b0f14;
+      font-weight:900;
+      border-radius:10px;
+      padding: 10px 12px;
+      cursor:pointer;
+    }
+    .kai-bubble{
+      margin: 8px 0;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,230,255,.25);
+      background: rgba(0,230,255,0.06);
+    }
+    .kai-bubble.you{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,0.06);
+    }
+    .kai-small{
+      opacity:.85;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- ===== TOPO ===== -->
+  <header class="topo">
+    <div class="topo__wrap">
+      <a class="brand" href="#" data-go="home" aria-label="KORVIL Home">
+        <span class="brand__logo">K</span>
+        <span class="brand__name">KORVIL</span>
+      </a>
 
-<!-- Header -->
-<header class="topo">
-  <a class="brand" href="#" data-go="home"><span class="brand__logo">K</span><span class="brand__name">KORVIL</span></a>
-  <button class="menuBtn" id="menuBtn">☰</button>
-  <nav class="nav" id="nav">
-    <a class="nav__link is-active" href="#" data-go="home">Home</a>
-    <a class="nav__link" href="#" data-go="sistemak">Sistema K</a>
-    <a class="nav__link" href="#" data-go="ktp">K-TP</a>
-    <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
-    <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
-    <a class="nav__link" href="#" data-go="kstore">K-Store</a>
-    <a class="nav__link" href="#" data-go="checkout">Checkout</a>
-  </nav>
-</header>
+      <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
-<!-- Conteúdo Home -->
-<main id="app">
-  <div class="grid">
-    <div class="card" onclick="goToSector('ktp')">
-      <h2>K-TP</h2>
-      <p>Projeto Transformação — Treinamentos, formulários e inscrições</p>
-      <button class="btn-enter">Entrar</button>
+      <nav class="nav" id="nav">
+        <a class="nav__link is-active" href="#" data-go="home">Home</a>
+        <a class="nav__link" href="#" data-go="sistemak">Sistema K</a>
+        <a class="nav__link" href="#" data-go="ktp">K-TP</a>
+        <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
+        <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
+        <a class="nav__link" href="#" data-go="kstore">K-Store</a>
+        <a class="nav__link" href="#" data-go="checkout">Checkout</a>
+      </nav>
     </div>
-    <div class="card" onclick="goToSector('k-afortunado')">
-      <h2>K-AFORTUNADO</h2>
-      <p>Empreendedorismo, cursos e oportunidades</p>
-      <button class="btn-enter">Entrar</button>
+  </header>
+
+  <!-- ✅ Sem home hardcoded aqui (evita duplicar). O app.js vai carregar sections/home.html -->
+  <main id="app" class="app" aria-live="polite"></main>
+
+  <footer class="rodape">
+    <div class="rodape__wrap">
+      <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
+      <a class="link" href="#" id="contactBtn">Entre em contato conosco</a>
     </div>
-    <div class="card" onclick="goToSector('k-alma')">
-      <h2>K-ALMA</h2>
-      <p>Centro de cuidados, saúde, terapeutas e serviços</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-    <div class="card" onclick="goToSector('sistemak')">
-      <h2>Sistema K</h2>
-      <p>Armas, serviços e integração com K-Store</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-  </div>
-</main>
+  </footer>
 
-<!-- Footer -->
-<footer class="rodape">
-  <p>© 2026 KORVIL — Sistema K Integrado</p>
-  <a class="link" href="#">Entre em contato conosco</a>
-</footer>
-
-<!-- K-AI Chatbot no canto inferior direito -->
-<div class="kai-chatbot" id="kaiChatbot">
-  <div class="scene">
-    <div class="cube" id="cubeKAI">
-      <div class="cube-face front">K-AI</div>
-      <div class="cube-face back">K-AI</div>
-      <div class="cube-face right">K-AI</div>
-      <div class="cube-face left">K-AI</div>
-      <div class="cube-face top">K-AI</div>
-      <div class="cube-face bottom">K-AI</div>
-    </div>
-  </div>
-  <div class="message-box" id="cubeMessage"></div>
-
-  <div class="kai-chat-window" id="kaiWindow">
-    <div class="kai-header">K-AI Assistente</div>
-    <div class="kai-body" id="kaiBody"></div>
-    <input type="text" id="kaiInput" placeholder="Pergunte algo..." />
-  </div>
-</div>
-
-<script>
-// ====== Funções do Menu ======
-const navLinks = document.querySelectorAll('.nav__link');
-const app = document.getElementById('app');
-const menuBtn = document.getElementById('menuBtn');
-const nav = document.getElementById('nav');
-menuBtn.addEventListener('click', ()=>nav.classList.toggle('is-open'));
-navLinks.forEach(link=>{
-  link.addEventListener('click', e=>{
-    e.preventDefault();
-    navLinks.forEach(l=>l.classList.remove('is-active'));
-    link.classList.add('is-active');
-    const page = link.dataset.go;
-    fetch(`sections/${page}.html`).then(r=>r.text()).then(html=>app.innerHTML = html).catch(()=>app.innerHTML=`<p>Erro ao carregar ${page}</p>`);
-  });
-});
-fetch('sections/home.html').then(r=>r.text()).then(html=>app.innerHTML = html);
-function goToSector(sector){
-  fetch(`sections/${sector}.html`).then(r=>r.text()).then(html=>app.innerHTML = html).catch(()=>app.innerHTML=`<p>Erro ao carregar ${sector}</p>`);
-}
-
-// ====== K-AI Chatbot com voz masculina ======
-const cube = document.getElementById("cubeKAI");
-const messageBox = document.getElementById("cubeMessage");
-const kaiWindow = document.getElementById("kaiWindow");
-const kaiBody = document.getElementById("kaiBody");
-const kaiInput = document.getElementById("kaiInput");
-let holdTimer=null, isExpanded=false;
-
-cube.addEventListener("mousedown",()=>{ holdTimer=setTimeout(()=>{
-  isExpanded=!isExpanded;
-  cube.classList.toggle("expanded",isExpanded);
-  showMessage(isExpanded?"Cubo expandido!":"Cubo reduzido!");
-},1000);});
-cube.addEventListener("mouseup",()=>clearTimeout(holdTimer));
-cube.addEventListener("mouseleave",()=>clearTimeout(holdTimer));
-
-cube.addEventListener("click",()=>{
-  if(holdTimer) return;
-  kaiWindow.style.display = kaiWindow.style.display==="flex"?"none":"flex";
-  if(kaiWindow.style.display==="flex") showMessage("K-AI ativado!");
-});
-
-function showMessage(text){
-  messageBox.textContent=text;
-  messageBox.classList.add("show");
-  setTimeout(()=>messageBox.classList.remove("show"),2500);
-}
-
-function speak(text){
-  if('speechSynthesis' in window){
-    const utterance=new SpeechSynthesisUtterance(text);
-    const voices=speechSynthesis.getVoices();
-    let maleVoice=voices.find(v=>v.lang.includes('pt') && v.name.toLowerCase().includes('male'));
-    if(!maleVoice) maleVoice=voices.find(v=>v.lang.includes('pt'));
-    utterance.voice=maleVoice;
-    utterance.rate=1; utterance.pitch=1;
-    speechSynthesis.speak(utterance);
-  }
-}
-
-kaiInput.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"){
-    const text=kaiInput.value.trim();
-    if(!text) return;
-    addMessage("Você",text);
-    kaiInput.value="";
-    setTimeout(()=>respondKAI(text),500);
-  }
-});
-
-function addMessage(who,text){
-  const div=document.createElement("div");
-  div.innerHTML=`<strong>${who}:</strong> ${text}`;
-  kaiBody.appendChild(div);
-  kaiBody.scrollTop=kaiBody.scrollHeight;
-}
-
-function respondKAI(msg){
-  msg=msg.toLowerCase();
-  let response="Desculpe, não entendi. Pergunte algo sobre o site.";
-  if(msg.includes("k-tp")) response="O K-TP é o Projeto Transformação: treinamentos, formulários e inscrições.";
-  else if(msg.includes("k-afortunado")) response="O K-AFORTUNADO é empreendedorismo, cursos e oportunidades.";
-  else if(msg.includes("k-alma")) response="O K-ALMA é o centro de cuidados, saúde, terapeutas e serviços.";
-  else if(msg.includes("sistema k")) response="O Sistema K inclui armas, serviços e integração com K-Store.";
-  else if(msg.includes("loja")||msg.includes("k-store")) response="A K-Store é a loja virtual do KORVIL. Você pode comprar produtos e serviços aqui.";
-  addMessage("K-AI",response);
-  speak(response);
-}
-</script>
-
-</body>
-</html>      <a class="nav__link" href="#" data-go="checkout">Checkout</a>
-    </nav>
-  </div>
-</header>
-
-<!-- Cubo K-AI -->
-<div class="scene" id="cubeScene">
-  <div class="cube" id="cubeKAI">
-    <div class="cube-face front">K-AI</div>
-    <div class="cube-face back">K-AI</div>
-    <div class="cube-face right">K-AI</div>
-    <div class="cube-face left">K-AI</div>
-    <div class="cube-face top">K-AI</div>
-    <div class="cube-face bottom">K-AI</div>
-  </div>
-</div>
-<div class="message-box" id="cubeMessage"></div>
-
-<!-- Setores na home -->
-<main id="app">
-  <div class="grid">
-    <div class="card" onclick="goToSector('ktp')">
-      <h2>K-TP</h2>
-      <p>Projeto Transformação — Treinamentos, formulários e inscrições</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-    <div class="card" onclick="goToSector('k-afortunado')">
-      <h2>K-AFORTUNADO</h2>
-      <p>Empreendedorismo, cursos e oportunidades</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-    <div class="card" onclick="goToSector('k-alma')">
-      <h2>K-ALMA</h2>
-      <p>Centro de cuidados, saúde, terapeutas e mais</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-    <div class="card" onclick="goToSector('sistemak')">
-      <h2>Sistema K</h2>
-      <p>Armas, serviços e K-Store integrados</p>
-      <button class="btn-enter">Entrar</button>
-    </div>
-  </div>
-</main>
-
-<!-- Footer -->
-<footer class="rodape">
-  <div class="rodape__wrap">
-    <p>© 2026 KORVIL — Sistema K Integrado</p>
-    <a class="link" href="#" id="contactBtn">Entre em contato conosco</a>
-  </div>
-</footer>
-
-  <!-- K-AI Chatbot (fixo no canto inferior direito) -->
-<div id="kaiChatbot" class="kai-chatbot">
-  <div class="kai-cube-container" id="cubeContainer">
+  <!-- ✅ K-AI (APENAS AQUI) -->
+  <div class="kai-chatbot" id="kaiChatbot">
     <div class="scene">
-      <div class="cube" id="cubeKAI">
+      <div class="cube" id="kaiCube">
         <div class="cube-face front">K-AI</div>
         <div class="cube-face back">K-AI</div>
         <div class="cube-face right">K-AI</div>
@@ -335,185 +200,144 @@ function respondKAI(msg){
         <div class="cube-face bottom">K-AI</div>
       </div>
     </div>
-    <div class="message-box" id="cubeMessage"></div>
+
+    <div class="kai-message" id="kaiToast"></div>
+
+    <div class="kai-window" id="kaiWindow" aria-hidden="true">
+      <div class="kai-head">
+        <span>K-AI Assistente</span>
+        <button class="kai-close" id="kaiCloseBtn" type="button">×</button>
+      </div>
+      <div class="kai-body" id="kaiBody"></div>
+      <div class="kai-row">
+        <input class="kai-input" id="kaiInput" placeholder="Pergunte algo sobre o KORVIL..." />
+        <button class="kai-send" id="kaiSendBtn" type="button">Enviar</button>
+      </div>
+    </div>
   </div>
-  <div class="kai-chat-window" id="kaiWindow">
-    <div class="kai-header">K-AI Assistente</div>
-    <div class="kai-body" id="kaiBody"></div>
-    <input type="text" id="kaiInput" placeholder="Pergunte algo..." />
-  </div>
-</div>
 
-<style>
-/* Container do chatbot */
-.kai-chatbot {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 64px;
-  height: 64px;
-  z-index: 9999;
-  font-family: Arial, sans-serif;
-}
+  <!-- JS principal do site -->
+  <script src="./js/app.js" defer></script>
 
-/* Cubo 3D (igual ao design anterior) */
-.scene { width: 64px; height: 64px; perspective: 600px; }
-.cube { width: 64px; height: 64px; position: relative; transform-style: preserve-3d; animation: spin 6s linear infinite; cursor: pointer; transition: transform 0.5s; }
-.cube.expanded { width: 128px; height: 128px; }
-.cube-face { position: absolute; width: 64px; height: 64px; background: linear-gradient(135deg, #00eaff, #007a8a); border: 2px solid #00eaff; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 14px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0, 230, 255, 0.5); }
-.front  { transform: rotateY(0deg) translateZ(32px); }
-.back   { transform: rotateY(180deg) translateZ(32px); }
-.right  { transform: rotateY(90deg) translateZ(32px); }
-.left   { transform: rotateY(-90deg) translateZ(32px); }
-.top    { transform: rotateX(90deg) translateZ(32px); }
-.bottom { transform: rotateX(-90deg) translateZ(32px); }
-@keyframes spin {0%{transform:rotateX(-15deg) rotateY(0deg);}100%{transform:rotateX(-15deg) rotateY(360deg);}}
+  <!-- K-AI JS inline (pra não duplicar com kai-core/kai.js) -->
+  <script>
+    (function(){
+      const cube = document.getElementById("kaiCube");
+      const toast = document.getElementById("kaiToast");
+      const win = document.getElementById("kaiWindow");
+      const body = document.getElementById("kaiBody");
+      const input = document.getElementById("kaiInput");
+      const send = document.getElementById("kaiSendBtn");
+      const closeBtn = document.getElementById("kaiCloseBtn");
 
-/* Janela de chat */
-.kai-chat-window {
-  display: none;
-  position: absolute;
-  bottom: 70px;
-  right: 0;
-  width: 280px;
-  max-height: 400px;
-  background: rgba(16,24,38,0.95);
-  border: 2px solid #00eaff;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.kai-header {
-  background: #00eaff;
-  color: #0b0f14;
-  padding: 8px 12px;
-  font-weight: bold;
-  text-align: center;
-}
-.kai-body {
-  flex: 1;
-  padding: 10px;
-  overflow-y: auto;
-  color: #fff;
-  font-size: 14px;
-}
-#kaiInput {
-  border: none;
-  padding: 8px 10px;
-  font-size: 14px;
-  outline: none;
-  border-top: 1px solid #00eaff;
-  background: rgba(255,255,255,0.05);
-  color: #fff;
-}
-#kaiInput::placeholder { color: #aaa; }
-</style>
+      let holdTimer = null;
+      let expanded = false;
 
-<script>
-// Referências
-const cube = document.getElementById("cubeKAI");
-const messageBox = document.getElementById("cubeMessage");
-const kaiWindow = document.getElementById("kaiWindow");
-const kaiBody = document.getElementById("kaiBody");
-const kaiInput = document.getElementById("kaiInput");
+      function showToast(text){
+        toast.textContent = text;
+        toast.classList.add("show");
+        setTimeout(()=>toast.classList.remove("show"), 2200);
+      }
 
-let holdTimer = null;
-let isExpanded = false;
-let isSplit = false;
+      // Voz masculina (melhor esforço)
+      function pickVoice(){
+        const voices = window.speechSynthesis?.getVoices?.() || [];
+        const pt = voices.filter(v => (v.lang || "").toLowerCase().startsWith("pt"));
+        // tenta “male”
+        let v = pt.find(v => (v.name || "").toLowerCase().includes("male"));
+        // tenta vozes comuns (não garante masculino, mas geralmente é mais “neutro”)
+        if(!v) v = pt.find(v => (v.name || "").toLowerCase().includes("google"));
+        if(!v) v = pt[0] || voices[0] || null;
+        return v;
+      }
 
-// Clique e segure → expandir/reduzir cubo
-cube.addEventListener("mousedown", () => {
-  holdTimer = setTimeout(() => {
-    isExpanded = !isExpanded;
-    cube.classList.toggle("expanded", isExpanded);
-    showMessage(isExpanded ? "Cubo expandido!" : "Cubo reduzido!");
-  }, 1000);
-});
-cube.addEventListener("mouseup", () => clearTimeout(holdTimer));
-cube.addEventListener("mouseleave", () => clearTimeout(holdTimer));
+      function speak(text){
+        if(!("speechSynthesis" in window)) return;
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = "pt-BR";
+        u.rate = 1;
+        u.pitch = 0.9; // ligeiramente mais grave
+        u.voice = pickVoice();
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(u);
+      }
 
-// Clique simples → abre/fecha chat
-cube.addEventListener("click", () => {
-  if (holdTimer) return;
-  kaiWindow.style.display = kaiWindow.style.display === "flex" ? "none" : "flex";
-  if (kaiWindow.style.display === "flex") showMessage("K-AI ativado!");
-});
+      function bubble(who, text){
+        const div = document.createElement("div");
+        div.className = "kai-bubble" + (who === "Você" ? " you" : "");
+        div.innerHTML = "<strong>" + who + ":</strong> " + text;
+        body.appendChild(div);
+        body.scrollTop = body.scrollHeight;
+      }
 
-// Função de mensagens do cubo
-function showMessage(text){
-  messageBox.textContent = text;
-  messageBox.classList.add("show");
-  setTimeout(()=> messageBox.classList.remove("show"), 2500);
-}
+      function siteAnswer(q){
+        const t = q.toLowerCase();
 
-// Enviar pergunta
-kaiInput.addEventListener("keydown", (e)=>{
-  if(e.key === "Enter"){
-    const text = kaiInput.value.trim();
-    if(!text) return;
-    addMessage("Você", text);
-    kaiInput.value = "";
-    setTimeout(()=> respondKAI(text), 500);
-  }
-});
+        // Respostas “sobre o site”
+        if(t.includes("menu")) return "O menu fica no topo. No celular, toque no ☰ para abrir/fechar.";
+        if(t.includes("k-store") || t.includes("loja")) return "A K-Store é a loja virtual do KORVIL: produtos, carrinho e checkout.";
+        if(t.includes("checkout") || t.includes("pagamento")) return "No Checkout você finaliza pedidos e escolhe forma de pagamento (simulado).";
+        if(t.includes("k-tp") || t.includes("transformação") || t.includes("projeto")) return "O K-TP é o Projeto TRANSFORMAÇÃO com inscrição e dados do participante.";
+        if(t.includes("k-alma") || t.includes("cuidados") || t.includes("saúde")) return "K-ALMA: serviços de saúde e cuidados (terapia, fisio, psicologia, etc.).";
+        if(t.includes("k-afortunado") || t.includes("curso") || t.includes("empreendedor")) return "K-AFORTUNADO: empreendedorismo, cursos e crescimento profissional.";
+        if(t.includes("sistema k")) return "Sistema K: núcleo do ecossistema, serviços e integrações do KORVIL.";
 
-// Adiciona mensagem na janela
-function addMessage(who, text){
-  const div = document.createElement("div");
-  div.innerHTML = `<strong>${who}:</strong> ${text}`;
-  kaiBody.appendChild(div);
-  kaiBody.scrollTop = kaiBody.scrollHeight;
-}
+        return "Posso te guiar no site: diga o setor (K-TP, K-Store, K-AFORTUNADO, K-ALMA, Sistema K) ou o que você quer fazer.";
+      }
 
-// Resposta automática do K-AI (você pode expandir com funcionalidades)
-function respondKAI(msg){
-  msg = msg.toLowerCase();
-  let response = "Desculpe, não entendi. Pergunte algo sobre o site.";
+      function openChat(){
+        win.classList.add("open");
+        win.setAttribute("aria-hidden","false");
+      }
+      function closeChat(){
+        win.classList.remove("open");
+        win.setAttribute("aria-hidden","true");
+      }
+      function toggleChat(){
+        if(win.classList.contains("open")) closeChat();
+        else openChat();
+      }
 
-  if(msg.includes("k-tp")) response = "O K-TP é o Projeto Transformação: treinamentos, formulários e inscrições.";
-  else if(msg.includes("k-afortunado")) response = "O K-AFORTUNADO é empreendedorismo, cursos e oportunidades.";
-  else if(msg.includes("k-alma")) response = "O K-ALMA é o centro de cuidados, saúde, terapeutas e serviços.";
-  else if(msg.includes("sistema k")) response = "O Sistema K inclui armas, serviços e integração com K-Store.";
-  else if(msg.includes("loja") || msg.includes("k-store")) response = "A K-Store é a loja virtual do KORVIL. Você pode comprar produtos e serviços aqui.";
+      // Clique e segure: expandir
+      cube.addEventListener("pointerdown", () => {
+        holdTimer = setTimeout(() => {
+          expanded = !expanded;
+          cube.classList.toggle("expanded", expanded);
+          showToast(expanded ? "Cubo expandido!" : "Cubo reduzido!");
+        }, 900);
+      });
+      cube.addEventListener("pointerup", () => clearTimeout(holdTimer));
+      cube.addEventListener("pointerleave", () => clearTimeout(holdTimer));
 
-  addMessage("K-AI", response);
-}
-    </script>
+      // Clique normal: abre/fecha chat
+      cube.addEventListener("click", () => {
+        // se o hold disparou, o click pode vir em seguida; mas como limpamos no pointerup, ok
+        toggleChat();
+        showToast(win.classList.contains("open") ? "K-AI ativado!" : "K-AI fechado!");
+      });
 
-<!-- JS Principal -->
-<script>
-const navLinks = document.querySelectorAll('.nav__link');
-const app = document.getElementById('app');
-const menuBtn = document.getElementById('menuBtn');
-const nav = document.getElementById('nav');
+      closeBtn.addEventListener("click", () => closeChat());
 
-menuBtn.addEventListener('click', ()=>nav.classList.toggle('is-open'));
+      function sendMsg(){
+        const q = (input.value || "").trim();
+        if(!q) return;
+        bubble("Você", q);
+        input.value = "";
+        const a = siteAnswer(q);
+        bubble("K-AI", a);
+        speak(a);
+      }
 
-navLinks.forEach(link=>{
-  link.addEventListener('click', e=>{
-    e.preventDefault();
-    navLinks.forEach(l=>l.classList.remove('is-active'));
-    link.classList.add('is-active');
+      send.addEventListener("click", sendMsg);
+      input.addEventListener("keydown", (e) => {
+        if(e.key === "Enter"){ e.preventDefault(); sendMsg(); }
+      });
 
-    const page = link.dataset.go;
-    fetch(`sections/${page}.html`)
-      .then(r=>r.text())
-      .then(html=>app.innerHTML = html)
-      .catch(err=>app.innerHTML=`<p>Erro ao carregar a página ${page}</p>`);
-  });
-});
-
-// Carregar home por padrão
-fetch('sections/home.html')
-  .then(r=>r.text())
-  .then(html=>app.innerHTML = html);
-
-// Função para clicar nos cards
-function goToSector(sector){
-  fetch(`sections/${sector}.html`)
-    .then(r=>r.text())
-    .then(html=>app.innerHTML = html)
-    .catch(()=>app.innerHTML=`<p>Erro ao carregar ${sector}</p>`);
-}
-</script>
+      // Carrega vozes (alguns browsers só populam depois)
+      if("speechSynthesis" in window){
+        window.speechSynthesis.onvoiceschanged = () => pickVoice();
+      }
+    })();
+  </script>
+</body>
+</html>
