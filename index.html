@@ -160,6 +160,165 @@
   </div>
 </footer>
 
+  <!-- K-AI Chatbot (fixo no canto inferior direito) -->
+<div id="kaiChatbot" class="kai-chatbot">
+  <div class="kai-cube-container" id="cubeContainer">
+    <div class="scene">
+      <div class="cube" id="cubeKAI">
+        <div class="cube-face front">K-AI</div>
+        <div class="cube-face back">K-AI</div>
+        <div class="cube-face right">K-AI</div>
+        <div class="cube-face left">K-AI</div>
+        <div class="cube-face top">K-AI</div>
+        <div class="cube-face bottom">K-AI</div>
+      </div>
+    </div>
+    <div class="message-box" id="cubeMessage"></div>
+  </div>
+  <div class="kai-chat-window" id="kaiWindow">
+    <div class="kai-header">K-AI Assistente</div>
+    <div class="kai-body" id="kaiBody"></div>
+    <input type="text" id="kaiInput" placeholder="Pergunte algo..." />
+  </div>
+</div>
+
+<style>
+/* Container do chatbot */
+.kai-chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 64px;
+  height: 64px;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+/* Cubo 3D (igual ao design anterior) */
+.scene { width: 64px; height: 64px; perspective: 600px; }
+.cube { width: 64px; height: 64px; position: relative; transform-style: preserve-3d; animation: spin 6s linear infinite; cursor: pointer; transition: transform 0.5s; }
+.cube.expanded { width: 128px; height: 128px; }
+.cube-face { position: absolute; width: 64px; height: 64px; background: linear-gradient(135deg, #00eaff, #007a8a); border: 2px solid #00eaff; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; font-size: 14px; border-radius: 6px; box-shadow: 0 6px 20px rgba(0, 230, 255, 0.5); }
+.front  { transform: rotateY(0deg) translateZ(32px); }
+.back   { transform: rotateY(180deg) translateZ(32px); }
+.right  { transform: rotateY(90deg) translateZ(32px); }
+.left   { transform: rotateY(-90deg) translateZ(32px); }
+.top    { transform: rotateX(90deg) translateZ(32px); }
+.bottom { transform: rotateX(-90deg) translateZ(32px); }
+@keyframes spin {0%{transform:rotateX(-15deg) rotateY(0deg);}100%{transform:rotateX(-15deg) rotateY(360deg);}}
+
+/* Janela de chat */
+.kai-chat-window {
+  display: none;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  width: 280px;
+  max-height: 400px;
+  background: rgba(16,24,38,0.95);
+  border: 2px solid #00eaff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.kai-header {
+  background: #00eaff;
+  color: #0b0f14;
+  padding: 8px 12px;
+  font-weight: bold;
+  text-align: center;
+}
+.kai-body {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  color: #fff;
+  font-size: 14px;
+}
+#kaiInput {
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
+  border-top: 1px solid #00eaff;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+}
+#kaiInput::placeholder { color: #aaa; }
+</style>
+
+<script>
+// Referências
+const cube = document.getElementById("cubeKAI");
+const messageBox = document.getElementById("cubeMessage");
+const kaiWindow = document.getElementById("kaiWindow");
+const kaiBody = document.getElementById("kaiBody");
+const kaiInput = document.getElementById("kaiInput");
+
+let holdTimer = null;
+let isExpanded = false;
+let isSplit = false;
+
+// Clique e segure → expandir/reduzir cubo
+cube.addEventListener("mousedown", () => {
+  holdTimer = setTimeout(() => {
+    isExpanded = !isExpanded;
+    cube.classList.toggle("expanded", isExpanded);
+    showMessage(isExpanded ? "Cubo expandido!" : "Cubo reduzido!");
+  }, 1000);
+});
+cube.addEventListener("mouseup", () => clearTimeout(holdTimer));
+cube.addEventListener("mouseleave", () => clearTimeout(holdTimer));
+
+// Clique simples → abre/fecha chat
+cube.addEventListener("click", () => {
+  if (holdTimer) return;
+  kaiWindow.style.display = kaiWindow.style.display === "flex" ? "none" : "flex";
+  if (kaiWindow.style.display === "flex") showMessage("K-AI ativado!");
+});
+
+// Função de mensagens do cubo
+function showMessage(text){
+  messageBox.textContent = text;
+  messageBox.classList.add("show");
+  setTimeout(()=> messageBox.classList.remove("show"), 2500);
+}
+
+// Enviar pergunta
+kaiInput.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter"){
+    const text = kaiInput.value.trim();
+    if(!text) return;
+    addMessage("Você", text);
+    kaiInput.value = "";
+    setTimeout(()=> respondKAI(text), 500);
+  }
+});
+
+// Adiciona mensagem na janela
+function addMessage(who, text){
+  const div = document.createElement("div");
+  div.innerHTML = `<strong>${who}:</strong> ${text}`;
+  kaiBody.appendChild(div);
+  kaiBody.scrollTop = kaiBody.scrollHeight;
+}
+
+// Resposta automática do K-AI (você pode expandir com funcionalidades)
+function respondKAI(msg){
+  msg = msg.toLowerCase();
+  let response = "Desculpe, não entendi. Pergunte algo sobre o site.";
+
+  if(msg.includes("k-tp")) response = "O K-TP é o Projeto Transformação: treinamentos, formulários e inscrições.";
+  else if(msg.includes("k-afortunado")) response = "O K-AFORTUNADO é empreendedorismo, cursos e oportunidades.";
+  else if(msg.includes("k-alma")) response = "O K-ALMA é o centro de cuidados, saúde, terapeutas e serviços.";
+  else if(msg.includes("sistema k")) response = "O Sistema K inclui armas, serviços e integração com K-Store.";
+  else if(msg.includes("loja") || msg.includes("k-store")) response = "A K-Store é a loja virtual do KORVIL. Você pode comprar produtos e serviços aqui.";
+
+  addMessage("K-AI", response);
+}
+    </script>
+
 <!-- JS Principal -->
 <script>
 const navLinks = document.querySelectorAll('.nav__link');
