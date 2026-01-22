@@ -1,10 +1,11 @@
-// ===== K-AI Respostas =====
-const kaiResponses = [
-  { trigger: ["oi","olá","ola"], response: "Olá! Eu sou o K-AI, assistente virtual do KORVIL. Posso ajudar a navegar na K-Store, mostrar produtos, calcular frete e muito mais!" },
-  { trigger: ["produtos","loja"], response: "Na K-Store você encontra produtos do ecossistema KORVIL. Use a busca, filtre por categoria ou ordene por preço." },
-  { trigger: ["carrinho"], response: "Você pode adicionar produtos ao carrinho clicando em 'Adicionar ao Carrinho'. Total e frete aparecem no drawer do carrinho." },
-  { trigger: ["frete","cep"], response: "Digite seu CEP no campo de frete e clique em 'Calcular' para simular prazo e valor." },
-  { trigger: ["checkout","comprar","finalizar"], response: "Para finalizar a compra, preencha seus dados no formulário de checkout e clique em 'Finalizar Compra'." },
-  { trigger: ["crie algo","gerar","programa","codigo"], response: "Perfeito! Posso gerar códigos, textos, ideias ou mostrar qualquer informação do site." },
-  { trigger: ["mostre"], response: "Aqui está o que você pediu: <informação simulada> — explore a K-Store para mais detalhes." }
-];
+// ===== K-AI DATA =====
+const kaiResponses = {
+    "oi": "Olá! Eu sou o K-AI, assistente do Sistema K. Como posso te ajudar?",
+    "olá": "Olá! Eu sou o K-AI, assistente do Sistema K. Pergunte qualquer coisa!",
+    "quem é você": "Eu sou o K-AI, seu assistente virtual dentro do site KORVIL.",
+    "k-store": "No K-Store você pode ver todos os produtos do Sistema K, adicionar ao carrinho e calcular frete.",
+    "produtos": "O K-Store tem diversos produtos disponíveis. Clique em K-Store no menu para ver tudo.",
+    "como comprar": "Para comprar, adicione produtos ao carrinho, calcule o frete e finalize no checkout.",
+    "ajuda": "Posso responder perguntas sobre o site, K-Store e Sistema K.",
+    "default": "Desculpe, não entendi. Pergunte sobre o site, K-Store ou Sistema K."
+};
