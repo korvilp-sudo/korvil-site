@@ -1,120 +1,49 @@
-<section class="topo">
-  <h1>KORVIL</h1>
-  <p>Você está no KORVIL site. Um sistema integrado de autodesenvolvimento.</p>
-</section>
-
-<section class="setores">
-  <h2>Escolha um setor</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Sistema K</h3>
-      <p>Central de organização, serviços e automações do KORVIL.</p>
-      <button class="btn" onclick="abrirModal('Sistema K')">Entrar</button>
-    </div>
-    <div class="card">
-      <h3>K-TP</h3>
-      <p>Projeto Transformação e Treinamento Personalizado.</p>
-      <button class="btn" onclick="abrirModal('K-TP')">Entrar</button>
-    </div>
-    <div class="card">
-      <h3>K-AFORTUNADO</h3>
-      <p>Empreendedorismo, gestão e crescimento financeiro.</p>
-      <button class="btn" onclick="abrirModal('K-AFORTUNADO')">Entrar</button>
-    </div>
-    <div class="card">
-      <h3>K-ALMA</h3>
-      <p>Cuidados, equilíbrio emocional e Projeto Paz.</p>
-      <button class="btn" onclick="abrirModal('K-ALMA')">Entrar</button>
-    </div>
-  </div>
-</section>}
-
-.fechar{
-  background:none;
-  border:none;
-  color:var(--accent);
-  margin-top:14px;
-  cursor:pointer;
-}
-
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-  .topo h1{font-size:3rem}
-}
-</style>
-</head>
-
-<body>
-
-<!-- HOME -->
-<section class="topo">
-  <h1>KORVIL</h1>
-  <p>
-    Você está no ecossistema KORVIL.  
-    Um sistema integrado de evolução física, mental, espiritual e financeira.
+<section class="hero">
+  <h1 class="hero__title">KORVIL</h1>
+  <p class="hero__sub">
+    Você está no ecossistema KORVIL. Um sistema integrado de evolução física, mental, espiritual e financeira.
   </p>
-</section>
 
-<!-- SETORES -->
-<section class="setores">
-  <h2>Escolha um setor</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Sistema K</h3>
-      <p>Central de organização, serviços e automações do KORVIL.</p>
-      <button class="btn" onclick="abrir('Sistema K')">Entrar</button>
-    </div>
-
-    <div class="card">
-      <h3>K-TP</h3>
-      <p>Projeto Transformação e Treinamento Personalizado.</p>
-      <button class="btn" onclick="abrir('K-TP')">Entrar</button>
-    </div>
-
-    <div class="card">
-      <h3>K-AFORTUNADO</h3>
-      <p>Empreendedorismo, gestão e crescimento financeiro.</p>
-      <button class="btn" onclick="abrir('K-AFORTUNADO')">Entrar</button>
-    </div>
-
-    <div class="card">
-      <h3>K-ALMA</h3>
-      <p>Cuidados, equilíbrio emocional e Projeto Paz.</p>
-      <button class="btn" onclick="abrir('K-ALMA')">Entrar</button>
-    </div>
-
+  <div class="hero__ctaRow">
+    <button class="btn btn--accent" data-go="sistema-k">Explorar Sistema K</button>
+    <button class="btn" data-go="k-tp">Abrir K-TP</button>
   </div>
 </section>
 
-<!-- CONTATO -->
-<section class="contato">
-  <h2>Entre em contato conosco agora mesmo</h2>
-  <a href="mailto:sistemak.srv@gmail.com">Falar com o Sistema K</a>
+<section class="grid" aria-label="Escolha um setor">
+  <article class="card">
+    <h2 class="card__title">Sistema K</h2>
+    <p class="card__text">Central de organização, serviços e automações do KORVIL.</p>
+    <div class="card__row">
+      <span class="tag">Core</span>
+      <button class="btn btn--accent" data-login="Sistema K">Entrar</button>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2 class="card__title">K-TP</h2>
+    <p class="card__text">Projeto Transformação e Treinamento Personalizado.</p>
+    <div class="card__row">
+      <span class="tag">Fitness</span>
+      <button class="btn btn--accent" data-login="K-TP">Entrar</button>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2 class="card__title">K-AFORTUNADO</h2>
+    <p class="card__text">Empreendedorismo, gestão e crescimento financeiro.</p>
+    <div class="card__row">
+      <span class="tag">Negócios</span>
+      <button class="btn btn--accent" data-login="K-AFORTUNADO">Entrar</button>
+    </div>
+  </article>
+
+  <article class="card">
+    <h2 class="card__title">K-ALMA</h2>
+    <p class="card__text">Cuidados, equilíbrio emocional e Projeto Paz.</p>
+    <div class="card__row">
+      <span class="tag">Bem-estar</span>
+      <button class="btn btn--accent" data-login="K-ALMA">Entrar</button>
+    </div>
+  </article>
 </section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h3 id="tituloModal"></h3>
-    <input type="email" placeholder="Seu e-mail">
-    <input type="password" placeholder="Senha">
-    <button class="btn">Acessar</button>
-    <button class="fechar" onclick="fechar()">Fechar</button>
-  </div>
-</div>
-
-<script>
-function abrir(setor){
-  document.getElementById('tituloModal').innerText = setor;
-  document.getElementById('modal').style.display = 'flex';
-}
-
-function fechar(){
-  document.getElementById('modal').style.display = 'none';
-}
-</script>
-
-</body>
-  </html>
