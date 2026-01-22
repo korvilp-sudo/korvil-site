@@ -1,151 +1,35 @@
+// =========================
+// Navegação entre páginas
+// =========================
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
   const links = document.querySelectorAll(".nav__link");
 
-  // Função para carregar seção
-  function loadSection(name) {
-    fetch(`./sections/${name}.html`)
-      .then(res => res.text())
-      .then(html => {
-        app.innerHTML = html;
-      })
-      .catch(() => {
-        app.innerHTML = "<h2>Erro ao carregar a página</h2>";
-      });
-
-    // Atualiza active link
-    links.forEach(l => l.classList.remove("is-active"));
-    const activeLink = document.querySelector(`.nav__link[data-go="${name}"]`);
-    if (activeLink) activeLink.classList.add("is-active");
+  async function loadSection(section) {
+    try {
+      const res = await fetch(`sections/${section}.html`);
+      if (!res.ok) throw new Error("Erro ao carregar a seção");
+      const html = await res.text();
+      app.innerHTML = html;
+      // Pode inicializar scripts específicos da seção aqui
+    } catch (err) {
+      app.innerHTML = `<h2>Erro ao carregar a seção: ${section}</h2>`;
+    }
   }
 
-  // Inicial: Home
-  loadSection("home");
-
-  // Eventos de clique nos links
   links.forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
-      const target = link.getAttribute("data-go");
-      loadSection(target);
+      links.forEach(l => l.classList.remove("is-active"));
+      link.classList.add("is-active");
+      const section = link.getAttribute("data-go");
+      loadSection(section);
     });
   });
 
-  // Botão menu mobile
-  const menuBtn = document.getElementById("menuBtn");
-  const nav = document.getElementById("nav");
-  menuBtn.addEventListener("click", () => {
-    nav.classList.toggle("nav--open");
-    menuBtn.setAttribute("aria-expanded", nav.classList.contains("nav--open"));
-  });
-});}
-function setCart(cart) {
-  localStorage.setItem(KSTORE.cartKey, JSON.stringify(cart));
-  updateCartCount();
-}
-function getShipping() {
-  return safeParse(localStorage.getItem(KSTORE.shipKey) || "null", null);
-}
-function setShipping(ship) {
-  localStorage.setItem(KSTORE.shipKey, JSON.stringify(ship));
-}
-
-function cartCount() {
-  return getCart().reduce((s, it) => s + (it.qty || 0), 0);
-}
-function updateCartCount() {
-  const el = document.getElementById("kstoreCartCount");
-  if (el) el.textContent = String(cartCount());
-}
-
-function addToCart(id, qty = 1) {
-  const cart = getCart();
-  const item = cart.find((i) => i.id === id);
-  if (item) item.qty += qty;
-  else cart.push({ id, qty });
-  setCart(cart);
-}
-function removeFromCart(id) {
-  setCart(getCart().filter((i) => i.id !== id));
-}
-function setQty(id, qty) {
-  const cart = getCart();
-  const item = cart.find((i) => i.id === id);
-  if (!item) return;
-  item.qty = Math.max(1, qty);
-  setCart(cart);
-}
-
-function totals() {
-  const cart = getCart();
-  let subtotal = 0;
-  for (const it of cart) {
-    const p = KSTORE.products.find((x) => x.id === it.id);
-    if (p) subtotal += p.price * it.qty;
-  }
-  const shipping = getShipping()?.value ?? 0;
-  return { subtotal, shipping, total: subtotal + shipping };
-}
-
-// Frete simulado por região de CEP
-function calcShippingByCep(cepRaw) {
-  const cep = String(cepRaw || "").replace(/\D/g, "");
-  if (cep.length !== 8) return { ok: false, msg: "CEP inválido. Use 8 dígitos." };
-
-  const prefix = parseInt(cep.slice(0, 2), 10);
-  let value = 29.9,
-    days = "5–10 dias";
-
-  if (prefix >= 1 && prefix <= 19) {
-    value = 14.9;
-    days = "2–4 dias";
-  } else if (prefix >= 20 && prefix <= 28) {
-    value = 19.9;
-    days = "3–6 dias";
-  } else if (prefix >= 30 && prefix <= 39) {
-    value = 18.9;
-    days = "3–6 dias";
-  } else if (prefix >= 40 && prefix <= 49) {
-    value = 24.9;
-    days = "4–8 dias";
-  } else if (prefix >= 50 && prefix <= 59) {
-    value = 26.9;
-    days = "4–9 dias";
-  } else if (prefix >= 60 && prefix <= 69) {
-    value = 29.9;
-    days = "5–10 dias";
-  } else if (prefix >= 70 && prefix <= 79) {
-    value = 27.9;
-    days = "4–9 dias";
-  } else if (prefix >= 80 && prefix <= 89) {
-    value = 22.9;
-    days = "3–7 dias";
-  } else if (prefix >= 90 && prefix <= 99) {
-    value = 23.9;
-    days = "3–7 dias";
-  }
-
-  return { ok: true, cep, value, days };
-}
-
-function calcShippingFromUI() {
-  const cepEl = document.getElementById("kstoreCep");
-  const resEl = document.getElementById("kstoreShippingResult");
-  if (!cepEl || !resEl) return;
-
-  const out = calcShippingByCep(cepEl.value);
-  if (!out.ok) {
-    resEl.textContent = out.msg;
-    return;
-  }
-
-  setShipping({ cep: out.cep, value: out.value, days: out.days });
-  resEl.textContent = `Frete: ${brl(out.value)} • Prazo: ${out.days}`;
-  renderCart();
-}
-
-/* -------- Render Loja -------- */
-function renderStoreIfOnPage() {
+  // Carregar home por padrão
+  loadSection("home");
+});function renderStoreIfOnPage() {
   const grid = document.getElementById("kstoreProducts");
   if (!grid) return;
 
