@@ -1,3 +1,18 @@
+console.log("✅ app.js carregou");
+
+window.addEventListener("error", (e) => {
+  console.log("❌ ERRO JS:", e.message);
+});
+
+const APP = document.getElementById("app");
+const MODAL_HOST = document.getElementById("modalHost");
+const NAV = document.getElementById("nav");
+const MENU_BTN = document.getElementById("menuBtn");
+
+if (!APP) {
+  console.log("❌ Não achei <main id='app'> no index.html");
+}
+
 /* =========================================================
    KORVIL — js/app.js (Router + Modal + WhatsApp CTA + K-Store)
    Você disse: index.html e css já estão prontos.
