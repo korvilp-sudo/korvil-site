@@ -1,1 +1,26 @@
 
+<div class="modalOverlay" id="loginModalOverlay" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+  <div class="modal">
+    <h2 id="loginModalTitle">Entrar</h2>
+    <p id="loginModalSubtitle">Acesso ao setor.</p>
+
+    <div class="modal__actions">
+      <button class="btn" id="loginModalClose">Fechar</button>
+      <button class="btn btn--accent" onclick="alert('Integração de login em breve');">Continuar</button>
+    </div>
+
+    <button class="fechar" id="loginModalClose2" style="display:none"></button>
+  </div>
+</div>
+
+<script>
+  // Garante que ambos fecham, caso você use o segundo depois
+  (function(){
+    const overlay = document.getElementById("loginModalOverlay");
+    const b1 = document.getElementById("loginModalClose");
+    const b2 = document.getElementById("loginModalClose2");
+    const close = () => overlay.classList.remove("is-open");
+    b1 && b1.addEventListener("click", close);
+    b2 && b2.addEventListener("click", close);
+  })();
+</script>
