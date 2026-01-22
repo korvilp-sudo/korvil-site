@@ -1,151 +1,44 @@
-/* =========================================================
-   KORVIL — js/app.js (COMPLETO)
-   Router + Modal + CTAs WhatsApp + K-Store (vitrine, carrinho, frete CEP, checkout)
-   ========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const app = document.getElementById("app");
+  const links = document.querySelectorAll(".nav__link");
 
-console.log("✅ app.js carregou");
-window.addEventListener("error", (e) => console.log("❌ ERRO JS:", e.message));
+  // Função para carregar seção
+  function loadSection(name) {
+    fetch(`./sections/${name}.html`)
+      .then(res => res.text())
+      .then(html => {
+        app.innerHTML = html;
+      })
+      .catch(() => {
+        app.innerHTML = "<h2>Erro ao carregar a página</h2>";
+      });
 
-const APP = document.getElementById("app");
-const MODAL_HOST = document.getElementById("modalHost");
-const NAV = document.getElementById("nav");
-const MENU_BTN = document.getElementById("menuBtn");
+    // Atualiza active link
+    links.forEach(l => l.classList.remove("is-active"));
+    const activeLink = document.querySelector(`.nav__link[data-go="${name}"]`);
+    if (activeLink) activeLink.classList.add("is-active");
+  }
 
-const WHATSAPP_NUMBER = "5513997690898";
+  // Inicial: Home
+  loadSection("home");
 
-/* -----------------------------
-   Helpers
------------------------------- */
-function openWhatsApp(message) {
-  const text = encodeURIComponent(message || "");
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}${text ? `?text=${text}` : ""}`, "_blank");
-}
-
-function setActiveNav(route) {
-  document.querySelectorAll(".nav__link").forEach((a) => {
-    a.classList.toggle("is-active", a.dataset.go === route);
+  // Eventos de clique nos links
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      e.preventDefault();
+      const target = link.getAttribute("data-go");
+      loadSection(target);
+    });
   });
-}
 
-async function loadHTML(path) {
-  const res = await fetch(path, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Falha ao carregar ${path} (${res.status})`);
-  return await res.text();
-}
-
-/* -----------------------------
-   Router / Seções
------------------------------- */
-async function loadSection(route) {
-  const map = {
-    home: "./sections/home.html",
-    "sistema-k": "./sections/sistema-k.html",
-    "k-tp": "./sections/k-tp.html",
-    "k-afortunado": "./sections/k-afortunado.html",
-    "k-alma": "./sections/k-alma.html",
-    "k-store": "./sections/k-store.html",
-    checkout: "./sections/checkout.html",
-  };
-
-  const file = map[route] || map.home;
-
-  if (APP) {
-    APP.innerHTML = `<div class="hero"><h1 class="hero__title">Carregando…</h1><p class="hero__sub">Só um instante.</p></div>`;
-  }
-
-  try {
-    const html = await loadHTML(file);
-    if (APP) APP.innerHTML = html;
-
-    setActiveNav(route);
-
-    // ✅ hooks pós-carregamento (K-Store/Checkout)
-    kstoreOnSectionLoaded();
-
-    NAV?.classList.remove("is-open");
-    MENU_BTN?.setAttribute("aria-expanded", "false");
-  } catch (e) {
-    console.log("❌ loadSection erro:", e);
-    if (APP) {
-      APP.innerHTML = `
-        <section class="hero">
-          <h1 class="hero__title">Erro ao carregar</h1>
-          <p class="hero__sub">${String(e.message || e)}</p>
-          <div class="hero__ctaRow">
-            <button class="btn btn--accent" data-go="home">Voltar para Home</button>
-          </div>
-        </section>
-      `;
-    }
-  }
-}
-
-/* -----------------------------
-   Modal Login (opcional)
------------------------------- */
-async function ensureModal() {
-  if (!MODAL_HOST) return;
-  if (MODAL_HOST.dataset.loaded === "1") return;
-
-  const modalHTML = await loadHTML("./components/modal-login.html");
-  MODAL_HOST.innerHTML = modalHTML;
-  MODAL_HOST.dataset.loaded = "1";
-
-  const overlay = document.getElementById("loginModalOverlay");
-  const closeBtn = document.getElementById("loginModalClose");
-
-  function close() {
-    overlay?.classList.remove("is-open");
-  }
-
-  closeBtn?.addEventListener("click", close);
-  overlay?.addEventListener("click", (ev) => {
-    if (ev.target === overlay) close();
+  // Botão menu mobile
+  const menuBtn = document.getElementById("menuBtn");
+  const nav = document.getElementById("nav");
+  menuBtn.addEventListener("click", () => {
+    nav.classList.toggle("nav--open");
+    menuBtn.setAttribute("aria-expanded", nav.classList.contains("nav--open"));
   });
-}
-
-async function openLoginModal(sectorName) {
-  await ensureModal();
-  const overlay = document.getElementById("loginModalOverlay");
-  const title = document.getElementById("loginModalTitle");
-  const subtitle = document.getElementById("loginModalSubtitle");
-
-  if (title) title.textContent = `Entrar em ${sectorName}`;
-  if (subtitle) subtitle.textContent = `Login do setor: ${sectorName}. (Integração real depois.)`;
-
-  overlay?.classList.add("is-open");
-}
-
-/* =========================================================
-   K-STORE (MVP completo)
-========================================================= */
-const KSTORE = {
-  cartKey: "korvil_kstore_cart_v1",
-  shipKey: "korvil_kstore_shipping_v1",
-  products: [
-    { id: "whey-k", name: "Whey K-Performance 900g", price: 129.9, category: "Suplementos", img: "./assets/images/capa-korvil.jpg", desc: "Proteína para performance e recuperação.", stock: 23 },
-    { id: "creatina-k", name: "Creatina K-Core 300g", price: 89.9, category: "Suplementos", img: "./assets/images/capa-korvil.jpg", desc: "Força e explosão.", stock: 41 },
-    { id: "camiseta-k", name: "Camiseta KORVIL — Preta", price: 79.9, category: "Roupas", img: "./assets/images/capa-korvil.jpg", desc: "Estilo KORVIL.", stock: 18 },
-    { id: "luva-k", name: "Luva Treino K-Grip", price: 59.9, category: "Acessórios", img: "./assets/images/capa-korvil.jpg", desc: "Pegada firme e proteção.", stock: 33 },
-    { id: "garrafa-k", name: "Garrafa K-Hydra 1L", price: 49.9, category: "Acessórios", img: "./assets/images/capa-korvil.jpg", desc: "Hidratação no modo K.", stock: 52 },
-    { id: "ebook-k", name: "E-book: Protocolo Off Season (K-TP)", price: 39.9, category: "Digitais", img: "./assets/images/capa-korvil.jpg", desc: "Guia base.", stock: 9999 },
-  ],
-};
-
-function brl(v) {
-  return (v ?? 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
-function safeParse(str, fallback) {
-  try {
-    return JSON.parse(str);
-  } catch {
-    return fallback;
-  }
-}
-
-function getCart() {
-  return safeParse(localStorage.getItem(KSTORE.cartKey) || "[]", []);
-}
+});}
 function setCart(cart) {
   localStorage.setItem(KSTORE.cartKey, JSON.stringify(cart));
   updateCartCount();
