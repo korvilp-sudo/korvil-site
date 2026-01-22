@@ -3,8 +3,11 @@ const MODAL_HOST = document.getElementById("modalHost");
 const NAV = document.getElementById("nav");
 const MENU_BTN = document.getElementById("menuBtn");
 
+// ✅ WhatsApp padrão do projeto (Brasil: 55 + DDD + número)
+const WHATSAPP_NUMBER = "5513997690898";
+
 function setActiveNav(route) {
-  document.querySelectorAll(".nav__link").forEach(a => {
+  document.querySelectorAll(".nav__link").forEach((a) => {
     a.classList.toggle("is-active", a.dataset.go === route);
   });
 }
@@ -17,13 +20,13 @@ async function loadHTML(path) {
 
 async function loadSection(route) {
   const map = {
-    "home": "./sections/home.html",
+    home: "./sections/home.html",
     "sistema-k": "./sections/sistema-k.html",
     "k-tp": "./sections/k-tp.html",
     "k-afortunado": "./sections/k-afortunado.html",
     "k-alma": "./sections/k-alma.html",
     "k-store": "./sections/k-store.html",
-    "checkout": "./sections/checkout.html",
+    checkout: "./sections/checkout.html",
   };
 
   const file = map[route] || map.home;
@@ -84,6 +87,12 @@ async function openLoginModal(sectorName) {
   overlay.classList.add("is-open");
 }
 
+function openWhatsApp(message) {
+  const text = encodeURIComponent(message || "");
+  const url = `https://wa.me/${WHATSAPP_NUMBER}${text ? `?text=${text}` : ""}`;
+  window.open(url, "_blank");
+}
+
 function wireEvents() {
   // menu mobile
   MENU_BTN?.addEventListener("click", () => {
@@ -108,12 +117,28 @@ function wireEvents() {
     openLoginModal(btn.dataset.login);
   });
 
-  // contato
+  // ✅ PASSO 3 (completo): CTAs específicos (ex.: WhatsApp do K-TP)
+  document.addEventListener("click", (ev) => {
+    const btn = ev.target.closest("[data-cta]");
+    if (!btn) return;
+    ev.preventDefault();
+
+    const cta = btn.dataset.cta;
+
+    if (cta === "ktp-whatsapp") {
+      openWhatsApp("Quero entrar no K-TP Projeto Transformação");
+      return;
+    }
+
+    // Se no futuro você criar outros CTAs, pode tratar aqui:
+    // if (cta === "k-alma-whatsapp") { ... }
+  });
+
+  // contato (rodapé)
   const contactBtn = document.getElementById("contactBtn");
   contactBtn?.addEventListener("click", (ev) => {
     ev.preventDefault();
-    // troque para seu WhatsApp depois
-    window.open("https://wa.me/5500000000000", "_blank");
+    openWhatsApp("Olá! Quero falar com o Sistema K / KORVIL.");
   });
 }
 
