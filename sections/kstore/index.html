@@ -2,81 +2,24 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>K-Store | Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+  <title>K-Store | KORVIL</title>
 
-<body style="
-  margin:0;
-  min-height:100vh;
-  background:#0b0b0b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:Arial;
-  color:#fff;
-">
+  <!-- Redireciona automaticamente para o login -->
+  <meta http-equiv="refresh" content="0; url=login.html">
 
-  <div style="
-    width:320px;
-    background:#111;
-    padding:25px;
-    border-radius:10px;
-    text-align:center;
-  ">
-    <h2>K-Store</h2>
-    <p>Entrar na loja</p>
-
-    <input id="login" placeholder="CPF ou e-mail"
-      style="width:100%;padding:10px;margin:6px 0;">
-
-    <input id="senha" type="password" placeholder="Senha"
-      style="width:100%;padding:10px;margin:6px 0;">
-
-    <button onclick="entrar()"
-      style="
-        width:100%;
-        padding:10px;
-        margin-top:10px;
-        background:#ff6b00;
-        border:none;
-        font-size:16px;
-        cursor:pointer;
-      ">
-      Entrar
-    </button>
-
-    <p id="erro" style="color:#ff5555;"></p>
-  </div>
-
-  <script>
-    function entrar() {
-      const login = document.getElementById('login').value;
-      const senha = document.getElementById('senha').value;
-
-      const donoCPF = '45381498888';
-      const donoEmail = 'saykorvil@gmail.com';
-      const donoSenha = '@Neversay15';
-
-      if (
-        (login === donoCPF || login === donoEmail) &&
-        senha === donoSenha
-      ) {
-        localStorage.setItem('kstore_role', 'admin');
-        window.location.href = 'admin/index.html';
-        return;
-      }
-
-      if (login && senha) {
-        localStorage.setItem('kstore_role', 'user');
-        window.location.href = 'produtos.html';
-        return;
-      }
-
-      document.getElementById('erro').innerText =
-        'Preencha login e senha';
+  <style>
+    body {
+      background: #000;
+      color: #00f0ff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
-  </script>
-
+  </style>
+</head>
+<body>
+  <p>Carregando K-Store...</p>
 </body>
 </html>
