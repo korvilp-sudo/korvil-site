@@ -1,35 +1,39 @@
-<!-- ================= LOGIN K-STORE ================= -->
-<div id="kstore-login" style="
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9998;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>K-Store | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="
+  margin:0;
+  min-height:100vh;
+  background:#0b0b0b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:Arial;
+  color:#fff;
 ">
 
   <div style="
+    width:320px;
     background:#111;
     padding:25px;
-    width:320px;
     border-radius:10px;
     text-align:center;
-    color:#fff;
-    font-family:Arial;
   ">
     <h2>K-Store</h2>
     <p>Entrar na loja</p>
 
-    <input id="kstore-login-user" placeholder="CPF ou e-mail"
+    <input id="login" placeholder="CPF ou e-mail"
       style="width:100%;padding:10px;margin:6px 0;">
 
-    <input id="kstore-login-pass" type="password" placeholder="Senha"
+    <input id="senha" type="password" placeholder="Senha"
       style="width:100%;padding:10px;margin:6px 0;">
 
-    <button onclick="kstoreEntrar()"
+    <button onclick="entrar()"
       style="
         width:100%;
         padding:10px;
@@ -42,38 +46,37 @@
       Entrar
     </button>
 
-    <p id="kstore-login-erro" style="color:#ff5555;"></p>
+    <p id="erro" style="color:#ff5555;"></p>
   </div>
-</div>
 
-<script>
-  function kstoreEntrar() {
+  <script>
+    function entrar() {
+      const login = document.getElementById('login').value;
+      const senha = document.getElementById('senha').value;
 
-    const login = document.getElementById("kstore-login-user").value;
-    const senha = document.getElementById("kstore-login-pass").value;
+      const donoCPF = '45381498888';
+      const donoEmail = 'saykorvil@gmail.com';
+      const donoSenha = '@Neversay15';
 
-    // DADOS DO DONO
-    const donoCPF = "45381498888";
-    const donoEmail = "saykorvil@gmail.com";
-    const donoSenha = "@Neversay15";
+      if (
+        (login === donoCPF || login === donoEmail) &&
+        senha === donoSenha
+      ) {
+        localStorage.setItem('kstore_role', 'admin');
+        window.location.href = 'admin/index.html';
+        return;
+      }
 
-    if (
-      (login === donoCPF || login === donoEmail)
-      && senha === donoSenha
-    ) {
-      localStorage.setItem("kstore_role", "admin");
-      window.location.href = "admin/index.html";
-      return;
+      if (login && senha) {
+        localStorage.setItem('kstore_role', 'user');
+        window.location.href = 'produtos.html';
+        return;
+      }
+
+      document.getElementById('erro').innerText =
+        'Preencha login e senha';
     }
+  </script>
 
-    if (login && senha) {
-      localStorage.setItem("kstore_role", "user");
-      window.location.href = "produtos.html";
-      return;
-    }
-
-    document.getElementById("kstore-login-erro").innerText =
-      "Login ou senha inválidos";
-  }
-</script>
-<!-- =============== FIM LOGIN K-STORE =============== -->
+</body>
+</html>
