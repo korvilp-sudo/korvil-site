@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KORVIL — Home</title>
-
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css">
   <style>
     .korvil-home {
       padding: 40px 20px;
@@ -66,8 +65,28 @@
   </style>
 </head>
 <body>
+  <!-- ===== TOPO / MENU ===== -->
+  <header class="topo">
+    <div class="topo__wrap">
+      <a class="brand" href="#" data-go="home">
+        <span class="brand__logo">K</span>
+        <span class="brand__name">KORVIL</span>
+      </a>
+
+      <button class="menuBtn" id="menuBtn">☰</button>
+
+      <nav class="nav" id="nav">
+        <a class="nav__link is-active" data-go="home">Home</a>
+        <a class="nav__link" data-go="sistemak">Sistema K</a>
+        <a class="nav__link" data-go="ktp">K-TP</a>
+        <a class="nav__link" data-go="k-afortunado">K-AFORTUNADO</a>
+        <a class="nav__link" data-go="k-alma">K-ALMA</a>
+      </nav>
+    </div>
+  </header>
+
   <!-- Conteúdo Home -->
-  <div class="korvil-home">
+  <main class="korvil-home">
     <h1>Bem-vindo ao KORVIL</h1>
     <p class="subtitle">Escolha um setor para explorar:</p>
 
@@ -76,59 +95,51 @@
       <div class="sector">
         <h3>Sistema K</h3>
         <p>Núcleo do ecossistema, serviços e integrações.</p>
-        <button class="enter-btn" data-go="sistemak">Entrar</button>
+        <button onclick="window.location.href='../sections/sistemak.html'">Entrar</button>
       </div>
 
       <!-- K-TP -->
       <div class="sector">
         <h3>K-TP</h3>
         <p>Projeto de Transformação Pessoal. Veja detalhes e inscreva-se.</p>
-        <button class="enter-btn" data-go="ktp">Entrar</button>
+        <button onclick="window.location.href='../sections/ktp.html'">Entrar</button>
       </div>
 
       <!-- K-AFORTUNADO -->
       <div class="sector">
         <h3>K-AFORTUNADO</h3>
         <p>Empreendedorismo, cursos e crescimento profissional.</p>
-        <button class="enter-btn" data-go="k-afortunado">Entrar</button>
+        <button onclick="window.location.href='../sections/k-afortunado.html'">Entrar</button>
       </div>
 
       <!-- K-ALMA -->
       <div class="sector">
         <h3>K-ALMA</h3>
         <p>Serviços de saúde e bem-estar: terapia, fisioterapia, psicologia, etc.</p>
-        <button class="enter-btn" data-go="k-alma">Entrar</button>
+        <button onclick="window.location.href='../sections/k-alma.html'">Entrar</button>
       </div>
     </div>
-  </div>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__wrap">
+      <p class="muted">© 2026 KORVIL — Sistema K Integrado</p>
+    </div>
+  </footer>
 
   <script>
-    // ===== Botões "Entrar" carregam a seção completa =====
-    const buttons = document.querySelectorAll('.enter-btn');
+    // MENU MOBILE
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = btn.dataset.go;
-        const app = document.getElementById('app');
-
-        fetch(`./sections/${target}.html`)
-          .then(res => res.text())
-          .then(html => {
-            app.innerHTML = html;
-
-            // Atualiza menu ativo
-            document.querySelectorAll('.nav__link').forEach(link => {
-              link.classList.toggle('is-active', link.dataset.go === target);
-            });
-
-            // Rola para o topo
-            window.scrollTo({ top:0, behavior:'smooth' });
-          })
-          .catch(() => {
-            app.innerHTML = "<p>Seção não encontrada.</p>";
-          });
-      });
-    });
+    menuBtn.onclick = () => {
+      nav.classList.toggle("open");
+      menuBtn.setAttribute("aria-expanded", nav.classList.contains("open"));
+      if(nav.classList.contains("open")){
+        // Fecha automaticamente após 7 segundos
+        setTimeout(() => nav.classList.remove("open"), 7000);
+      }
+    };
   </script>
 </body>
 </html>
