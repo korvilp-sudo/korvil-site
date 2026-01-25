@@ -4,18 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KORVIL — Home</title>
-  <link rel="stylesheet" href="./css/style.css" />
+
+  <link rel="stylesheet" href="../css/style.css" />
   <style>
-    /* =========================
-       HOME / SETORES
-    ========================= */
     .korvil-home {
-      text-align: center;
       padding: 40px 20px;
+      text-align: center;
     }
     .korvil-home h1 {
       font-size: 2rem;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .subtitle {
       opacity: .8;
@@ -25,169 +23,103 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
       gap: 20px;
+      margin-top: 20px;
     }
     .sector {
       background: #121a22;
       padding: 24px;
       border-radius: 14px;
       border: 2px solid rgba(47,224,208,.35);
-      text-decoration: none;
       color: #fff;
+      text-decoration: none;
       transition: .25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
     }
     .sector:hover {
       background: var(--accent);
       color: #000;
-    }
-    .sector h2 {
-      margin-top: 0;
-      font-size: 1.25rem;
-    }
-    .sector p {
-      opacity: .75;
-      margin: 12px 0;
+      cursor: pointer;
     }
     .sector button {
-      background: var(--accent);
-      color: #000;
+      margin-top: 16px;
+      padding: 8px 14px;
       border: none;
       border-radius: 10px;
-      padding: 10px 14px;
-      cursor: pointer;
+      background: var(--accent);
+      color: #000;
       font-weight: 700;
+      cursor: pointer;
       transition: .2s;
     }
     .sector button:hover {
-      background: #0f1720;
-      color: var(--accent);
-      border: 2px solid var(--accent);
-    }
-
-    /* =========================
-       DESCRIÇÃO DO SETOR
-    ========================= */
-    .sector-detail {
-      display: none;
-      background: rgba(16,24,38,.85);
-      border: 2px solid var(--accent);
-      padding: 20px;
-      border-radius: 14px;
-      margin-top: 20px;
-    }
-    .sector-detail.active {
-      display: block;
-    }
-    .subtabs {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-    .subtab {
-      padding: 8px 12px;
-      background: var(--bg-card);
-      color: var(--text);
-      border-radius: 10px;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      font-weight: 600;
-    }
-    .subtab.active {
-      background: var(--accent);
-      color: #000;
-    }
-    .subtab-content {
-      margin-top: 12px;
-      padding: 12px;
-      background: rgba(11,15,20,.65);
-      border-radius: 10px;
-      border: 1px solid var(--border);
+      background: #fff;
     }
   </style>
 </head>
 <body>
   <div class="korvil-home">
     <h1>Bem-vindo ao KORVIL</h1>
-    <p class="subtitle">Escolha um setor e clique em "Entrar" para ver mais detalhes</p>
+    <p class="subtitle">Escolha um setor para explorar:</p>
+
     <div class="sectors">
       <!-- Sistema K -->
-      <div class="sector" data-sector="sistema-k">
-        <h2>Sistema K</h2>
-        <p>Núcleo do ecossistema com serviços integrados.</p>
-        <button>Entrar</button>
-        <div class="sector-detail">
-          <p>Bem-vindo ao Sistema K! Aqui você encontra todos os serviços centrais do KORVIL, incluindo integração com a K-Store.</p>
-          <div class="subtabs">
-            <div class="subtab active" data-tab="servicos">Serviços</div>
-            <div class="subtab" data-tab="kstore">K-Store</div>
-          </div>
-          <div class="subtab-content" data-content="servicos">
-            <ul>
-              <li>Integração de setores</li>
-              <li>Serviços administrativos</li>
-              <li>Gestão de usuários</li>
-            </ul>
-          </div>
-          <div class="subtab-content" data-content="kstore" style="display:none;">
-            <p>A K-Store dentro do Sistema K oferece produtos, carrinho e checkout totalmente integrados.</p>
-          </div>
-        </div>
+      <div class="sector">
+        <h3>Sistema K</h3>
+        <p>Núcleo do ecossistema, serviços e integrações.</p>
+        <button class="enter-btn" data-go="sistemak">Entrar</button>
       </div>
 
       <!-- K-TP -->
-      <div class="sector" data-sector="ktp">
-        <h2>K-TP</h2>
-        <p>Projeto TRANSFORMAÇÃO: inscrições e acompanhamento.</p>
-        <button>Entrar</button>
-        <div class="sector-detail">
-          <p>O K-TP é voltado à transformação pessoal e profissional dos participantes.</p>
-        </div>
+      <div class="sector">
+        <h3>K-TP</h3>
+        <p>Projeto de Transformação Pessoal.</p>
+        <button class="enter-btn" data-go="ktp">Entrar</button>
       </div>
 
       <!-- K-AFORTUNADO -->
-      <div class="sector" data-sector="k-afortunado">
-        <h2>K-AFORTUNADO</h2>
-        <p>Empreendedorismo, cursos e crescimento financeiro.</p>
-        <button>Entrar</button>
-        <div class="sector-detail">
-          <p>K-AFORTUNADO oferece cursos, mentorias e recursos para desenvolver negócios e aumentar sua fortuna.</p>
-        </div>
+      <div class="sector">
+        <h3>K-AFORTUNADO</h3>
+        <p>Empreendedorismo e crescimento profissional.</p>
+        <button class="enter-btn" data-go="k-afortunado">Entrar</button>
       </div>
 
       <!-- K-ALMA -->
-      <div class="sector" data-sector="k-alma">
-        <h2>K-ALMA</h2>
-        <p>Serviços de saúde, terapias e bem-estar.</p>
-        <button>Entrar</button>
-        <div class="sector-detail">
-          <p>K-ALMA cuida do equilíbrio físico e emocional, com terapias, fisioterapia e apoio psicológico.</p>
-        </div>
+      <div class="sector">
+        <h3>K-ALMA</h3>
+        <p>Serviços de saúde e bem-estar.</p>
+        <button class="enter-btn" data-go="k-alma">Entrar</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Mostra/Esconde descrição dos setores
-    document.querySelectorAll('.sector button').forEach(btn => {
-      btn.addEventListener('click', e => {
-        const sector = e.target.closest('.sector');
-        const detail = sector.querySelector('.sector-detail');
-        detail.classList.toggle('active');
-      });
-    });
+    // ===== Integra os botões "Entrar" com o app.js =====
+    const buttons = document.querySelectorAll('.enter-btn');
 
-    // Subtabs Sistema K
-    const tabs = document.querySelectorAll('.subtab');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', e => {
-        const parent = tab.closest('.sector-detail');
-        const allTabs = parent.querySelectorAll('.subtab');
-        const contents = parent.querySelectorAll('.subtab-content');
-        allTabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.style.display = 'none');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.go;
 
-        tab.classList.add('active');
-        parent.querySelector(`.subtab-content[data-content="${tab.dataset.tab}"]`).style.display = 'block';
+        // Usa o mesmo fetch do app.js para carregar a seção
+        const app = document.getElementById('app');
+        fetch(`./sections/${target}.html`)
+          .then(res => res.text())
+          .then(html => {
+            app.innerHTML = html;
+            // Atualiza o menu ativo
+            document.querySelectorAll('.nav__link').forEach(link => {
+              link.classList.toggle('is-active', link.dataset.go === target);
+            });
+          })
+          .catch(() => {
+            app.innerHTML = "<p>Seção não encontrada.</p>";
+          });
+
+        // Rola para o topo
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
   </script>
