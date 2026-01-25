@@ -1,3 +1,4 @@
+<!-- home.html -->
 <main class="korvil-home">
   <h1>Bem-vindo ao KORVIL</h1>
   <p class="subtitle">Escolha um setor para explorar:</p>
@@ -7,38 +8,40 @@
     <div class="sector">
       <h3>Sistema K</h3>
       <p>Núcleo do ecossistema, serviços e integrações.</p>
-      <button data-go="sistemak">Entrar</button>
+      <button data-go="sistemak" class="enter-btn">Entrar</button>
     </div>
 
     <!-- K-TP -->
     <div class="sector">
       <h3>K-TP</h3>
       <p>Projeto de Transformação Pessoal. Veja detalhes e inscreva-se.</p>
-      <button data-go="ktp">Entrar</button>
+      <button data-go="ktp" class="enter-btn">Entrar</button>
     </div>
 
     <!-- K-AFORTUNADO -->
     <div class="sector">
       <h3>K-AFORTUNADO</h3>
       <p>Empreendedorismo, cursos e crescimento profissional.</p>
-      <button data-go="k-afortunado">Entrar</button>
+      <button data-go="k-afortunado" class="enter-btn">Entrar</button>
     </div>
 
     <!-- K-ALMA -->
     <div class="sector">
       <h3>K-ALMA</h3>
       <p>Serviços de saúde e bem-estar: terapia, fisioterapia, psicologia, etc.</p>
-      <button data-go="k-alma">Entrar</button>
+      <button data-go="k-alma" class="enter-btn">Entrar</button>
     </div>
   </div>
 </main>
 
 <script>
-  // Faz os botões "Entrar" funcionarem via app.js
-  document.querySelectorAll(".sector button").forEach(btn => {
+  // Integrando os botões "Entrar" ao app.js
+  document.querySelectorAll(".enter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-go");
-      if(window.loadSection) loadSection(target); // função do app.js
+      const setor = btn.getAttribute("data-go");
+      if(typeof loadSection === "function") {
+        loadSection(setor); // função do app.js
+      }
     });
   });
 </script>
