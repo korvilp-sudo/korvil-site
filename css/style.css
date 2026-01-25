@@ -1,3 +1,91 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0a0f14;
+  color: #fff;
+}
+
+/* TOPO */
+.topo {
+  background: #0f1720;
+  border-bottom: 2px solid #2fe0d0;
+}
+
+.topo__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.brand {
+  text-decoration: none;
+  color: #2fe0d0;
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.menuBtn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+}
+
+.nav {
+  display: none;
+}
+
+.nav.open {
+  display: block;
+}
+
+.nav__link {
+  display: block;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* HOME */
+.korvil-home {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.subtitle {
+  opacity: .8;
+}
+
+.sectors {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.sector {
+  background: #121a22;
+  padding: 22px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  border: 2px solid rgba(47,224,208,.4);
+  transition: .3s;
+}
+
+.sector:hover {
+  background: #2fe0d0;
+  color: #000;
+}
+
+/* FOOTER */
+.rodape {
+  text-align: center;
+  padding: 20px;
+  opacity: .6;
+}
+
 /* =========================
    VARIÁVEIS GLOBAIS
 ========================= */
@@ -318,3 +406,4 @@ body {
   padding: 12px;
   background: rgba(255,255,255,.03);
   }
+
