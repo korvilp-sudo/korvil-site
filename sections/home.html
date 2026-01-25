@@ -1,89 +1,195 @@
-<!-- sections/home.html -->
-<div class="korvil-home">
-  <h1>Bem-vindo ao KORVIL</h1>
-  <p>Escolha um setor para entrar:</p>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>KORVIL — Home</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    /* =========================
+       HOME / SETORES
+    ========================= */
+    .korvil-home {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .korvil-home h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      opacity: .8;
+      margin-bottom: 30px;
+    }
+    .sectors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 20px;
+    }
+    .sector {
+      background: #121a22;
+      padding: 24px;
+      border-radius: 14px;
+      border: 2px solid rgba(47,224,208,.35);
+      text-decoration: none;
+      color: #fff;
+      transition: .25s;
+    }
+    .sector:hover {
+      background: var(--accent);
+      color: #000;
+    }
+    .sector h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+    .sector p {
+      opacity: .75;
+      margin: 12px 0;
+    }
+    .sector button {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s;
+    }
+    .sector button:hover {
+      background: #0f1720;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+    }
 
-  <div class="sectors">
-    <!-- Sistema K -->
-    <div class="sector">
-      <h3>Sistema K</h3>
-      <button class="btn" onclick="openSector('sistemak')">Entrar</button>
-    </div>
+    /* =========================
+       DESCRIÇÃO DO SETOR
+    ========================= */
+    .sector-detail {
+      display: none;
+      background: rgba(16,24,38,.85);
+      border: 2px solid var(--accent);
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 20px;
+    }
+    .sector-detail.active {
+      display: block;
+    }
+    .subtabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .subtab {
+      padding: 8px 12px;
+      background: var(--bg-card);
+      color: var(--text);
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .subtab.active {
+      background: var(--accent);
+      color: #000;
+    }
+    .subtab-content {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(11,15,20,.65);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div class="korvil-home">
+    <h1>Bem-vindo ao KORVIL</h1>
+    <p class="subtitle">Escolha um setor e clique em "Entrar" para ver mais detalhes</p>
+    <div class="sectors">
+      <!-- Sistema K -->
+      <div class="sector" data-sector="sistema-k">
+        <h2>Sistema K</h2>
+        <p>Núcleo do ecossistema com serviços integrados.</p>
+        <button>Entrar</button>
+        <div class="sector-detail">
+          <p>Bem-vindo ao Sistema K! Aqui você encontra todos os serviços centrais do KORVIL, incluindo integração com a K-Store.</p>
+          <div class="subtabs">
+            <div class="subtab active" data-tab="servicos">Serviços</div>
+            <div class="subtab" data-tab="kstore">K-Store</div>
+          </div>
+          <div class="subtab-content" data-content="servicos">
+            <ul>
+              <li>Integração de setores</li>
+              <li>Serviços administrativos</li>
+              <li>Gestão de usuários</li>
+            </ul>
+          </div>
+          <div class="subtab-content" data-content="kstore" style="display:none;">
+            <p>A K-Store dentro do Sistema K oferece produtos, carrinho e checkout totalmente integrados.</p>
+          </div>
+        </div>
+      </div>
 
-    <!-- K-TP -->
-    <div class="sector">
-      <h3>K-TP</h3>
-      <button class="btn" onclick="openSector('ktp')">Entrar</button>
-    </div>
+      <!-- K-TP -->
+      <div class="sector" data-sector="ktp">
+        <h2>K-TP</h2>
+        <p>Projeto TRANSFORMAÇÃO: inscrições e acompanhamento.</p>
+        <button>Entrar</button>
+        <div class="sector-detail">
+          <p>O K-TP é voltado à transformação pessoal e profissional dos participantes.</p>
+        </div>
+      </div>
 
-    <!-- K-AFORTUNADO -->
-    <div class="sector">
-      <h3>K-AFORTUNADO</h3>
-      <button class="btn" onclick="openSector('k-afortunado')">Entrar</button>
-    </div>
+      <!-- K-AFORTUNADO -->
+      <div class="sector" data-sector="k-afortunado">
+        <h2>K-AFORTUNADO</h2>
+        <p>Empreendedorismo, cursos e crescimento financeiro.</p>
+        <button>Entrar</button>
+        <div class="sector-detail">
+          <p>K-AFORTUNADO oferece cursos, mentorias e recursos para desenvolver negócios e aumentar sua fortuna.</p>
+        </div>
+      </div>
 
-    <!-- K-ALMA -->
-    <div class="sector">
-      <h3>K-ALMA</h3>
-      <button class="btn" onclick="openSector('k-alma')">Entrar</button>
+      <!-- K-ALMA -->
+      <div class="sector" data-sector="k-alma">
+        <h2>K-ALMA</h2>
+        <p>Serviços de saúde, terapias e bem-estar.</p>
+        <button>Entrar</button>
+        <div class="sector-detail">
+          <p>K-ALMA cuida do equilíbrio físico e emocional, com terapias, fisioterapia e apoio psicológico.</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Área para carregar os setores individualmente -->
-<div id="sector-page" class="sector-page" style="display:none;"></div>
+  <script>
+    // Mostra/Esconde descrição dos setores
+    document.querySelectorAll('.sector button').forEach(btn => {
+      btn.addEventListener('click', e => {
+        const sector = e.target.closest('.sector');
+        const detail = sector.querySelector('.sector-detail');
+        detail.classList.toggle('active');
+      });
+    });
 
-<script>
-  const sectors = {
-    sistemak: {
-      title: "Sistema K",
-      tabs: {
-        servicos: { title:"Serviços do Sistema K", content:"O núcleo do KORVIL, responsável por integrar todos os serviços e setores do ecossistema." },
-        kstore: { title:"K-Store", content:"Loja virtual do Sistema K com produtos, carrinho e checkout integrado." }
-      }
-    },
-    ktp: { title:"K-TP", desc:"Treinamento Personalizado do Sistema K para evolução técnica, mental e estratégica." },
-    "k-afortunado": { title:"K-AFORTUNADO", desc:"Setor de empreendedorismo, negócios digitais e crescimento financeiro." },
-    "k-alma": { title:"K-ALMA", desc:"Centro de cuidados, equilíbrio emocional, propósito e consciência." }
-  };
+    // Subtabs Sistema K
+    const tabs = document.querySelectorAll('.subtab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', e => {
+        const parent = tab.closest('.sector-detail');
+        const allTabs = parent.querySelectorAll('.subtab');
+        const contents = parent.querySelectorAll('.subtab-content');
+        allTabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.style.display = 'none');
 
-  function openSector(key) {
-    const home = document.querySelector('.korvil-home');
-    const page = document.getElementById('sector-page');
-    home.style.display = 'none';
-    page.style.display = 'block';
-
-    if(key === 'sistemak') {
-      renderSistemaK('servicos');
-    } else {
-      const s = sectors[key];
-      page.innerHTML = `
-        <h2>${s.title}</h2>
-        <p>${s.desc}</p>
-        <button class="btn" onclick="closeSector()">Voltar</button>
-      `;
-    }
-  }
-
-  function renderSistemaK(tab='servicos') {
-    const s = sectors.sistemak;
-    const page = document.getElementById('sector-page');
-    page.innerHTML = `
-      <h2>${s.title}</h2>
-      <div class="tabs">
-        <button class="btn" onclick="renderSistemaK('servicos')">Serviços</button>
-        <button class="btn" onclick="renderSistemaK('kstore')">K-Store</button>
-      </div>
-      <div class="tab-content">
-        <h3>${s.tabs[tab].title}</h3>
-        <p>${s.tabs[tab].content}</p>
-      </div>
-      <button class="btn" onclick="closeSector()">Voltar</button>
-    `;
-  }
-
-  function closeSector() {
-    document.getElementById('sector-page').style.display = 'none';
-    document.querySelector('.korvil-home').style.display = 'block';
-  }
-</script>
+        tab.classList.add('active');
+        parent.querySelector(`.subtab-content[data-content="${tab.dataset.tab}"]`).style.display = 'block';
+      });
+    });
+  </script>
+</body>
+</html>
