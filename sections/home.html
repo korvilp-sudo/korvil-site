@@ -1,43 +1,89 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KORVIL — Sistema K</title>
+<!-- sections/home.html -->
+<div class="korvil-home">
+  <h1>Bem-vindo ao KORVIL</h1>
+  <p>Escolha um setor para entrar:</p>
 
-  <link rel="stylesheet" href="./css/style.css" />
-</head>
-
-<body>
-  <!-- ===== TOPO ===== -->
-  <header class="topo">
-    <div class="topo__wrap">
-      <a class="brand" href="#" data-go="home">
-        <span class="brand__logo">K</span>
-        <span class="brand__name">KORVIL</span>
-      </a>
-
-      <button class="menuBtn" id="menuBtn">☰</button>
-
-      <nav class="nav" id="nav">
-        <a class="nav__link is-active" href="#" data-go="home">Home</a>
-        <a class="nav__link" href="#" data-go="sistemak">Sistema K</a>
-        <a class="nav__link" href="#" data-go="ktp">K-TP</a>
-        <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
-        <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
-        <a class="nav__link" href="#" data-go="kstore">K-Store</a>
-      </nav>
+  <div class="sectors">
+    <!-- Sistema K -->
+    <div class="sector">
+      <h3>Sistema K</h3>
+      <button class="btn" onclick="openSector('sistemak')">Entrar</button>
     </div>
-  </header>
 
-  <!-- ⬇️ CONTEÚDO DINÂMICO -->
-  <main id="app" class="app"></main>
+    <!-- K-TP -->
+    <div class="sector">
+      <h3>K-TP</h3>
+      <button class="btn" onclick="openSector('ktp')">Entrar</button>
+    </div>
 
-  <footer class="rodape">
-    <p>© 2026 KORVIL — Sistema K Integrado</p>
-  </footer>
+    <!-- K-AFORTUNADO -->
+    <div class="sector">
+      <h3>K-AFORTUNADO</h3>
+      <button class="btn" onclick="openSector('k-afortunado')">Entrar</button>
+    </div>
 
-  <!-- JS CENTRAL -->
-  <script src="./js/app.js"></script>
-</body>
-</html>
+    <!-- K-ALMA -->
+    <div class="sector">
+      <h3>K-ALMA</h3>
+      <button class="btn" onclick="openSector('k-alma')">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Área para carregar os setores individualmente -->
+<div id="sector-page" class="sector-page" style="display:none;"></div>
+
+<script>
+  const sectors = {
+    sistemak: {
+      title: "Sistema K",
+      tabs: {
+        servicos: { title:"Serviços do Sistema K", content:"O núcleo do KORVIL, responsável por integrar todos os serviços e setores do ecossistema." },
+        kstore: { title:"K-Store", content:"Loja virtual do Sistema K com produtos, carrinho e checkout integrado." }
+      }
+    },
+    ktp: { title:"K-TP", desc:"Treinamento Personalizado do Sistema K para evolução técnica, mental e estratégica." },
+    "k-afortunado": { title:"K-AFORTUNADO", desc:"Setor de empreendedorismo, negócios digitais e crescimento financeiro." },
+    "k-alma": { title:"K-ALMA", desc:"Centro de cuidados, equilíbrio emocional, propósito e consciência." }
+  };
+
+  function openSector(key) {
+    const home = document.querySelector('.korvil-home');
+    const page = document.getElementById('sector-page');
+    home.style.display = 'none';
+    page.style.display = 'block';
+
+    if(key === 'sistemak') {
+      renderSistemaK('servicos');
+    } else {
+      const s = sectors[key];
+      page.innerHTML = `
+        <h2>${s.title}</h2>
+        <p>${s.desc}</p>
+        <button class="btn" onclick="closeSector()">Voltar</button>
+      `;
+    }
+  }
+
+  function renderSistemaK(tab='servicos') {
+    const s = sectors.sistemak;
+    const page = document.getElementById('sector-page');
+    page.innerHTML = `
+      <h2>${s.title}</h2>
+      <div class="tabs">
+        <button class="btn" onclick="renderSistemaK('servicos')">Serviços</button>
+        <button class="btn" onclick="renderSistemaK('kstore')">K-Store</button>
+      </div>
+      <div class="tab-content">
+        <h3>${s.tabs[tab].title}</h3>
+        <p>${s.tabs[tab].content}</p>
+      </div>
+      <button class="btn" onclick="closeSector()">Voltar</button>
+    `;
+  }
+
+  function closeSector() {
+    document.getElementById('sector-page').style.display = 'none';
+    document.querySelector('.korvil-home').style.display = 'block';
+  }
+</script>
