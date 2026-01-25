@@ -1,45 +1,48 @@
-/* =========================
-   CONTROLE DE SEÇÕES
-========================= */
-const navLinks = document.querySelectorAll('.nav__link');
-const app = document.getElementById('app');
-const menuBtn = document.getElementById('menuBtn');
-const nav = document.getElementById('nav');
+// ===== K-AI (exemplo simples) =====
+function talkAI(setor, message){
+  let response = "K-AI está processando...";
+  if(setor === 'K-TP') response = "Vamos focar na sua transformação!";
+  if(setor === 'K-AFORTUNADO') response = "Hora de multiplicar sua fortuna!";
+  if(setor === 'K-ALMA') response = "Equilíbrio é a chave para sua paz!";
+  return response;
+}
 
-// Menu mobile toggle
-menuBtn.addEventListener('click', () => nav.classList.toggle('is-open'));
+// ===== NAVEGADOR CENTRAL =====
+const app = document.getElementById("app");
 
-// Navegação
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-
-    // Atualiza ativo
-    navLinks.forEach(l => l.classList.remove('is-active'));
-    link.classList.add('is-active');
-
-    // Carrega a seção
-    loadSection(link.dataset.go);
-  });
-});
-
-// Carrega a seção padrão (home)
-loadSection('home');
-
-function loadSection(name) {
-  fetch(`sections/${name}.html`)
-    .then(r => r.text())
+function loadSection(section) {
+  fetch(`./sections/${section}.html`)
+    .then(res => res.text())
     .then(html => {
       app.innerHTML = html;
-      // Hooks pós-carregamento de cada seção
-      if (name === 'kstore') {
-        kstoreOnSectionLoaded();
-        kstoreWireGlobalEvents();
-      } else if (name === 'checkout') {
-        renderCheckoutIfOnPage();
-      } else if (name === 'ktp') {
-        ktpOnSectionLoaded();
-      } // adicione outros hooks se necessário
+      bindInternalLinks();
     })
-    .catch(err => app.innerHTML = `<p>Erro ao carregar a página ${name}</p>`);
+    .catch(() => {
+      app.innerHTML = "<p>Seção não encontrada.</p>";
+    });
 }
+
+function bindInternalLinks() {
+  document.querySelectorAll("[data-go]").forEach(link => {
+    link.onclick = e => {
+      e.preventDefault();
+      const target = link.getAttribute("data-go");
+      loadSection(target);
+    };
+  });
+}
+
+// ===== MENU MOBILE =====
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.getElementById("menuBtn");
+  const nav = document.getElementById("nav");
+
+  if(menuBtn && nav){
+    menuBtn.onclick = () => {
+      nav.classList.toggle("is-open");
+    };
+  }
+
+  // CARREGAMENTO INICIAL
+  loadSection("home");
+});
