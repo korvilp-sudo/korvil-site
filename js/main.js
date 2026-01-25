@@ -1,29 +1,83 @@
+// ===============================
+// KORVIL - JS GLOBAL OFICIAL
+// Menu + K-AI + Navegação
+// ===============================
+
 document.addEventListener("DOMContentLoaded", () => {
-  loadSection("home.html");
-});
 
-// Carregar seções dinamicamente
-function loadSection(file){
-  fetch(`sections/${file}`)
-    .then(res => {
-      if (!res.ok) throw new Error("Arquivo não encontrado!");
-      return res.text();
-    })
-    .then(html => {
-      document.getElementById("content").innerHTML = html;
-    })
-    .catch(err => {
-      console.error("Erro ao carregar seção:", err);
-      document.getElementById("content").innerHTML = "<h2>Seção inacessível</h2>";
+  // ===============================
+  // ELEMENTOS DO MENU
+  // ===============================
+  const menuBtn = document.getElementById("menu-btn");
+  const nav = document.getElementById("menu");
+  let menuTimer = null;
+
+  if (menuBtn && nav) {
+
+    // ABRIR MENU
+    menuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      nav.classList.add("open");
+
+      // Limpa timer antigo
+      if (menuTimer) clearTimeout(menuTimer);
+
+      // Fecha automaticamente após 8 segundos
+      menuTimer = setTimeout(() => {
+        nav.classList.remove("open");
+      }, 8000);
     });
-}
 
-// Modal login
-function abrir(setor){
-  document.getElementById('tituloModal').innerText = setor;
-  document.getElementById('modal').style.display = 'flex';
-}
+    // FECHAR AO CLICAR EM UM ITEM
+    document.querySelectorAll(".nav__link").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("open");
+        if (menuTimer) clearTimeout(menuTimer);
+      });
+    });
 
-function fechar(){
-  document.getElementById('modal').style.display = 'none';
-}
+    // FECHAR AO CLICAR FORA
+    document.addEventListener("click", (e) => {
+      if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+        nav.classList.remove("open");
+        if (menuTimer) clearTimeout(menuTimer);
+      }
+    });
+  }
+
+  // ===============================
+  // K-AI (CUBO GLOBAL)
+  // ===============================
+  if (!document.getElementById("k-ai")) {
+    const kai = document.createElement("div");
+    kai.id = "k-ai";
+    kai.innerHTML = "⬛";
+
+    kai.style.position = "fixed";
+    kai.style.bottom = "20px";
+    kai.style.right = "20px";
+    kai.style.width = "60px";
+    kai.style.height = "60px";
+    kai.style.borderRadius = "12px";
+    kai.style.background = "#00f2ff";
+    kai.style.color = "#000";
+    kai.style.display = "flex";
+    kai.style.alignItems = "center";
+    kai.style.justifyContent = "center";
+    kai.style.fontSize = "22px";
+    kai.style.fontWeight = "bold";
+    kai.style.cursor = "pointer";
+    kai.style.zIndex = "9999";
+    kai.style.boxShadow = "0 0 15px rgba(0,242,255,0.6)";
+
+    kai.title = "K-AI — Assistente do Sistema K";
+
+    kai.addEventListener("click", () => {
+      alert("K-AI ativo 🚀\nEm breve: chat, voz e comandos.");
+    });
+
+    document.body.appendChild(kai);
+  }
+
+});
