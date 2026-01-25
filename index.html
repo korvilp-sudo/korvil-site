@@ -5,110 +5,42 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KORVIL — Sistema K</title>
 
-  <!-- CSS principal -->
   <link rel="stylesheet" href="./css/style.css" />
+</head>
 
-  <!-- Estilos do K-AI (apenas o necessário pro cubo/chat) -->
-  <style>
-    /* ====== K-AI Chatbot (canto inferior direito) ====== */
-    .kai-chatbot{
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 64px;
-      height: 64px;
-      z-index: 9999;
-      font-family: Arial, sans-serif;
-    }
-    .kai-chatbot .scene{ width:64px; height:64px; perspective:600px; }
-    .kai-chatbot .cube{
-      width:64px; height:64px; position:relative;
-      transform-style:preserve-3d;
-      animation: kaiSpin 6s linear infinite;
-      cursor:pointer;
-      transition: transform .5s, width .5s, height .5s;
-    }
-    .kai-chatbot .cube.expanded{ width:128px; height:128px; }
-    .kai-chatbot .cube-face{
-      position:absolute; width:64px; height:64px;
-      background: linear-gradient(135deg,#00eaff,#007a8a);
-      border:2px solid #00eaff;
-      display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:#fff; font-size:14px;
-      border-radius:6px;
-      box-shadow: 0 6px 20px rgba(0,230,255,.5);
-      user-select:none;
-    }
-    .kai-chatbot .front  { transform: rotateY(0deg) translateZ(32px); }
-    .kai-chatbot .back   { transform: rotateY(180deg) translateZ(32px); }
-    .kai-chatbot .right  { transform: rotateY(90deg) translateZ(32px); }
-    .kai-chatbot .left   { transform: rotateY(-90deg) translateZ(32px); }
-    .kai-chatbot .top    { transform: rotateX(90deg) translateZ(32px); }
-    .kai-chatbot .bottom { transform: rotateX(-90deg) translateZ(32px); }
-    @keyframes kaiSpin{
-      0%{transform:rotateX(-15deg) rotateY(0deg);}
-      100%{transform:rotateX(-15deg) rotateY(360deg);}
-    }
+<body>
+  <!-- ===== TOPO ===== -->
+  <header class="topo">
+    <div class="topo__wrap">
+      <a class="brand" href="#" data-go="home">
+        <span class="brand__logo">K</span>
+        <span class="brand__name">KORVIL</span>
+      </a>
 
-    .kai-message{
-      position: absolute;
-      bottom: 78px;
-      right: 0;
-      max-width: 280px;
-      padding: 10px 12px;
-      background: rgba(0,230,255,0.08);
-      border: 2px solid #00eaff;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 13px;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all .25s;
-      pointer-events:none;
-    }
-    .kai-message.show{ opacity:1; transform: translateY(0); }
+      <button class="menuBtn" id="menuBtn">☰</button>
 
-    .kai-window{
-      display:none;
-      position:absolute;
-      bottom: 78px;
-      right: 0;
-      width: 300px;
-      max-height: 420px;
-      background: rgba(16,24,38,0.96);
-      border: 2px solid #00eaff;
-      border-radius: 12px;
-      overflow: hidden;
-      flex-direction: column;
-    }
-    .kai-window.open{ display:flex; }
-    .kai-head{
-      background:#00eaff;
-      color:#0b0f14;
-      padding: 8px 12px;
-      font-weight: 900;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    .kai-close{
-      border:none;
-      background: rgba(0,0,0,.12);
-      color:#0b0f14;
-      font-weight:900;
-      border-radius:8px;
-      padding:4px 10px;
-      cursor:pointer;
-    }
-    .kai-body{
-      padding: 10px;
-      overflow:auto;
-      color:#fff;
-      font-size: 14px;
-      line-height: 1.35;
-      flex:1;
-    }
+      <nav class="nav" id="nav">
+        <a class="nav__link is-active" href="#" data-go="home">Home</a>
+        <a class="nav__link" href="#" data-go="sistemak">Sistema K</a>
+        <a class="nav__link" href="#" data-go="ktp">K-TP</a>
+        <a class="nav__link" href="#" data-go="k-afortunado">K-AFORTUNADO</a>
+        <a class="nav__link" href="#" data-go="k-alma">K-ALMA</a>
+        <a class="nav__link" href="#" data-go="kstore">K-Store</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ⬇️ CONTEÚDO DINÂMICO -->
+  <main id="app" class="app"></main>
+
+  <footer class="rodape">
+    <p>© 2026 KORVIL — Sistema K Integrado</p>
+  </footer>
+
+  <!-- JS CENTRAL -->
+  <script src="./js/app.js"></script>
+</body>
+</html>    }
     .kai-row{
       border-top: 1px solid rgba(0,230,255,.35);
       display:flex;
