@@ -1,246 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>KORVIL — Sistema K</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KORVIL SYSTEM</title>
 <style>
-/* =====================
-   RESET
-===================== */
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:Arial,Helvetica,sans-serif;
-  background:#0b0f14;
-  color:#fff;
-}
-
-/* =====================
-   HEADER / MENU
-===================== */
-.topo{
-  background:#0f1720;
-  border-bottom:2px solid #2fe0d0;
-  position:sticky;
-  top:0;
-  z-index:1000;
-}
-.topo__wrap{
-  max-width:1200px;
-  margin:auto;
-  padding:14px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.brand{
-  color:#2fe0d0;
-  font-weight:900;
-  font-size:20px;
-  text-decoration:none;
-}
-
-/* MENU */
-.nav{
-  display:flex;
-  gap:10px;
-}
-.nav__link{
-  color:#fff;
-  text-decoration:none;
-  padding:8px 14px;
-  border-radius:8px;
-  transition:.2s;
-  cursor:pointer;
-}
-.nav__link:hover,
-.nav__link.is-active{
-  background:#2fe0d0;
-  color:#000;
-}
-
-/* MOBILE */
-.menuBtn{
-  display:none;
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:26px;
-  cursor:pointer;
-}
-
-@media(max-width:700px){
-  .menuBtn{display:block}
-  .nav{
-    display:none;
-    flex-direction:column;
-    background:#0f1720;
-    position:absolute;
-    top:64px;
-    right:20px;
-    width:200px;
-    padding:10px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,.5);
-  }
-  .nav.open{display:flex}
-}
-
-/* =====================
-   MAIN
-===================== */
-main{
-  max-width:1200px;
-  margin:auto;
-  padding:30px 20px;
-  min-height:70vh;
-}
-
-/* =====================
-   HOME / SETORES
-===================== */
-.korvil-home h1{text-align:center}
-.subtitle{
-  text-align:center;
-  opacity:.8;
-  margin:10px 0 30px;
-}
-.sectors{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-}
-.sector{
-  background:#121a22;
-  border:2px solid rgba(47,224,208,.35);
-  border-radius:16px;
-  padding:22px;
-}
-.sector h3{color:#2fe0d0}
-.sector p{opacity:.9;margin:10px 0 16px}
-.enter-btn{
-  background:#2fe0d0;
-  color:#000;
-  border:none;
-  padding:10px 18px;
-  border-radius:10px;
-  font-weight:800;
-  cursor:pointer;
-}
-.enter-btn:hover{opacity:.85}
-
-/* =====================
-   FOOTER
-===================== */
-footer{
-  border-top:1px solid rgba(255,255,255,.1);
-  text-align:center;
-  padding:16px;
-  color:#aaa;
-}
+:root{--cyan:#00f5ff;--bg:#000;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+body{background:var(--bg);color:#fff;overflow-x:hidden;}
+.topbar{position:fixed;top:0;left:0;width:100%;height:55px;background:#050505;border-bottom:1px solid var(--cyan);display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:9999;}
+.menuBtn{background:none;border:1px solid var(--cyan);color:var(--cyan);padding:8px 12px;border-radius:8px;cursor:pointer;}
+.logo{position:absolute;left:50%;transform:translateX(-50%);color:var(--cyan);font-weight:bold;font-size:18px;}
+.menu{position:fixed;left:-260px;top:55px;width:240px;height:100%;background:#050505;border-right:1px solid var(--cyan);display:flex;flex-direction:column;padding:10px;gap:10px;transition:.3s;z-index:9998;}
+.menu.open{ left:0; }
+.menu button{background:#000;border:1px solid var(--cyan);color:var(--cyan);padding:12px;border-radius:8px;cursor:pointer;text-align:left;font-size:15px;}
+.tela{margin-top:60px;padding:15px;display:none;min-height:calc(100vh - 60px);}
+.tela.active{ display:block; }
+h1{color:var(--cyan);margin-bottom:15px;font-size:22px;}
+.card{background:#0a0a0a;border:1px solid var(--cyan);border-radius:12px;padding:15px;margin-bottom:15px;cursor:pointer;transition:.2s;}
+.card:hover{background:#111;}
+#kai{position:fixed;right:20px;bottom:20px;width:60px;height:60px;border-radius:50%;background:#000;border:2px solid var(--cyan);display:flex;align-items:center;justify-content:center;cursor:pointer;animation:pulse 1.5s infinite;z-index:9999;font-size:28px;}
+@keyframes pulse{0%{transform:scale(1);box-shadow:0 0 0 0 var(--cyan);}50%{transform:scale(1.08);box-shadow:0 0 0 10px #00f5ff00;}100%{transform:scale(1);box-shadow:0 0 0 0 var(--cyan);}}
+.btn{background:var(--cyan);color:#000;border:none;padding:12px 20px;border-radius:8px;font-weight:bold;cursor:pointer;margin-top:10px;}
 </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header class="topo">
-  <div class="topo__wrap">
-    <a class="brand" data-go="home">KORVIL</a>
-    <button class="menuBtn" id="menuBtn">☰</button>
-    <nav class="nav" id="nav">
-      <a class="nav__link is-active" data-go="home">Home</a>
-      <a class="nav__link" data-go="sistemak">Sistema K</a>
-      <a class="nav__link" data-go="ktp">K-TP</a>
-      <a class="nav__link" data-go="k-afortunado">K-AFORTUNADO</a>
-      <a class="nav__link" data-go="k-alma">K-ALMA</a>
-    </nav>
-  </div>
-</header>
+<div class="topbar">
+<button class="menuBtn" onclick="toggleMenu()">MENU</button>
+<div class="logo">KORVIL</div>
+</div>
 
-<!-- CONTEÚDO -->
-<main id="app"></main>
+<div id="menu" class="menu">
+<button onclick="show('home')">CENTRAL KORVIL</button>
+<button onclick="show('sistema')">SISTEMA K</button>
+<button onclick="show('tp')">K-TP</button>
+<button onclick="show('af')">K-AFORTUNADO</button>
+<button onclick="show('alma')">K-ALMA</button>
+</div>
 
-<footer>
-© 2026 KORVIL — Sistema K Integrado
-</footer>
+<div id="home" class="tela active">
+<h1>CENTRAL KORVIL</h1>
+<div class="card" onclick="show('cursos')"><h2>CURSOS</h2><p>Formação profissional completa</p></div>
+<div class="card" onclick="show('negocios')"><h2>NEGÓCIOS</h2><p>Criação e desenvolvimento de empresas</p></div>
+<div class="card" onclick="show('servicos')"><h2>SERVIÇOS</h2><p>Contratação de profissionais</p></div>
+</div>
+
+<div id="cursos" class="tela">
+<h1>CURSOS KORVIL</h1>
+<div class="card" onclick="show('celular')">Tecnologia: Manutenção de Celular</div>
+<div class="card" onclick="show('personal')">Educação Física: Treinamento Personalizado</div>
+<div class="card" onclick="show('empreendedor')">Empreendedorismo: Negócio Próprio</div>
+<div class="card" onclick="show('saude')">Saúde: K-TH Terapia Holística</div>
+<div class="card" onclick="show('beleza')">Beleza: Cabeleireiro Unissex</div>
+<button class="btn" onclick="show('home')">← Voltar</button>
+</div>
+
+<div id="celular" class="tela"><h1>Manutenção de Celular</h1><p>Curso técnico completo. 3 meses.</p><button class="btn" onclick="show('cursos')">← Voltar</button></div>
+<div id="personal" class="tela"><h1>Treinamento Personalizado</h1><p>Formação K-TP. Prof. KORVIL.</p><button class="btn" onclick="show('cursos')">← Voltar</button></div>
+<div id="empreendedor" class="tela"><h1>Negócio Próprio</h1><p>Do zero ao faturamento.</p><button class="btn" onclick="show('cursos')">← Voltar</button></div>
+<div id="saude" class="tela"><h1>K-TH Terapia Holística</h1><p>Corpo, mente e energia.</p><button class="btn" onclick="show('cursos')">← Voltar</button></div>
+<div id="beleza" class="tela"><h1>Cabeleireiro Unissex</h1><p>Curso profissionalizante.</p><button class="btn" onclick="show('cursos')">← Voltar</button></div>
+
+<div id="negocios" class="tela"><h1>NEGÓCIOS</h1><div class="card">Criação de empresas</div><div class="card">Expansão de marcas</div><div class="card">Sistema K-OMFOME</div><button class="btn" onclick="show('home')">← Voltar</button></div>
+<div id="servicos" class="tela"><h1>SERVIÇOS</h1><div class="card">Eletricista</div><div class="card">Encanador</div><div class="card">Técnico em celular</div><div class="card">Limpeza e manutenção</div><button class="btn" onclick="show('home')">← Voltar</button></div>
+<div id="sistema" class="tela"><h1>SISTEMA K</h1><p>Gestão, CRM e automação KORVIL.</p><button class="btn" onclick="show('home')">← Voltar</button></div>
+<div id="tp" class="tela"><h1>K-TP</h1><p>Projeto Transformação. 11 Anos.</p><button class="btn" onclick="show('home')">← Voltar</button></div>
+<div id="af" class="tela"><h1>K-AFORTUNADO</h1><p>Método de mentalidade e dinheiro.</p><button class="btn" onclick="show('home')">← Voltar</button></div>
+<div id="alma" class="tela"><h1>K-ALMA</h1><p>Desenvolvimento espiritual e terapias.</p><button class="btn" onclick="show('home')">← Voltar</button></div>
+
+<div id="kai" onclick="alert('KAI: Assistente KORVIL em breve')">🐦‍⬛</div>
 
 <script>
-const app = document.getElementById("app");
-const nav = document.getElementById("nav");
-const menuBtn = document.getElementById("menuBtn");
-
-/* MENU MOBILE */
-menuBtn.onclick = ()=>{
-  nav.classList.toggle("open");
-  setTimeout(()=>nav.classList.remove("open"),7000);
-};
-
-/* NAVEGAÇÃO */
-document.querySelectorAll("[data-go]").forEach(el=>{
-  el.onclick = ()=>{
-    const page = el.getAttribute("data-go");
-    loadPage(page);
-    nav.classList.remove("open");
-  };
-});
-
-/* LOAD PAGES */
-function loadPage(page){
-  document.querySelectorAll(".nav__link").forEach(l=>l.classList.remove("is-active"));
-  document.querySelector(`.nav__link[data-go="${page}"]`)?.classList.add("is-active");
-
-  if(page==="home"){
-    app.innerHTML = `
-      <section class="korvil-home">
-        <h1>Bem-vindo ao KORVIL</h1>
-        <p class="subtitle">Escolha um setor para explorar:</p>
-
-        <div class="sectors">
-          <div class="sector">
-            <h3>Sistema K</h3>
-            <p>Núcleo do ecossistema, serviços e integrações.</p>
-            <button class="enter-btn" onclick="loadPage('sistemak')">Entrar</button>
-          </div>
-
-          <div class="sector">
-            <h3>K-TP</h3>
-            <p>Projeto de Transformação Pessoal.</p>
-            <button class="enter-btn" onclick="loadPage('ktp')">Entrar</button>
-          </div>
-
-          <div class="sector">
-            <h3>K-AFORTUNADO</h3>
-            <p>Empreendedorismo e crescimento profissional.</p>
-            <button class="enter-btn" onclick="loadPage('k-afortunado')">Entrar</button>
-          </div>
-
-          <div class="sector">
-            <h3>K-ALMA</h3>
-            <p>Serviços de saúde e bem-estar.</p>
-            <button class="enter-btn" onclick="loadPage('k-alma')">Entrar</button>
-          </div>
-        </div>
-      </section>
-    `;
-    return;
-  }
-
-  app.innerHTML = `
-    <h1>${page.toUpperCase()}</h1>
-    <p>Página inicial do setor ${page}.</p>
-  `;
-}
-
-/* INICIAL */
-loadPage("home");
+function toggleMenu(){document.getElementById("menu").classList.toggle("open");}
+function show(id){document.querySelectorAll(".tela").forEach(t=>t.classList.remove("active"));document.getElementById(id).classList.add("active");document.getElementById("menu").classList.remove("open");window.scrollTo(0,0);}
 </script>
-
-<!-- ===== K-AI GLOBAL ===== -->
-<div id="kai">
-  <div class="kai-cube" id="kaiCube">K-AI</div>
-</div>
-   
 </body>
 </html>
