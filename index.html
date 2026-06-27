@@ -175,4 +175,79 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     <h2>SAÚDE</h2>
     <div class="sub-aba"><ul><li>Terapeuta Holístico</li><li>Dentista</li><li>Fisioterapeuta</li><li>Médico</li></ul></div>
     <h2>BELEZA</h2>
-    <div class="sub-aba"><ul
+    <div class="sub-aba"><ul><li>Cabeleireiro Unissex</li><li>Barbeiro</li><li>Esteticista</li><li>Manicure</li><li>Sobrancelhas</li></ul></div>
+    <a class="btn" href="https://api.whatsapp.com/send?phone=5513997690898">Agendar Profissionais</a>
+    <a class="btn voltar" onclick="abrirTela('central')">Voltar</a>
+  </div>
+
+  <!-- TELAS K-AI -->
+  <div id="kai" class="tela"><h1>K-AI</h1><div class="card"><p>Assistente KORVIL. Fale com Profissionais no Whats.</p></div><a class="btn" href="https://api.whatsapp.com/send?phone=5513997690898">WhatsApp</a><a class="btn voltar" onclick="abrirTela('central')">Voltar</a></div>
+  <div id="sobre" class="tela"><h1>SOBRE KORVIL</h1><div class="card"><p>Ecossistema com Profissionais de alta performance. 11 anos.</p></div><a class="btn voltar" onclick="abrirTela('central')">Voltar</a></div>
+  <div id="politica" class="tela"><h1>PRIVACIDADE</h1><div class="card"><p>Dados seguros. Uso exclusivo com Profissionais.</p></div><a class="btn voltar" onclick="abrirTela('central')">Voltar</a></div>
+
+</div> <!-- FECHOU O WRAP AQUI -->
+
+<!-- PATO -->
+<div class="pato" onclick="abrirTela('central')"><svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2.9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg></div>
+
+<!-- SCRIPT FECHADO CORRETO -->
+<script>
+const mensagens = [
+"Profissionais KORVIL online.","KORVIL em 11 anos.","Manutenção de Celular.",
+"Negócio Próprio aqui.","Terapia Holística K-TH.","Cabeleireiro Unissex.",
+"Eletricista disponível.","Projeto TRANSFORMAÇÃO.","Consultoria Financeira.",
+"Médico e Dentista.","Barbeiro e Esteticista.","Sistema K ativo.",
+"K-AFORTUNADO aberto.","K-ALMA base mental.","Educação Física.",
+"Tráfego com Profissionais.","Design KORVIL.","Empreendedorismo real.",
+"Finanças controladas.","Atendimento agora.","Saúde e Beleza.",
+"Treinamento KORVIL.","Ecossistema completo.","Futuro é KORVIL.",
+"220 Aulas.","Profissionais top.","R$197 por mês.",
+"Whats: 13997690898.","Comece hoje.","Sorteios K-AFORTUNADO.",
+"Todas as áreas.","KORVIL cuida.","Central atende.",
+"Negócios lucram.","Serviços gerais.","K-AI 24h.",
+"Profissionais certificados.","Beleza KORVIL.","Saúde primeiro.",
+"Tecnologia.","Educação.","Consultoria.","Parcerias.",
+"Ao seu lado.","Resultado KORVIL.","Fale agora.",
+"Impulso KORVIL.","Atendimento rápido.","Confiança KORVIL.",
+"Mude seu jogo.","Entre hoje."
+];
+
+let indice = Math.floor(Math.random() * mensagens.length);
+const msgEl = document.getElementById('kaiMsg');
+const kaiBox = document.getElementById('kaiBox');
+
+function falar(texto){
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(texto);
+    utter.lang = 'pt-BR'; utter.rate = 1; utter.pitch = 1;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+function trocarMensagem(){
+  if(kaiBox.classList.contains('expandido')){
+    msgEl.textContent = mensagens[indice];
+    indice = (indice + 1) % mensagens.length;
+  }
+}
+setInterval(trocarMensagem, 15000);
+
+function toggleKai(){
+  kaiBox.classList.toggle('expandido');
+  if(kaiBox.classList.contains('expandido')){trocarMensagem();}
+}
+
+function abrirTela(id){
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+  window.scrollTo(0,0);
+}
+function toggleMenu(){
+  document.getElementById('menu').classList.toggle('ativo');
+  document.getElementById('overlay').classList.toggle('ativo');
+}
+</script> <!-- FECHOU O SCRIPT AQUI -->
+
+</body>
+</html>
