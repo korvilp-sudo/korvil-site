@@ -6,13 +6,13 @@
 <title>KORVIL - Site</title>
 <style>
 :root{--verde:#008080;--preto:#000;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;-webkit-tap-highlight-color:transparent;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;-webkit-tap-highlight-color:transparent;}
 body{background:var(--preto);color:#fff;overflow:hidden;}
-.top{position:fixed;top:0;left:0;right:0;height:70px;background:var(--verde);color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;z-index:10;font-weight:bold;}
-.top button{background:transparent;border:1px solid #000;color:#000;padding:6px 20px;border-radius:4px;margin-top:5px;font-size:14px;cursor:pointer;}
+.top{position:fixed;top:0;left:0;right:0;height:70px;background:var(--verde);color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;z-index:10;font-weight:700;}
+.top button{background:transparent;border:1px solid #000;color:#000;padding:6px 22px;border-radius:4px;margin-top:5px;font-size:14px;cursor:pointer;}
 .menu{position:fixed;top:0;left:-280px;width:280px;height:100%;background:var(--preto);padding-top:15px;overflow-y:auto;z-index:101;transition:left .3s;border-right:1px solid #222;}
 .menu.ativo{left:0;}
-.menu .fechar{font-size:28px;padding:5px 20px;cursor:pointer;line-height:1;}
+.menu .fechar{font-size:28px;padding:5px 20px;cursor:pointer;line-height:1;color:#fff;}
 .menu a{display:block;color:#fff;text-decoration:none;padding:12px 20px;font-size:15px;cursor:pointer;}
 .menu a:active{background:#111;}
 .menu .t{font-weight:bold;margin-top:8px;font-size:16px;}
@@ -22,72 +22,11 @@ body{background:var(--preto);color:#fff;overflow:hidden;}
 .overlay.ativo{display:block;}
 .tela{position:absolute;top:70px;left:0;right:0;bottom:0;overflow-y:auto;padding:20px;display:none;background:var(--preto);}
 .tela.ativa{display:block;text-align:center;}
-h1{color:var(--verde);font-size:22px;margin-bottom:15px;}
+h1{color:var(--verde);font-size:22px;margin:15px 0;}
 p{color:#ccc;font-size:14px;}
 </style>
 </head>
 <body>
 
 <div class="top">você está em KORVIL - Site
-<button onclick="alert('Sistema Online')">online</button>
-</div>
-
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<div class="menu" id="menu">
-<div class="fechar" onclick="toggleMenu()">×</div>
-
-<a class="t" onclick="abrir('inicio')">^ Início</a>
-<a class="sub" onclick="abrir('kalma');toggleMenu()">K-ALMA</a>
-<a class="sub" onclick="abrir('kafortunado');toggleMenu()">K-AFORTUNADO</a>
-<a class="sub" onclick="abrir('ktp');toggleMenu()">K-TP</a>
-
-<a class="t" style="margin-top:15px;">^ Sistema K</a>
-<a class="sub" onclick="abrir('kstore');toggleMenu()">K- Store</a>
-<a class="sub2" onclick="abrir('artigos');toggleMenu()">Artigos & Acessórios Esportivos</a>
-<a class="sub2" onclick="abrir('suplementos');toggleMenu()">Suplementos & Produtos Alimentares</a>
-
-<a class="sub" onclick="abrir('vestuarios');toggleMenu()">^ Vestuários</a>
-<a class="sub2" onclick="abrir('fitness');toggleMenu()">Roupas Fitness</a>
-
-<a style="margin-top:20px;color:#666;">( ? )</a>
-</div>
-
-<div id</div>
-<a class="btn voltar" onclick="abrirTela('central')">Voltar</a>
-</div>
-
-<div id="ktp" class="tela">
-<h1>K-TP</h1>
-<div class="card"><p>Projeto Transformação 11 Anos. Plataforma completa de gestão.</p></div>
-<a class="btn" href="https://wa.me/55SEUNUMERO?text=Quero K-TP">Falar no Whats</a>
-<a class="btn voltar" onclick="abrirTela('central')">Voltar</a>
-</div>
-
-<div id="kalma" class="tela">
-<h1>K-ALMA</h1>
-<div class="card"><p>Conteúdo exclusivo de mentalidade, estratégia e base KORVIL.</p></div>
-<a class="btn" href="https://wa.me/55SEUNUMERO?text=Quero K-ALMA">Falar no Whats</a>
-<a class="btn voltar" onclick="abrirTela('central')">Voltar</a>
-</div>
-
-</div>
-
-<div class="pato" onclick="abrirTela('central')">
-<svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg>
-</div>
-
-<script>
-function abrirTela(id){
-document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
-document.getElementById(id).classList.add('ativa');
-window.scrollTo(0,0);
-}
-function toggleMenu(){
-document.getElementById('menu').classList.toggle('ativo');
-document.getElementById('overlay').classList.toggle('ativo');
-}
-</script>
-
-</body>
-</html>
+<button onclick="alert('Sistema Online')">
