@@ -24,7 +24,7 @@ h3{color:var(--c);font-size:15px;margin:12px 0 6px 0;font-weight:600;}
 p{color:var(--text2);font-size:14px;line-height:1.6;}
 
 .hero{background:linear-gradient(135deg,#0b0b0b 0%,#111 100%);border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:16px;text-align:center;}
-.hero.badge{display:inline-block;background:#111;border:1px solid var(--c);color:var(--c);padding:4px 10px;border-radius:20px;font-size:11px;margin:4px;}
+.badge{display:inline-block;background:#111;border:1px solid var(--c);color:var(--c);padding:4px 10px;border-radius:20px;font-size:11px;margin:4px;}
 .hero h2{font-size:20px;color:var(--c);margin:8px 0;border:0;padding:0;}
 .destaque{color:var(--c);font-weight:700;}
 
@@ -97,12 +97,14 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <button class="btn-voltar" onclick="toggleMenu()">MENU</button>
   <div class="logo">K-TP</div>
   <a href="../../index.html" class="btn-voltar">SAIR</a>
 </div>
 
+<!-- OVERLAY + MENU -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 <div class="menu-lateral" id="menu">
   <a onclick="scrollTo('sobre');toggleMenu()">Sobre</a>
@@ -112,20 +114,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
   <a onclick="scrollTo('contato');toggleMenu()">Contato</a>
 </div>
 
-<!-- K-AI -->
-<div class="kai-box" id="kaiBox">
-  <div class="kai-bolha" onclick="toggleKai()"></div>
-  <div class="kai-conteudo">
-    <div class="kai-title"><div class="kai-dot"></div>K-AI K-TP</div>
-    <div class="kai-msg" id="kaiMsg"></div>
-    <div class="kai-menu">
-      <button onclick="scrollTo('planos');toggleKai()">Planos</button>
-      <button onclick="scrollTo('horarios');toggleKai()">Horários</button>
-      <button onclick="window.open('https://api.whatsapp.com/send?phone=5513997690898&text=K-TP','_blank')">WhatsApp</button>
-    </div>
-  </div>
-</div>
-
+<!-- CONTEUDO -->
 <div class="wrap">
 
   <!-- HERO -->
@@ -274,6 +263,20 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     © 2026 KORVIL. TODOS OS DIREITOS RESERVADOS.
   </div>
 
+</div> <!-- FIM DO WRAP -->
+
+<!-- K-AI EM BAIXO ESQUERDA - DENTRO DO BODY -->
+<div class="kai-box" id="kaiBox">
+  <div class="kai-bolha" onclick="toggleKai()"></div>
+  <div class="kai-conteudo">
+    <div class="kai-title"><div class="kai-dot"></div>K-AI K-TP</div>
+    <div class="kai-msg" id="kaiMsg">Carregando...</div>
+    <div class="kai-menu">
+      <button onclick="scrollTo('planos');toggleKai()">Planos</button>
+      <button onclick="scrollTo('horarios');toggleKai()">Horários</button>
+      <button onclick="window.open('https://api.whatsapp.com/send?phone=5513997690898&text=K-TP','_blank')">WhatsApp</button>
+    </div>
+  </div>
 </div>
 
 <!-- PATO -->
@@ -281,6 +284,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
   <svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2.9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg>
 </div>
 
+<!-- SCRIPT -->
 <script>
 const mensagens = [
 "K-TP 11 Anos.","7 vagas por horário.",
@@ -309,7 +313,7 @@ function falar(texto){
 }
 
 function trocarMensagem(){
-  if(kaiBox.classList.contains('expandido')){
+  if(kaiBox && kaiBox.classList.contains('expandido') && msgEl){
     msgEl.textContent = mensagens[indice];
     indice = (indice + 1) % mensagens.length;
   }
@@ -317,17 +321,21 @@ function trocarMensagem(){
 setInterval(trocarMensagem, 15000);
 
 function toggleKai(){
-  kaiBox.classList.toggle('expandido');
-  if(kaiBox.classList.contains('expandido')){trocarMensagem();}
+  if(kaiBox){
+    kaiBox.classList.toggle('expandido');
+    if(kaiBox.classList.contains('expandido')){trocarMensagem();}
+  }
 }
 
 function scrollTo(id){
-  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  const el = document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth'});}
 }
 function toggleMenu(){
-  document.getElementById('menu').classList.toggle('ativo');
-  document.getElementById('overlay').classList.toggle('ativo');
-}
+  const menu = document.getElementById('menu');
+  const overlay = document.getElementById('overlay');
+  if(menu){menu.classList.toggle('ativo');}
+  if(overlay){overlay.classList.toggle('ativo');}
 </script>
 
 </body>
