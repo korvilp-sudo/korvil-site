@@ -6,8 +6,8 @@
 <title>KORVIL - Site</title>
 <style>
 :root{--verde:#008080;--preto:#000;--zap:#25D366;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;-webkit-tap-highlight-color:transparent;}
-body{background:var(--preto);color:#fff;overflow-x:hidden;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+body{background:var(--preto);color:#fff;overflow:hidden;}
 .top{position:fixed;top:0;left:0;right:0;height:70px;background:var(--verde);color:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:14px;z-index:10;font-weight:700;}
 .top button{background:transparent;border:1px solid #000;color:#000;padding:6px 22px;border-radius:4px;margin-top:5px;font-size:14px;cursor:pointer;}
 .menu{position:fixed;top:0;left:-280px;width:280px;height:100%;background:var(--preto);padding-top:15px;overflow-y:auto;z-index:101;transition:left .3s;border-right:1px solid #222;}
@@ -23,7 +23,6 @@ body{background:var(--preto);color:#fff;overflow-x:hidden;}
 .overlay.ativo{display:block;}
 .tela{position:absolute;top:70px;left:0;right:0;bottom:0;overflow-y:auto;padding:20px;display:none;background:var(--preto);}
 .tela.ativa{display:block;text-align:center;}
-.logo-box{width:90%; max-width:400px; margin:25px auto 10px auto; aspect-ratio:1/1; background:#111; border:2px dashed #008080; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#008080; font-size:14px;}
 h1{color:var(--verde);font-size:22px;margin:15px 0;}
 p{color:#ccc;font-size:14px;}
 .btn-zap{display:inline-block;margin-top:15px;padding:12px 25px;background:var(--zap);color:#000;text-decoration:none;border-radius:8px;font-weight:bold;}
@@ -53,16 +52,15 @@ p{color:#ccc;font-size:14px;}
 <a class="sub" onclick="abrir('vestuarios');toggleMenu()">^ Vestuários</a>
 <a class="sub2" onclick="abrir('fitness');toggleMenu()">Roupas Fitness</a>
 
-<a href="https://wa.me/551399768098?text=Ol%C3%A1%20KORVIL" target="_blank" rel="noopener" class="zap">Falar no WhatsApp</a>
+<a href="https://wa.me/551399768098?text=Ol%C3%A1%20KORVIL" target="_blank" class="zap">Falar no WhatsApp</a>
 
 <a style="margin-top:10px;color:#666;">( ? )</a>
 </div>
 
 <div id="inicio" class="tela ativa">
-  <div class="logo-box">ESPAÇO DA LOGO KORVIL<br>AQUI</div>
   <h1>CENTRAL KORVIL</h1>
-  <p style="color:#aaa;">Site 100% funcional. Clique no X para abrir o menu.</p>
-  <a href="https://wa.me/551399768098?text=Quero%20saber%20mais%20sobre%20KORVIL" target="_blank" rel="noopener" class="btn-zap">Falar com Atendimento</a>
+  <p style="color:#aaa;">Clique no X para abrir/fechar o menu.</p>
+  <a href="https://wa.me/551399768098?text=Quero%20saber%20mais%20sobre%20KORVIL" target="_blank" class="btn-zap">Falar com Atendimento</a>
 </div>
 
 <div id="kalma" class="tela"><h1>K-ALMA</h1><p>Conteúdo da página K-ALMA</p></div>
