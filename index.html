@@ -1,51 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>KORVIL</title>
 <style>
-:root{--c:#00f5ff;--bg:#000;--text:#fff;--text2:#bbb;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:var(--text);font-size:15px}
-.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:#000;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:center;z-index:100}
-.menu-btn{position:absolute;left:15px;border:1px solid var(--c);background:transparent;color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer}
-.logo{color:var(--c);font-weight:700}
-.wrap{padding:75px 18px 90px;max-width:680px;margin:auto}
-h1{font-size:20px;text-align:center;margin-bottom:18px}
-.card{background:#0b0b0b;border:1px solid #222;border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer}
-.card h2{font-size:16px;margin-bottom:4px}
-.card p{font-size:13px;color:var(--text2)}
-.tela{display:none}.tela.ativa{display:block}
-.sub-aba{background:#0b0b0b;border:1px solid #222;border-radius:8px;padding:12px;margin-bottom:8px}
-.sub-aba ul{list-style:none}.sub-aba li{color:var(--text2);font-size:13px;padding:6px 0;border-bottom:1px solid #111}
-.btn{background:var(--c);color:#000;border:0;padding:10px 16px;border-radius:6px;font-weight:600;font-size:13px;width:100%;margin-top:10px;cursor:pointer;text-decoration:none;display:block;text-align:center}
-.btn.voltar{background:#222;color:var(--text)}
-.menu-lateral{position:fixed;top:0;left:-280px;width:260px;height:100%;background:#060606;border-right:1px solid #222;z-index:101;transition:left.3s;padding-top:65px}
-.menu-lateral.ativo{left:0}.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer}
-.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:none;z-index:100}
-.overlay.ativo{display:block}
-.pato{position:fixed;bottom:18px;right:18px;width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99;cursor:pointer}
-.pato svg{width:24px;height:24px;fill:var(--c)}
-.kai-box{position:fixed;bottom:18px;left:18px;z-index:98}
-.kai-bolha{width:52px;height:52px;background:#0b0b0b;border:2px solid var(--c);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.kai-bolha::after{content:'';width:12px;height:12px;background:var(--c);border-radius:50%}
-.kai-conteudo{display:none;position:absolute;bottom:60px;left:0;width:220px;background:#0a0a0a;border:1px solid #333;border-radius:10px;padding:10px}
-.kai-box.ativo.kai-conteudo{display:block}
-.kai-title{color:var(--c);font-size:11px;font-weight:600;margin-bottom:6px;display:flex;gap:6px;align-items:center}
-.kai-dot{width:6px;height:6px;background:var(--c);border-radius:50%}
-.kai-msg{color:var(--text2);font-size:12px;min-height:18px}
-.kai-menu{margin-top:8px;border-top:1px solid #222;padding-top:6px}
-.kai-menu button{width:100%;background:transparent;border:0;color:var(--text2);padding:6px 0;font-size:11px;text-align:left;cursor:pointer}
-.logo-central{width:80%;max-width:320px;margin:0 auto 16px auto;display:block;border-radius:10px;opacity:.9}
+:root{--c:#00f5ff; --bg:#000; --text:#fff; --text2:#bbb;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px var(--c);}50%{box-shadow:0 0 15px var(--c);}}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn.5s;}
+.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+.logo{color:var(--c);font-weight:700;font-size:17px;letter-spacing:1px;}
+
+.wrap{padding:75px 18px 90px;max-width:680px;margin:auto;animation:fadeIn.6s;}
+h1{color:var(--text);font-size:20px;margin-bottom:18px;font-weight:600;text-align:center;}
+h2{color:var(--text);font-size:16px;margin:18px 0 8px 0;font-weight:600;}
+h4{color:var(--text2);font-size:14px;margin-bottom:6px;font-weight:600;}
+p{color:var(--text2);font-size:14px;line-height:1.6;}
+
+.card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;animation:fadeIn.5s;}
+.card:hover{border-color:var(--c);}
+.card h2{font-size:16px;margin-bottom:4px;}
+.card p{font-size:13px;color:var(--text2);}
+
+.tela{display:none;animation:fadeIn.4s;}
+.tela.ativa{display:block;}
+.sub-aba{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:8px;padding:12px;margin-bottom:8px;}
+.sub-aba ul{list-style:none;padding-left:0;}
+.sub-aba li{color:var(--text2);font-size:13px;padding:6px 0;border-bottom:1px solid #111;}
+.sub-aba li:last-child{border:0;}
+
+.btn{display:inline-block;background:var(--c);color:#000;text-align:center;padding:10px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px;transition:.2s;border:0;cursor:pointer;margin-top:10px;}
+.btn:hover{filter:brightness(1.1);}
+.btn.voltar{background:#222;color:var(--text);margin-right:8px;}
+
+.menu-lateral{position:fixed;top:0;left:-280px;width:260px;height:100%;background:#060606;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:65px;}
+.menu-lateral.ativo{left:0;}
+.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer;}
+.menu-lateral a:hover{background:#111;color:var(--c);}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:none;z-index:100;}
+.overlay.ativo{display:block;}
+
+.pato{position:fixed;bottom:18px;right:18px;width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99;cursor:pointer;transition:.2s;}
+.pato:hover{box-shadow:0 0 12px var(--c);}
+.pato svg{width:24px;height:24px;fill:var(--c);}
+
+/* K-AI EM BAIXO */
+.kai-box{position:fixed;bottom:18px;left:18px;z-index:98;transition:.3s;}
+.kai-bolha{width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;cursor:pointer;animation:glow 2s infinite;display:flex;align-items:center;justify-content:center;}
+.kai-bolha::after{content:'';width:12px;height:12px;background:var(--c);border-radius:50%;}
+.kai-conteudo{display:none;position:absolute;bottom:60px;left:0;width:220px;background:rgba(10,10,10,.95);backdrop-filter:blur(8px);border:1px solid #333;border-radius:10px;padding:10px;}
+.kai-box.ativo.kai-conteudo{display:block;animation:fadeIn.3s;}
+.kai-title{color:var(--c);font-size:11px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.kai-dot{width:6px;height:6px;background:var(--c);border-radius:50%;animation:glow 2s infinite;}
+.kai-msg{color:var(--text2);font-size:12px;line-height:1.4;min-height:18px;}
+.kai-menu{margin-top:8px;border-top:1px solid #222;padding-top:6px;}
+.kai-menu button{width:100%;background:transparent;border:0;color:var(--text2);padding:6px 0;font-size:11px;text-align:left;cursor:pointer;}
+.kai-menu button:hover{color:var(--c);}
+
+.logo-central{width:80%; max-width:320px; margin:0 auto 16px auto; display:block; border-radius:10px;opacity:.9;}
+.tag{background:#111;border:1px solid #333;color:var(--text2);padding:3px 8px;border-radius:5px;font-size:11px;display:inline-block;margin:2px;}
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <button class="menu-btn" onclick="toggleMenu()">MENU</button>
   <div class="logo">KORVIL</div>
 </div>
 
+<!-- OVERLAY + MENU LATERAL -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 <div class="menu-lateral" id="menu">
   <a onclick="abrirTela('kalma');toggleMenu()">K-ALMA</a>
@@ -55,14 +84,161 @@ h1{font-size:20px;text-align:center;margin-bottom:18px}
   <a onclick="abrirTela('central');toggleMenu()">CENTRAL KORVIL</a>
 </div>
 
+<!-- CONTEUDO -->
 <div class="wrap">
+
+  <!-- CENTRAL -->
   <div id="central" class="tela ativa">
-    <img src="https://raw.githubusercontent.com/korvilp-sudo/korvil-site/main/assets/images/logo-korvil.png" class="logo-central">
+    <img src="https://raw.githubusercontent.com/korvilp-sudo/korvil-site/main/assets/images/logo-korvil.png" alt="Logo KORVIL" class="logo-central">
     <h1>CENTRAL KORVIL</h1>
     <div class="card" onclick="abrirTela('humano')"><h2>1. DESENVOLVIMENTO HUMANO</h2><p>Cursos, Treinamento, Saude e Beleza</p></div>
     <div class="card" onclick="abrirTela('negocios')"><h2>2. NEGOCIOS</h2><p>Parcerias com Profissionais</p></div>
     <div class="card" onclick="abrirTela('servicos')"><h2>3. SERVICOS</h2><p>Profissionais Especializados</p></div>
   </div>
 
-  <div id="humano" class="tela"><h1>DESENVOLVIMENTO HUMANO</h1><h2>CURSOS</h2><div class="sub-aba"><h4>TECNOLOGIAS</h4><ul><li>Manutencao de Celular</li></ul></div><h2>TREINAMENTO</h2><div class="sub-aba"><h4>EMPREENDEDORISMO</h4><ul><li>Negocio Proprio</li></ul></div><h2>SAUDE E BELEZA</h2><div class="sub-aba"><ul><li>K-TH Terapia Holistica</li><li>Cabeleireiro Unissex</li></ul></div><a class="btn" href="https://wa.me/5513997690898?text=Quero%20Info">Falar com Profissionais</a><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
-  <div id="negocios" class="tela"><h1>NEGOCIOS</h1><div class="sub-aba"><h4>PARCERIAS</h4><p>Profissionais das areas KORVIL.</p></div><a class="btn" href="https://wa.me/5513997690898">Falar com Profissionais</
+  <!-- DESENVOLVIMENTO HUMANO -->
+  <div id="humano" class="tela">
+    <h1>DESENVOLVIMENTO HUMANO</h1>
+    <h2>CURSOS</h2>
+    <div class="sub-aba"><h4>TECNOLOGIAS</h4><ul><li>Manutencao de Celular</li></ul></div>
+    <div class="sub-aba"><h4>EDUCACAO FISICA</h4><ul><li>Bacharelado</li></ul></div>
+    <h2>TREINAMENTO</h2>
+    <div class="sub-aba"><h4>EMPREENDEDORISMO</h4><ul><li>Negocio Proprio</li></ul></div>
+    <h2>SAUDE E BELEZA</h2>
+    <div class="sub-aba"><ul><li>K-TH Terapia Holistica</li><li>Cabeleireiro Unissex</li></ul></div>
+    <a class="btn" href="https://wa.me/5513997690898?text=Quero%20Info">Falar com Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- NEGOCIOS -->
+  <div id="negocios" class="tela">
+    <h1>NEGOCIOS</h1>
+    <div class="sub-aba"><h4>PARCERIAS COM PROFISSIONAIS</h4><p>Profissionais das areas KORVIL.</p><span class="tag">Tecnologia</span><span class="tag">Saude</span><span class="tag">Beleza</span><span class="tag">Financas</span></div>
+    <a class="btn" href="https://wa.me/5513997690898">Falar com Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- SERVICOS -->
+  <div id="servicos" class="tela">
+    <h1>SERVICOS</h1>
+    <div class="sub-aba"><h4>1. CONCERTOS DE CELULAR</h4><p>Profissionais tecnicos.</p></div>
+    <div class="sub-aba"><h4>2. TREINAMENTO</h4><p>Profissionais KORVIL.</p></div>
+    <div class="sub-aba"><h4>3. CONSULTORIA</h4><p>Profissionais em Financas.</p></div>
+    <div class="sub-aba"><h4>4. SAUDE E BELEZA</h4><p>Profissionais da area.</p></div>
+    <a class="btn" href="https://wa.me/5513997690898">Contratar Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- SISTEMA K -->
+  <div id="sistema" class="tela">
+    <h1>SISTEMA K</h1>
+    <h2>SERVICOS GERAIS PROFISSIONAIS</h2>
+    <div class="sub-aba"><ul><li>Eletricista</li><li>Carpinteiro</li><li>Faxineira</li><li>Encanador</li><li>Pintor</li><li>Pedreiro</li></ul></div>
+    <a class="btn" href="https://wa.me/5513997690898">Contratar Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- K-TP -->
+  <div id="ktp" class="tela">
+    <h1>K-TP</h1>
+    <div class="sub-aba"><h4>PROJETO TRANSFORMACAO</h4><p>11 Anos de conteudo e gestao. <a href="sections/ktp/index.html" style="color:var(--c);">Acessar pagina K-TP -></a></p></div>
+    <a class="btn" href="sections/ktp/index.html">Entrar no K-TP</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- K-AFORTUNADO -->
+  <div id="kafortunado" class="tela">
+    <h1>K-AFORTUNADO</h1>
+    <div class="sub-aba"><h4>CONSULTORIA FINANCEIRA</h4><p>Profissionais em estrategia.</p></div>
+    <a class="btn" href="https://wa.me/5513997690898">Agendar Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- K-ALMA -->
+  <div id="kalma" class="tela">
+    <h1>K-ALMA</h1>
+    <h2>SAUDE</h2>
+    <div class="sub-aba"><ul><li>Terapeuta Holistico</li><li>Dentista</li><li>Fisioterapeuta</li><li>Medico</li></ul></div>
+    <h2>BELEZA</h2>
+    <div class="sub-aba"><ul><li>Cabeleireiro Unissex</li><li>Barbeiro</li><li>Esteticista</li><li>Manicure</li><li>Sobrancelhas</li></ul></div>
+    <a class="btn" href="https://wa.me/5513997690898">Agendar Profissionais</a>
+    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </div>
+
+  <!-- TELAS K-AI -->
+  <div id="kai" class="tela"><h1>K-AI</h1><div class="card"><p>Assistente KORVIL. Fale com Profissionais no Whats.</p></div><a class="btn" href="https://wa.me/5513997690898">WhatsApp</a><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
+  <div id="sobre" class="tela"><h1>SOBRE KORVIL</h1><div class="card"><p>Ecossistema com Profissionais de alta performance. 11 anos.</p></div><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
+  <div id="politica" class="tela"><h1>PRIVACIDADE</h1><div class="card"><p>Dados seguros. Uso exclusivo com Profissionais.</p></div><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
+
+</div> <!-- FIM DO WRAP -->
+
+<!-- K-AI EM BAIXO ESQUERDA -->
+<div class="kai-box" id="kaiBox">
+  <div class="kai-bolha" onclick="toggleKai()"></div>
+  <div class="kai-conteudo">
+    <div class="kai-title"><div class="kai-dot"></div>K-AI ASSISTENTE</div>
+    <div class="kai-msg" id="kaiMsg">Carregando...</div>
+    <div class="kai-menu">
+      <button onclick="abrirTela('kai');toggleKai()">Assistente</button>
+      <button onclick="abrirTela('sobre');toggleKai()">Sobre</button>
+      <button onclick="abrirTela('politica');toggleKai()">Privacidade</button>
+      <button onclick="window.open('https://wa.me/5513997690898','_blank')">WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- PATO -->
+<div class="pato" onclick="abrirTela('central')"><svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2.9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg></div>
+
+<!-- SCRIPT -->
+<script>
+var mensagens = [
+"Profissionais KORVIL online","KORVIL 11 anos","Manutencao de Celular",
+"Negocio Proprio aqui","Terapia Holistica K-TH","Cabeleireiro Unissex",
+"Eletricista disponivel","Projeto TRANSFORMACAO","Consultoria Financeira",
+"Medico e Dentista","Barbeiro e Esteticista","Sistema K ativo",
+"K-AFORTUNADO aberto","K-ALMA base mental","Educacao Fisica",
+"Tráfego com Profissionais","Design KORVIL","Empreendedorismo real",
+"Financas controladas","Atendimento agora","Saude e Beleza",
+"Treinamento KORVIL","Ecossistema completo","Futuro e KORVIL",
+"220 Aulas","Profissionais top","R$197 por mes",
+"Whats 13997690898","Comece hoje","Sorteios K-AFORTUNADO",
+"Todas as areas","KORVIL cuida","Central atende",
+"Negocios lucram","Servicos gerais","K-AI 24h",
+"Profissionais certificados","Beleza KORVIL","Saude primeiro",
+"Tecnologia","Educacao","Consultoria","Parcerias",
+"Ao seu lado","Resultado KORVIL","Fale agora",
+"Impulso KORVIL","Atendimento rapido","Confianca KORVIL",
+"Mude seu jogo","Entre hoje"
+];
+
+var indice = Math.floor(Math.random() * mensagens.length);
+var msgEl = document.getElementById('kaiMsg');
+var kaiBox = document.getElementById('kaiBox');
+
+function trocarMensagem(){
+  if(kaiBox.classList.contains('ativo') && msgEl){
+    msgEl.textContent = mensagens[indice];
+    indice = (indice + 1) % mensagens.length;
+  }
+}
+setInterval(trocarMensagem, 15000);
+
+function toggleKai(){
+  kaiBox.classList.toggle('ativo');
+  if(kaiBox.classList.contains('ativo')){trocarMensagem();}
+}
+
+function abrirTela(id){
+  document.querySelectorAll('.tela').forEach(function(t){t.classList.remove('ativa')});
+  document.getElementById(id).classList.add('ativa');
+  window.scrollTo(0,0);
+}
+function toggleMenu(){
+  document.getElementById('menu').classList.toggle('ativo');
+  document.getElementById('overlay').classList.toggle('ativo');
+}
+</script>
+
+</body>
+</html>
