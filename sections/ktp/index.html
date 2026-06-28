@@ -2,31 +2,341 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K-TP | Inscricao Projeto TRANSFORMACAO</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>K-TP | Projeto TRANSFORMAÇÃO 2026</title>
 <style>
-:root{--c:#00f5ff;--bg:#000;--text:#fff;--text2:#bbb;--erro:#ff3b30;}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#000;color:var(--text);font-size:15px}
-.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:#000;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:100}
-.btn{border:1px solid var(--c);background:transparent;color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none}
-.logo{color:var(--c);font-weight:700}
-.wrap{padding:75px 18px 90px;max-width:680px;margin:auto}
-h2{color:var(--text);font-size:18px;margin:24px 0 12px;border-left:3px solid var(--c);padding-left:10px}
-h3{color:var(--c);font-size:15px;margin:12px 0}
-label{display:block;color:var(--text2);font-size:13px;margin-bottom:6px;font-weight:600}
-input,select{width:100%;background:#0b0b0b;border:1px solid #333;color:var(--text);padding:10px;border-radius:6px;font-size:14px;margin-bottom:12px}
-input:disabled,select:disabled{background:#111;color:#666;cursor:not-allowed}
-input.erro,select.erro{border-color:var(--erro)}
-.erro-text{color:var(--erro);font-size:11px;margin-top:-8px;margin-bottom:8px;display:none}
-.card{background:#0b0b0b;border:1px solid #222;border-radius:10px;padding:16px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:500px){.grid{grid-template-columns:1fr}}
-.planos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.plano{background:#0b0b0b;border:1px solid #222;border-radius:10px;padding:14px;text-align:center}
-.plano.destaque{border-color:var(--c)}
-.preco{font-size:22px;font-weight:700;margin:8px 0}
-ul{list-style:none;font-size:12px;color:var(--text2);text-align:left}
-ul li{padding:4px 0}ul li:before{content:'✓ ';color:var(--c)}
-.btn-main{background:var(--c);color:#000;border:0;padding:14px;border-radius:8px;font-weight:700;font-size:15px;width:100%;margin-top:10px;cursor:pointer}
-.btn-sec{background:#222;color:var(--text);border:0;padding:10px;border-radius:6px
+:root{--c:#00f5ff; --c2:#8b5cf6; --bg:#000; --card:#0a0a0a; --text:#fff; --text2:#bbb;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px var(--c);}50%{box-shadow:0 0 15px var(--c);}}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;padding:0 15px;z-index:100;animation:fadeIn.5s;}
+.btn-voltar{background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;}
+.logo{color:var(--c);font-weight:700;font-size:17px;letter-spacing:1px;}
+
+.wrap{padding:75px 18px 90px;max-width:680px;margin:auto;animation:fadeIn.6s;}
+h1{color:var(--c);font-size:24px;margin-bottom:6px;font-weight:700;text-align:center;text-shadow:0 0 10px var(--c);}
+.sub{color:var(--text2);font-size:13px;text-align:center;margin-bottom:20px;}
+h2{color:var(--text);font-size:18px;margin:24px 0 12px 0;font-weight:700;border-left:3px solid var(--c);padding-left:10px;}
+h3{color:var(--c);font-size:15px;margin:12px 0 6px 0;font-weight:600;}
+p{color:var(--text2);font-size:14px;line-height:1.6;}
+
+.hero{background:linear-gradient(135deg,#0b0b0b 0%,#111 100%);border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:16px;text-align:center;}
+.badge{display:inline-block;background:#111;border:1px solid var(--c);color:var(--c);padding:4px 10px;border-radius:20px;font-size:11px;margin:4px;}
+.hero h2{font-size:20px;color:var(--c);margin:8px 0;border:0;padding:0;}
+.destaque{color:var(--c);font-weight:700;}
+
+.card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:10px;padding:16px;margin-bottom:12px;transition:.2s;}
+.card:hover{border-color:var(--c);}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+@media(max-width:500px){.grid{grid-template-columns:1fr;}}
+
+.tabela{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+.tabela th,.tabela td{border:1px solid #222;padding:8px;text-align:center;}
+.tabela th{background:#111;color:var(--c);font-weight:600;}
+.tabela tr:nth-child(even){background:#0b0b0b;}
+
+.fases{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fase{background:#0b0b0b;border:1px solid #222;border-radius:8px;padding:12px;}
+.fase h4{color:var(--c);font-size:13px;margin-bottom:4px;}
+.fase ul{list-style:none;font-size:12px;color:var(--text2);}
+.fase li{padding:3px 0;}
+.fase li:before{content:'✓ ';color:var(--c);}
+
+.metodologias{display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center;}
+.metodo{background:#0b0b0b;border:1px solid #222;border-radius:8px;padding:12px;}
+.metodo.num{font-size:24px;color:var(--c);font-weight:700;}
+.metodo h4{font-size:13px;margin:4px 0;}
+.metodo p{font-size:11px;color:var(--text2);}
+
+.btn{display:inline-block;background:linear-gradient(135deg,var(--c),var(--c2));color:#000;text-align:center;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;transition:.2s;margin-top:10px;width:100%;}
+.btn:hover{filter:brightness(1.1);box-shadow:0 0 15px var(--c);}
+.btn.sec{background:#222;color:var(--text);font-size:13px;padding:10px;}
+
+.planos{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.plano{background:#0b0b0b;border:1px solid #222;border-radius:10px;padding:14px;}
+.plano.destaque{border-color:var(--c);box-shadow:0 0 15px rgba(0,245,255,.2);}
+.plano h3{font-size:16px;color:var(--c);text-align:center;margin-bottom:8px;}
+.plano.preco{font-size:22px;color:var(--text);font-weight:700;text-align:center;margin:8px 0;}
+.plano ul{list-style:none;font-size:12px;color:var(--text2);}
+.plano li{padding:4px 0;}
+.plano li:before{content:'✓ ';color:var(--c);}
+
+.menu-lateral{position:fixed;top:0;left:-280px;width:260px;height:100%;background:#060606;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:65px;}
+.menu-lateral.ativo{left:0;}
+.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer;}
+.menu-lateral a:hover{background:#111;color:var(--c);}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:none;z-index:100;}
+.overlay.ativo{display:block;}
+
+.pato{position:fixed;bottom:18px;right:18px;width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99;cursor:pointer;}
+.pato svg{width:24px;height:24px;fill:var(--c);}
+
+/* K-AI EM BAIXO */
+.kai-box{position:fixed;bottom:18px;left:18px;z-index:98;}
+.kai-bolha{width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;cursor:pointer;animation:glow 2s infinite;display:flex;align-items:center;justify-content:center;}
+.kai-bolha::after{content:'';width:12px;height:12px;background:var(--c);border-radius:50%;}
+.kai-conteudo{display:none;position:absolute;bottom:60px;left:0;width:220px;background:rgba(10,10,10,.95);backdrop-filter:blur(8px);border:1px solid #333;border-radius:10px;padding:10px;}
+.kai-box.expandido.kai-conteudo{display:block;animation:fadeIn.3s;}
+.kai-title{color:var(--c);font-size:11px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.kai-dot{width:6px;height:6px;background:var(--c);border-radius:50%;animation:glow 2s infinite;}
+.kai-msg{color:var(--text2);font-size:12px;line-height:1.4;min-height:18px;}
+.kai-menu{margin-top:8px;border-top:1px solid #222;padding-top:6px;}
+.kai-menu button{width:100%;background:transparent;border:0;color:var(--text2);padding:6px 0;font-size:11px;text-align:left;cursor:pointer;}
+.kai-menu button:hover{color:var(--c);}
+
+.tag{background:#111;border:1px solid #333;color:var(--text2);padding:3px 8px;border-radius:5px;font-size:11px;display:inline-block;margin:2px;}
+.lista{list-style:none;padding:0;}
+.lista li{color:var(--text2);font-size:13px;padding:6px 0;border-bottom:1px solid #111;}
+.lista li:before{content:'✓ ';color:var(--c);font-weight:bold;margin-right:6px;}
+.rodape{margin-top:30px;padding-top:15px;border-top:1px solid #222;font-size:11px;color:var(--text2);text-align:center;}
+.rodape a{color:var(--c);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <button class="btn-voltar" onclick="toggleMenu()">MENU</button>
+  <div class="logo">K-TP</div>
+  <a href="../../index.html" class="btn-voltar">SAIR</a>
+</div>
+
+<!-- OVERLAY + MENU -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="menu-lateral" id="menu">
+  <a onclick="scrollTo('sobre');toggleMenu()">Sobre</a>
+  <a onclick="scrollTo('horarios');toggleMenu()">Horários</a>
+  <a onclick="scrollTo('fases');toggleMenu()">4 Fases</a>
+  <a onclick="scrollTo('planos');toggleMenu()">Planos</a>
+  <a onclick="scrollTo('contato');toggleMenu()">Contato</a>
+</div>
+
+<!-- CONTEUDO -->
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="sobre">
+    <div class="badge">ACADEMIA PARTICULAR 24H</div>
+    <div class="badge">11 ANOS 2026</div>
+    <h1>K-TP</h1>
+    <h2>PROJETO TRANSFORMAÇÃO</h2>
+    <p><span class="destaque">UM ANO. UM OBJETIVO.</span> A MELHOR VERSÃO DE VOCÊ!</p>
+    <p style="margin-top:8px;font-size:13px;">Planejamento completo em 4 fases para transformar seu corpo, sua mente e conquistar resultados reais.</p>
+  </div>
+
+  <!-- 4 PILARES -->
+  <div class="grid">
+    <div class="card" style="text-align:center;"><h3>🏋️ TREINO ESTRATÉGICO</h3></div>
+    <div class="card" style="text-align:center;"><h3>🥗 ALIMENTAÇÃO INTELIGENTE</h3></div>
+    <div class="card" style="text-align:center;"><h3>🧠 MENTALIDADE FORTE</h3></div>
+    <div class="card" style="text-align:center;"><h3>🏆 RESULTADOS REAIS</h3></div>
+  </div>
+  <p style="text-align:center;margin-bottom:20px;color:var(--c);font-size:12px;font-weight:600;">CONSTRUIR. MANTER. DEFINIR. CONQUISTAR.</p>
+
+  <!-- HORARIOS -->
+  <h2 id="horarios">Horários Projeto TRANSFORMAÇÃO</h2>
+  <p style="margin-bottom:8px;">Seg à Sex | Até 7 vagas por horário | Academia 24h Domingo à Domingo</p>
+  <table class="tabela">
+    <tr><th>HORÁRIO</th><th>VAGAS</th><th>HORÁRIO</th><th>VAGAS</th></tr>
+    <tr><td>06h</td><td>7</td><td>19h</td><td>7</td></tr>
+    <tr><td>07h</td><td>7</td><td>20h</td><td>7</td></tr>
+    <tr><td>08h</td><td>7</td><td>21h</td><td>7</td></tr>
+    <tr><td>09h</td><td>7</td><td>22h</td><td>7</td></tr>
+    <tr><td>10h</td><td>7</td><td>23h</td><td>7</td></tr>
+    <tr><td>16h</td><td>7</td><td>00h</td><td>7</td></tr>
+    <tr><td>17h</td><td>7</td><td>01h</td><td>7</td></tr>
+    <tr><td>18h</td><td>7</td><td>02h</td><td>7</td></tr>
+    <tr><td colspan="2"></td><td>03h</td><td>7</td></tr>
+    <tr><td colspan="2"></td><td>04h</td><td>7</td></tr>
+    <tr><td colspan="2"></td><td>05h</td><td>7</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--text2);">Após 22h: Horários a combinar. Mesmos valores.</p>
+
+  <!-- PARA QUEM / OBJETIVOS -->
+  <h2>Para quem é o Projeto?</h2>
+  <div class="grid">
+    <div class="card"><h3>Público</h3><p>Crianças, Jovens, Adultos, Idosos, Praticantes e Atletas.</p></div>
+    <div class="card"><h3>Objetivos</h3><p>Emagrecimento, Definição, Hipertrofia, Ganho de peso, Saúde, Condicionamento, Reabilitação, Performance.</p></div>
+  </div>
+
+  <!-- BENEFICIOS -->
+  <h2>Benefícios</h2>
+  <div class="card">
+    <ul class="lista">
+      <li>Treino Personalizado com Profissionais</li>
+      <li>Acompanhamento e Evolução Planejada</li>
+      <li>Ajustes Estratégicos</li>
+      <li>Grupo Exclusivo WhatsApp</li>
+      <li>Motivação Diária | Mais Energia</li>
+      <li>Controle de Peso | Prevenção de Doenças</li>
+      <li>Resultados Reais e Duradouros</li>
+    </ul>
+  </div>
+
+  <!-- METODOLOGIAS -->
+  <h2>4 Metodologias</h2>
+  <div class="metodologias">
+    <div class="metodo"><div class="num">1</div><h4>MANUTENÇÃO</h4><p>Base física e adaptação para saúde.</p></div>
+    <div class="metodo"><div class="num">2</div><h4>RESISTÊNCIA</h4><p>Condicionamento físico e cardio.</p></div>
+    <div class="metodo"><div class="num">3</div><h4>FORÇA</h4><p>Aumento de força e desempenho.</p></div>
+    <div class="metodo"><div class="num">4</div><h4>HIPERTROFIA</h4><p>Crescimento muscular e estética.</p></div>
+  </div>
+
+  <!-- 4 FASES -->
+  <h2 id="fases">Linha do Tempo - 4 Fases</h2>
+  <div class="fases">
+    <div class="fase"><h4>FASE 1 | OFF SEASON | JAN-FEV</h4><ul><li>Recuperação Física</li><li>Fortalecimento Mental</li><li>Construção de Hábitos</li></ul></div>
+    <div class="fase"><h4>FASE 2 | BULKING | MAR-MAI</h4><ul><li>Hipertrofia Muscular</li><li>Nutrição Estratégica</li><li>Aumento de Cargas</li></ul></div>
+    <div class="fase"><h4>FASE 3 | MAINTENANCE | JUN-AGO</h4><ul><li>Manutenção dos Ganhos</li><li>Controle de Gordura</li><li>Equilíbrio Corporal</li></ul></div>
+    <div class="fase"><h4>FASE 4 | CUTTING | SET-NOV</h4><ul><li>Queima de Gordura</li><li>Preservação Muscular</li><li>Definição Muscular</li></ul></div>
+  </div>
+
+  <!-- MODALIDADES -->
+  <h2>Modalidades</h2>
+  <div class="grid">
+    <div class="card"><h3>🌐 TREINE ONLINE</h3><p>Escolha a modalidade que cabe na sua rotina. Acompanhamento diário.</p></div>
+    <div class="card"><h3>🏋️ TREINO PRESENCIAL</h3><p>Com treinador. Acompanhamento personalizado do início ao resultado.</p></div>
+  </div>
+
+  <!-- PLANOS -->
+  <h2 id="planos">Planos e Valores</h2>
+  <div class="planos">
+    <div class="plano destaque">
+      <h3>ONLINE</h3>
+      <div class="preco">R$60<span style="font-size:13px;">/mês</span></div>
+      <p style="text-align:center;font-size:12px;margin-bottom:8px;">Matrícula: R$50,00</p>
+      <ul>
+        <li>Treinos personalizados</li>
+        <li>Acompanhamento diário</li>
+        <li>Ajustes e evolução</li>
+        <li>Suporte via aplicativo</li>
+      </ul>
+    </div>
+    <div class="plano">
+      <h3>PRESENCIAL</h3>
+      <p style="text-align:center;font-size:12px;margin-bottom:8px;">Matrícula: R$50,00</p>
+      <ul>
+        <li>1x semana: R$60,00</li>
+        <li>2x semana: R$80,00</li>
+        <li>3x semana: R$100,00</li>
+        <li>4x semana: R$130,00</li>
+        <li>5x semana: R$150,00</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:10px;text-align:center;">
+    <h3>AULA AVULSA</h3>
+    <p style="font-size:20px;color:var(--c);font-weight:700;">R$20,00</p>
+  </div>
+
+  <!-- POR QUE K-TP -->
+  <h2>Por que fazer parte do K-TP?</h2>
+  <div class="card">
+    <ul class="lista">
+      <li><span class="destaque">Plano Anual Completo</span>: 4 fases com estratégia</li>
+      <li><span class="destaque">Treinos Estruturados</span>: Inteligentes pra cada fase</li>
+      <li><span class="destaque">Alimentação Inteligente</span>: Nutrição pra performance</li>
+      <li><span class="destaque">Acompanhamento Profissional</span>: Orientação todo dia</li>
+      <li><span class="destaque">Resultados Reais</span>: Transformação física, mental e de vida</li>
+    </ul>
+    <p style="text-align:center;margin-top:12px;color:var(--c);font-weight:700;">ESTE É O ANO DA SUA TRANSFORMAÇÃO.</p>
+  </div>
+
+  <!-- CONTATO -->
+  <h2 id="contato">Garantir sua Vaga</h2>
+  <div class="card" style="text-align:center;">
+    <p style="font-size:13px;margin-bottom:8px;">ENTRE EM CONTATO PARA GARANTIR SUA VAGA!</p>
+    <a class="btn" href="https://api.whatsapp.com/send?phone=5513997690898&text=K-TP%20Quero%20minha%20vaga">📱 WhatsApp 13 99769-0898</a>
+    <p style="margin-top:12px;font-size:12px;">
+      <span class="tag">📍 Bertioga - SP</span>
+      <span class="tag">📧 korvil.tp@gmail.com</span>
+      <span class="tag">@korvil.oficial</span>
+    </p>
+    <p style="margin-top:8px;font-size:11px;">CNPJ: 00.000.000/0001-00</p>
+  </div>
+
+  <div class="rodape">
+    DISCIPLINA HOJE, TRANSFORMAÇÃO SEMPRE! <br>
+    © 2026 KORVIL. TODOS OS DIREITOS RESERVADOS.
+  </div>
+
+</div> <!-- FIM DO WRAP -->
+
+<!-- K-AI EM BAIXO ESQUERDA - DENTRO DO BODY -->
+<div class="kai-box" id="kaiBox">
+  <div class="kai-bolha" onclick="toggleKai()"></div>
+  <div class="kai-conteudo">
+    <div class="kai-title"><div class="kai-dot"></div>K-AI K-TP</div>
+    <div class="kai-msg" id="kaiMsg">Carregando...</div>
+    <div class="kai-menu">
+      <button onclick="scrollTo('planos');toggleKai()">Planos</button>
+      <button onclick="scrollTo('horarios');toggleKai()">Horários</button>
+      <button onclick="window.open('https://api.whatsapp.com/send?phone=5513997690898&text=K-TP','_blank')">WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<!-- PATO -->
+<div class="pato" onclick="window.location.href='../../index.html'">
+  <svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2.9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg>
+</div>
+
+<!-- SCRIPT -->
+<script>
+const mensagens = [
+"K-TP 11 Anos.","7 vagas por horário.",
+"Academia 24 horas.","Seg à Sex 6h-22h.",
+"4 Fases KORVIL.","Off Season Jan.",
+"Bulking Mar-Maio.","Maintenance Jun.",
+"Cutting Set-Nov.","Manutenção.",
+"Resistência.","Força.",
+"Hipertrofia.","Online R$60.",
+"Presencial R$60-R$150.","Aula avulsa R$20.",
+"Matrícula R$50.","Bertioga SP.",
+"Whats 99769-0898.","Transformação 2026."
+];
+
+let indice = Math.floor(Math.random() * mensagens.length);
+const msgEl = document.getElementById('kaiMsg');
+const kaiBox = document.getElementById('kaiBox');
+
+function falar(texto){
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(texto);
+    utter.lang = 'pt-BR'; utter.rate = 1; utter.pitch = 1;
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+function trocarMensagem(){
+  if(kaiBox && kaiBox.classList.contains('expandido') && msgEl){
+    msgEl.textContent = mensagens[indice];
+    indice = (indice + 1) % mensagens.length;
+  }
+}
+setInterval(trocarMensagem, 15000);
+
+function toggleKai(){
+  if(kaiBox){
+    kaiBox.classList.toggle('expandido');
+    if(kaiBox.classList.contains('expandido')){trocarMensagem();}
+  }
+}
+
+function scrollTo(id){
+  const el = document.getElementById(id);
+  if(el){el.scrollIntoView({behavior:'smooth'});}
+}
+function toggleMenu(){
+  const menu = document.getElementById('menu');
+  const overlay = document.getElementById('overlay');
+  if(menu){menu.classList.toggle('ativo');}
+  if(overlay){overlay.classList.toggle('ativo');}
+</script>
+
+</body>
+</html>
