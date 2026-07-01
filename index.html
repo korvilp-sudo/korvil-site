@@ -10,11 +10,13 @@
 body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-@keyframes glow{0%,100%{box-shadow:0 0 8px var(--c);}50%{box-shadow:0 0 15px var(--c);}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px var(--c);}50%{box-shadow:0 0 20px var(--c);}}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
 
 .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn.5s;}
-.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
-.logo{color:var(--c);font-weight:700;font-size:17px;letter-spacing:1px;}
+.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
+.menu-btn:active{animation:pulse.2s;}
+.logo{color:var(--c);font-weight:700;font-size:17px;letter-spacing:1px;text-shadow:0 0 10px var(--c);}
 
 .wrap{padding:75px 18px 90px;max-width:680px;margin:auto;animation:fadeIn.6s;}
 h1{color:var(--text);font-size:20px;margin-bottom:18px;font-weight:600;text-align:center;}
@@ -23,7 +25,7 @@ h4{color:var(--text2);font-size:14px;margin-bottom:6px;font-weight:600;}
 p{color:var(--text2);font-size:14px;line-height:1.6;}
 
 .card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;animation:fadeIn.5s;}
-.card:hover{border-color:var(--c);}
+.card:hover,.card:active{border-color:var(--c);box-shadow:0 0 12px var(--c)33;transform:translateY(-2px);}
 .card h2{font-size:16px;margin-bottom:4px;}
 .card p{font-size:13px;color:var(--text2);}
 
@@ -34,36 +36,45 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
 .sub-aba li{color:var(--text2);font-size:13px;padding:6px 0;border-bottom:1px solid #111;}
 .sub-aba li:last-child{border:0;}
 
-.btn{display:inline-block;background:var(--c);color:#000;text-align:center;padding:10px 16px;border-radius:6px;text-decoration:none;font-weight:600;font-size:13px;transition:.2s;border:0;cursor:pointer;margin-top:10px;}
-.btn:hover{filter:brightness(1.1);}
-.btn.voltar{background:#222;color:var(--text);margin-right:8px;}
+.btn{display:inline-block;background:var(--c);color:#000;text-align:center;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;transition:.2s;border:0;cursor:pointer;margin-top:10px;width:100%;}
+.btn:hover{filter:brightness(1.2);box-shadow:0 0 15px var(--c);}
+.btn:active{transform:scale(.97);}
+.btn.voltar{background:#222;color:var(--text);width:auto;padding:10px 16px;margin-right:8px;}
+.btn.voltar:hover{box-shadow:0 0 10px #555;}
 
 .menu-lateral{position:fixed;top:0;left:-280px;width:260px;height:100%;background:#060606;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:65px;}
 .menu-lateral.ativo{left:0;}
-.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer;}
-.menu-lateral a:hover{background:#111;color:var(--c);}
-.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:none;z-index:100;}
+.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;}
+.menu-lateral a:hover{background:#111;color:var(--c);padding-left:22px;}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:none;z-index:100;backdrop-filter:blur(2px);}
 .overlay.ativo{display:block;}
 
 .pato{position:fixed;bottom:18px;right:18px;width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99;cursor:pointer;transition:.2s;}
-.pato:hover{box-shadow:0 0 12px var(--c);}
+.pato:hover{box-shadow:0 0 12px var(--c);transform:scale(1.1);}
 .pato svg{width:24px;height:24px;fill:var(--c);}
 
 /* K-AI EM BAIXO */
 .kai-box{position:fixed;bottom:18px;left:18px;z-index:98;transition:.3s;}
 .kai-bolha{width:52px;height:52px;background:#0b0b0b;border:1px solid var(--c);border-radius:50%;cursor:pointer;animation:glow 2s infinite;display:flex;align-items:center;justify-content:center;}
 .kai-bolha::after{content:'';width:12px;height:12px;background:var(--c);border-radius:50%;}
-.kai-conteudo{display:none;position:absolute;bottom:60px;left:0;width:220px;background:rgba(10,10,10,.95);backdrop-filter:blur(8px);border:1px solid #333;border-radius:10px;padding:10px;}
+.kai-conteudo{display:none;position:absolute;bottom:60px;left:0;width:240px;background:rgba(10,10,10,.98);backdrop-filter:blur(10px);border:1px solid var(--c)55;border-radius:10px;padding:12px;}
 .kai-box.ativo.kai-conteudo{display:block;animation:fadeIn.3s;}
 .kai-title{color:var(--c);font-size:11px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .kai-dot{width:6px;height:6px;background:var(--c);border-radius:50%;animation:glow 2s infinite;}
 .kai-msg{color:var(--text2);font-size:12px;line-height:1.4;min-height:18px;}
 .kai-menu{margin-top:8px;border-top:1px solid #222;padding-top:6px;}
-.kai-menu button{width:100%;background:transparent;border:0;color:var(--text2);padding:6px 0;font-size:11px;text-align:left;cursor:pointer;}
-.kai-menu button:hover{color:var(--c);}
+.kai-menu button{width:100%;background:transparent;border:0;color:var(--text2);padding:6px 0;font-size:11px;text-align:left;cursor:pointer;transition:.2s;}
+.kai-menu button:hover{color:var(--c);padding-left:4px;}
 
-.logo-central{width:80%; max-width:320px; margin:0 auto 16px auto; display:block; border-radius:10px;opacity:.9;}
+.logo-central{width:80%; max-width:320px; margin:0 auto 16px auto; display:block; border-radius:10px;opacity:.9;filter:drop-shadow(0 0 10px var(--c));}
 .tag{background:#111;border:1px solid #333;color:var(--text2);padding:3px 8px;border-radius:5px;font-size:11px;display:inline-block;margin:2px;}
+
+/* MODAL FORM */
+.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px);}
+.modal.ativo{display:flex;}
+.modal-box{background:#0b0b0b;border:1px solid var(--c);border-radius:12px;padding:20px;width:90%;max-width:380px;animation:fadeIn.3s;}
+.modal-box input{width:100%;padding:12px;margin:6px 0;background:#222;border:1px solid #333;border-radius:8px;color:#fff;outline:none;}
+.modal-box input:focus{border-color:var(--c);box-shadow:0 0 8px var(--c);}
 </style>
 </head>
 <body>
@@ -106,7 +117,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     <div class="sub-aba"><h4>EMPREENDEDORISMO</h4><ul><li>Negocio Proprio</li></ul></div>
     <h2>SAUDE E BELEZA</h2>
     <div class="sub-aba"><ul><li>K-TH Terapia Holistica</li><li>Cabeleireiro Unissex</li></ul></div>
-    <a class="btn" href="https://wa.me/5513997690898?text=Quero%20Info">Falar com Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero Info dos Cursos')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
@@ -114,7 +125,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
   <div id="negocios" class="tela">
     <h1>NEGOCIOS</h1>
     <div class="sub-aba"><h4>PARCERIAS COM PROFISSIONAIS</h4><p>Profissionais das areas KORVIL.</p><span class="tag">Tecnologia</span><span class="tag">Saude</span><span class="tag">Beleza</span><span class="tag">Financas</span></div>
-    <a class="btn" href="https://wa.me/5513997690898">Falar com Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero ser parceiro KORVIL')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
@@ -125,7 +136,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     <div class="sub-aba"><h4>2. TREINAMENTO</h4><p>Profissionais KORVIL.</p></div>
     <div class="sub-aba"><h4>3. CONSULTORIA</h4><p>Profissionais em Financas.</p></div>
     <div class="sub-aba"><h4>4. SAUDE E BELEZA</h4><p>Profissionais da area.</p></div>
-    <a class="btn" href="https://wa.me/5513997690898">Contratar Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero contratar servicos')">Contratar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
@@ -134,15 +145,15 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     <h1>SISTEMA K</h1>
     <h2>SERVICOS GERAIS PROFISSIONAIS</h2>
     <div class="sub-aba"><ul><li>Eletricista</li><li>Carpinteiro</li><li>Faxineira</li><li>Encanador</li><li>Pintor</li><li>Pedreiro</li></ul></div>
-    <a class="btn" href="https://wa.me/5513997690898">Contratar Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero contratar servicos gerais')">Contratar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
   <!-- K-TP -->
   <div id="ktp" class="tela">
     <h1>K-TP</h1>
-    <div class="sub-aba"><h4>PROJETO TRANSFORMACAO</h4><p>11 Anos de conteudo e gestao. <a href="sections/ktp/index.html" style="color:var(--c);">Acessar pagina K-TP -></a></p></div>
-    <a class="btn" href="sections/ktp/index.html">Entrar no K-TP</a>
+    <div class="sub-aba"><h4>PROJETO TRANSFORMACAO</h4><p>11 Anos de conteudo e gestao.</p></div>
+    <button class="btn" onclick="abrirForm('Quero entrar no K-TP')">Entrar no K-TP</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
@@ -150,7 +161,7 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
   <div id="kafortunado" class="tela">
     <h1>K-AFORTUNADO</h1>
     <div class="sub-aba"><h4>CONSULTORIA FINANCEIRA</h4><p>Profissionais em estrategia.</p></div>
-    <a class="btn" href="https://wa.me/5513997690898">Agendar Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero consultoria financeira')">Agendar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
@@ -161,16 +172,16 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
     <div class="sub-aba"><ul><li>Terapeuta Holistico</li><li>Dentista</li><li>Fisioterapeuta</li><li>Medico</li></ul></div>
     <h2>BELEZA</h2>
     <div class="sub-aba"><ul><li>Cabeleireiro Unissex</li><li>Barbeiro</li><li>Esteticista</li><li>Manicure</li><li>Sobrancelhas</li></ul></div>
-    <a class="btn" href="https://wa.me/5513997690898">Agendar Profissionais</a>
+    <button class="btn" onclick="abrirForm('Quero agendar saude e beleza')">Agendar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </div>
 
   <!-- TELAS K-AI -->
-  <div id="kai" class="tela"><h1>K-AI</h1><div class="card"><p>Assistente KORVIL. Fale com Profissionais no Whats.</p></div><a class="btn" href="https://wa.me/5513997690898">WhatsApp</a><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
+  <div id="kai" class="tela"><h1>K-AI</h1><div class="card"><p>Assistente KORVIL. Fale com Profissionais no Whats.</p></div><button class="btn" onclick="abrirForm('Ola, vim do K-AI')">WhatsApp</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
   <div id="sobre" class="tela"><h1>SOBRE KORVIL</h1><div class="card"><p>Ecossistema com Profissionais de alta performance. 11 anos.</p></div><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
   <div id="politica" class="tela"><h1>PRIVACIDADE</h1><div class="card"><p>Dados seguros. Uso exclusivo com Profissionais.</p></div><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
 
-</div> <!-- FIM DO WRAP -->
+</div>
 
 <!-- K-AI EM BAIXO ESQUERDA -->
 <div class="kai-box" id="kaiBox">
@@ -182,13 +193,26 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
       <button onclick="abrirTela('kai');toggleKai()">Assistente</button>
       <button onclick="abrirTela('sobre');toggleKai()">Sobre</button>
       <button onclick="abrirTela('politica');toggleKai()">Privacidade</button>
-      <button onclick="window.open('https://wa.me/5513997690898','_blank')">WhatsApp</button>
+      <button onclick="abrirForm('Ola, vim do K-AI')">WhatsApp</button>
     </div>
   </div>
 </div>
 
-<!-- PATO -->
+<!-- PATO HOME -->
 <div class="pato" onclick="abrirTela('central')"><svg viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2.9-2 2v11c0 1.1.9 2 2 2h3l3 3 3-3h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H6l-2 2V5h16v11z"/></svg></div>
+
+<!-- MODAL CONTRATAR -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2 class="logo">KORVIL</h2>
+    <input id="nome" placeholder="Seu Nome">
+    <input id="whats" placeholder="Seu WhatsApp">
+    <input id="cep" placeholder="CEP" onblur="buscaCEP()">
+    <input id="rua" placeholder="Rua">
+    <button class="btn" onclick="enviarWhats()">Enviar para WhatsApp</button>
+    <button class="btn voltar" onclick="fecharForm()">Cancelar</button>
+  </div>
+</div>
 
 <!-- SCRIPT -->
 <script>
@@ -196,37 +220,24 @@ var mensagens = [
 "Profissionais KORVIL online","KORVIL 11 anos","Manutencao de Celular",
 "Negocio Proprio aqui","Terapia Holistica K-TH","Cabeleireiro Unissex",
 "Eletricista disponivel","Projeto TRANSFORMACAO","Consultoria Financeira",
-"Medico e Dentista","Barbeiro e Esteticista","Sistema K ativo",
-"K-AFORTUNADO aberto","K-ALMA base mental","Educacao Fisica",
-"Tráfego com Profissionais","Design KORVIL","Empreendedorismo real",
-"Financas controladas","Atendimento agora","Saude e Beleza",
-"Treinamento KORVIL","Ecossistema completo","Futuro e KORVIL",
-"220 Aulas","Profissionais top","R$197 por mes",
-"Whats 13997690898","Comece hoje","Sorteios K-AFORTUNADO",
-"Todas as areas","KORVIL cuida","Central atende",
-"Negocios lucram","Servicos gerais","K-AI 24h",
-"Profissionais certificados","Beleza KORVIL","Saude primeiro",
-"Tecnologia","Educacao","Consultoria","Parcerias",
-"Ao seu lado","Resultado KORVIL","Fale agora",
-"Impulso KORVIL","Atendimento rapido","Confianca KORVIL",
-"Mude seu jogo","Entre hoje"
+"Medico e Dentista","Barbeiro e Esteticista","Sistema K ativo"
 ];
 
 var indice = Math.floor(Math.random() * mensagens.length);
 var msgEl = document.getElementById('kaiMsg');
 var kaiBox = document.getElementById('kaiBox');
+var msgAtual = '';
 
 function trocarMensagem(){
-  if(kaiBox.classList.contains('ativo') && msgEl){
-    msgEl.textContent = mensagens[indice];
-    indice = (indice + 1) % mensagens.length;
-  }
+  msgAtual = mensagens[indice];
+  if(msgEl) msgEl.textContent = msgAtual;
+  indice = (indice + 1) % mensagens.length;
 }
-setInterval(trocarMensagem, 15000);
+trocarMensagem();
+setInterval(trocarMensagem, 6000); // Agora troca sozinho a cada 6s
 
 function toggleKai(){
   kaiBox.classList.toggle('ativo');
-  if(kaiBox.classList.contains('ativo')){trocarMensagem();}
 }
 
 function abrirTela(id){
@@ -237,6 +248,27 @@ function abrirTela(id){
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('ativo');
   document.getElementById('overlay').classList.toggle('ativo');
+}
+
+var textoWhats = '';
+function abrirForm(texto){
+  textoWhats = texto;
+  document.getElementById('modal').classList.add('ativo');
+}
+function fecharForm(){
+  document.getElementById('modal').classList.remove('ativo');
+}
+async function buscaCEP(){
+  const cep=document.getElementById('cep').value.replace(/\D/g,'');
+  if(cep.length!==8)return;
+  const res=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+  const d=await res.json();
+  if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
+}
+function enviarWhats(){
+  const msg=`KORVIL - ${textoWhats}\nNome: ${nome.value}\nWhats: ${whats.value}\nCEP: ${cep.value}\nRua: ${rua.value}`;
+  window.open('https://wa.me/5513997690898?text='+encodeURIComponent(msg),'_blank');
+  fecharForm();
 }
 </script>
 
