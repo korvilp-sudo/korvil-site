@@ -5,81 +5,75 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>KORVIL</title>
 <style>
-:root{--c:#00f5ff; --bg:#000; --text:#fff; --text2:#bbb;}
+:root{--c:#00f5ff; --bg:#000; --text:#fff; --text2:#aaa;}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
 body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
 
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-@keyframes glow{0%,100%{box-shadow:0 0 8px var(--c);}50%{box-shadow:0 0 20px var(--c);}}
-@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin3d{0%{transform:rotateX(-20deg) rotateY(0deg);}100%{transform:rotateX(-20deg) rotateY(360deg);}}
 
-.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);border-bottom:1px solid #222;display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn.5s;}
-.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:.2s;}
-.menu-btn:active{animation:pulse.2s;}
-.logo{color:var(--c);font-weight:700;font-size:17px;letter-spacing:1px;text-shadow:0 0 10px var(--c);}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn.4s;}
+.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;}
+.logo{color:var(--c);font-weight:800;font-size:18px;letter-spacing:1.5px;text-shadow:0 0 12px var(--c);}
 
-.wrap{padding:75px 18px 110px;max-width:680px;margin:auto;animation:fadeIn.6s;}
-h1{color:var(--text);font-size:20px;margin-bottom:18px;font-weight:600;text-align:center;}
-h2{color:var(--text);font-size:16px;margin:18px 0 8px 0;font-weight:600;}
-h4{color:var(--text2);font-size:14px;margin-bottom:6px;font-weight:600;}
-p{color:var(--text2);font-size:14px;line-height:1.6;}
+.wrap{padding:80px 16px 120px;max-width:680px;margin:auto;animation:fadeIn.5s;}
+h1{color:var(--text);font-size:22px;margin-bottom:20px;font-weight:700;text-align:center;}
+h2{color:var(--text);font-size:17px;margin:20px 0 10px 0;font-weight:700;}
+h4{color:var(--c);font-size:14px;margin:14px 0 6px 0;font-weight:700;}
+p{color:var(--text2);font-size:14px;line-height:1.7;}
 
-.card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;animation:fadeIn.5s;}
-.card:hover,.card:active{border-color:var(--c);box-shadow:0 0 12px var(--c)33;transform:translateY(-2px);}
-.card h2{font-size:16px;margin-bottom:4px;}
-.card p{font-size:13px;color:var(--text2);}
+.card{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:12px;padding:18px;margin-bottom:14px;cursor:pointer;transition:.2s;animation:fadeIn.5s;}
+.card:active{border-color:var(--c);box-shadow:0 0 15px var(--c)40;transform:scale(.98);}
 
-.tela{display:none;animation:fadeIn.4s;}
+.tela{display:none;animation:fadeIn.3s;}
 .tela.ativa{display:block;}
-.sub-aba{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:8px;padding:12px;margin-bottom:8px;}
+.sub-aba{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:14px;margin-bottom:10px;}
 .sub-aba ul{list-style:none;padding-left:0;}
-.sub-aba li{color:var(--text2);font-size:13px;padding:6px 0;border-bottom:1px solid #111;}
+.sub-aba li{color:var(--text2);font-size:14px;padding:7px 0;border-bottom:1px solid #151515;}
 .sub-aba li:last-child{border:0;}
 
-.btn{display:inline-block;background:var(--c);color:#000;text-align:center;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;transition:.2s;border:0;cursor:pointer;margin-top:10px;width:100%;}
-.btn:hover{filter:brightness(1.2);box-shadow:0 0 15px var(--c);}
-.btn:active{transform:scale(.97);}
-.btn.voltar{background:#222;color:var(--text);width:auto;padding:10px 16px;margin-right:8px;}
-.btn.voltar:hover{box-shadow:0 0 10px #555;}
+.btn{display:block;background:var(--c);color:#000;text-align:center;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;transition:.2s;border:0;cursor:pointer;margin-top:14px;width:100%;}
+.btn:active{transform:scale(.97);filter:brightness(1.15);}
+.btn.voltar{background:#222;color:var(--text);width:auto;display:inline-block;padding:12px 18px;margin-right:10px;}
 
-.menu-lateral{position:fixed;top:0;left:-280px;width:260px;height:100%;background:#060606;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:65px;}
+.menu-lateral{position:fixed;top:0;left:-280px;width:270px;height:100%;background:#080808;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:70px;}
 .menu-lateral.ativo{left:0;}
-.menu-lateral a{display:block;color:var(--text);padding:14px 18px;text-decoration:none;border-bottom:1px solid #111;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;}
-.menu-lateral a:hover{background:#111;color:var(--c);padding-left:22px;}
-.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);display:none;z-index:100;backdrop-filter:blur(2px);}
+.menu-lateral a{display:block;color:var(--text);padding:16px 20px;text-decoration:none;border-bottom:1px solid #111;font-size:15px;font-weight:600;cursor:pointer;transition:.2s;}
+.menu-lateral a:active{background:#111;color:var(--c);}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);display:none;z-index:100;backdrop-filter:blur(3px);}
 .overlay.ativo{display:block;}
 
-.logo-central{width:80%; max-width:320px; margin:0 auto 16px auto; display:block; border-radius:10px;opacity:.9;filter:drop-shadow(0 0 10px var(--c));}
-.tag{background:#111;border:1px solid #333;color:var(--text2);padding:3px 8px;border-radius:5px;font-size:11px;display:inline-block;margin:2px;}
+.logo-central{width:85%; max-width:340px; margin:0 auto 20px auto; display:block; border-radius:12px;filter:drop-shadow(0 0 15px var(--c));}
+.tag{background:#111;border:1px solid #333;color:var(--text2);padding:4px 10px;border-radius:6px;font-size:12px;display:inline-block;margin:3px;}
 
 /* MODAL FORM */
-.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(4px);}
+.modal{position:fixed;inset:0;background:#000f;display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(5px);}
 .modal.ativo{display:flex;}
-.modal-box{background:#0b0b0b;border:1px solid var(--c);border-radius:12px;padding:20px;width:90%;max-width:380px;animation:fadeIn.3s;}
-.modal-box input{width:100%;padding:12px;margin:6px 0;background:#222;border:1px solid #333;border-radius:8px;color:#fff;outline:none;}
-.modal-box input:focus{border-color:var(--c);box-shadow:0 0 8px var(--c);}
+.modal-box{background:#0a0a0a;border:2px solid var(--c);border-radius:14px;padding:22px;width:92%;max-width:400px;animation:fadeIn.3s;box-shadow:0 0 25px var(--c)30;}
+.modal-box input{width:100%;padding:14px;margin:8px 0;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;outline:none;}
+.modal-box input:focus{border-color:var(--c);box-shadow:0 0 10px var(--c);}
 
-/* K-AI RODAPE: MENSAGEM ESQUERDA + CUBO DIREITA */
-.kai-footer{position:fixed;bottom:18px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 18px;z-index:98;pointer-events:none;}
-.scene{width:64px;height:64px;perspective:600px;flex-shrink:0;position:relative;pointer-events:auto;}
-.cube{width:64px;height:64px;position:relative;transform-style:preserve-3d;animation:spin 6s linear infinite;cursor:pointer;transition:.5s;}
-.cube.expanded{width:128px;height:128px;}
-.cube-face{position:absolute;width:64px;height:64px;background:linear-gradient(135deg,#00eaff,#007a8a);border:2px solid var(--c);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:12px;border-radius:6px;box-shadow:0 6px 20px var(--c)80;cursor:pointer;}
-.cube.expanded.cube-face{width:128px;height:128px;font-size:16px;}
-.front{transform:rotateY(0deg) translateZ(32px);}.back{transform:rotateY(180deg) translateZ(32px);}
-.right{transform:rotateY(90deg) translateZ(32px);}.left{transform:rotateY(-90deg) translateZ(32px);}
-.top{transform:rotateX(90deg) translateZ(32px);}.bottom{transform:rotateX(-90deg) translateZ(32px);}
-@keyframes spin{0%{transform:rotateX(-15deg) rotateY(0deg);}100%{transform:rotateX(-15deg) rotateY(360deg);}}
+/* K-AI RODAPE PROFISSIONAL */
+.kai-footer{position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;z-index:98;pointer-events:none;}
+.scene{width:66px;height:66px;perspective:700px;flex-shrink:0;position:relative;pointer-events:auto;}
+.cube{width:66px;height:66px;position:relative;transform-style:preserve-3d;animation:spin3d 7s linear infinite;cursor:pointer;transition:transform .4s;}
+.cube.expanded{width:130px;height:130px;}
+.cube-face{position:absolute;width:66px;height:66px;background:linear-gradient(145deg,#00eaff,#006a7a);border:2px solid var(--c);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:13px;border-radius:8px;box-shadow:0 8px 25px var(--c)90;user-select:none;}
+.cube.expanded .cube-face{width:130px;height:130px;font-size:18px;}
+.front{transform:rotateY(0deg) translateZ(33px);} .back{transform:rotateY(180deg) translateZ(33px);}
+.right{transform:rotateY(90deg) translateZ(33px);} .left{transform:rotateY(-90deg) translateZ(33px);}
+.top{transform:rotateX(90deg) translateZ(33px);} .bottom{transform:rotateX(-90deg) translateZ(33px);}
 
-.message-box{max-width:260px;padding:12px;background:rgba(0,230,255,.12);border:2px solid var(--c);border-radius:10px;color:#fff;font-size:13px;backdrop-filter:blur(6px);animation:fadeIn.4s;min-height:50px;display:flex;align-items:center;position:relative;pointer-events:auto;}
-.message-box::before{content:'';position:absolute;right:-10px;width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:10px solid var(--c);}
+/* BALAO ESQUERDA SAINDO DO K-AI */
+.message-box{max-width:240px;padding:14px;background:rgba(0,245,255,.15);border:2px solid var(--c);border-radius:12px;color:#fff;font-size:13px;font-weight:600;backdrop-filter:blur(8px);animation:fadeIn.4s;min-height:52px;display:flex;align-items:center;position:relative;pointer-events:auto;box-shadow:0 0 15px var(--c)20;}
+.message-box::after{content:'';position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:12px solid var(--c);filter:drop-shadow(0 0 5px var(--c));}
 
 /* MINI MENU K-AI */
-.kai-menu-box{position:absolute;bottom:70px;right:0;width:220px;background:rgba(10,10,10,.98);border:1px solid var(--c);border-radius:10px;padding:8px;display:none;z-index:99;backdrop-filter:blur(10px);pointer-events:auto;}
-.kai-menu-box.ativo{display:block;animation:fadeIn.3s;}
-.kai-menu-box button{width:100%;background:transparent;border:0;color:var(--text2);padding:10px 8px;font-size:13px;text-align:left;cursor:pointer;border-bottom:1px solid #222;transition:.2s;}
+.kai-menu-box{position:absolute;bottom:75px;right:0;width:230px;background:rgba(5,5,5,.98);border:2px solid var(--c);border-radius:12px;padding:10px;display:none;z-index:99;backdrop-filter:blur(12px);pointer-events:auto;box-shadow:0 0 20px var(--c)40;}
+.kai-menu-box.ativo{display:block;animation:fadeIn.25s;}
+.kai-menu-box button{width:100%;background:transparent;border:0;color:var(--text2);padding:12px 10px;font-size:14px;text-align:left;cursor:pointer;border-bottom:1px solid #222;font-weight:600;transition:.2s;border-radius:6px;}
 .kai-menu-box button:last-child{border:0;}
-.kai-menu-box button:hover{color:var(--c);padding-left:12px;}
+.kai-menu-box button:active{background:#111;color:var(--c);padding-left:14px;}
 </style>
 </head>
 <body>
@@ -92,120 +86,112 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
 
 <!-- OVERLAY + MENU LATERAL -->
 <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-<div class="menu-lateral" id="menu">
+<nav class="menu-lateral" id="menu">
   <a onclick="abrirTela('kalma');toggleMenu()">K-ALMA</a>
   <a onclick="abrirTela('kafortunado');toggleMenu()">K-AFORTUNADO</a>
   <a onclick="abrirTela('ktp');toggleMenu()">K-TP</a>
   <a onclick="abrirTela('sistema');toggleMenu()">SISTEMA K</a>
   <a onclick="abrirTela('central');toggleMenu()">CENTRAL KORVIL</a>
-</div>
+</nav>
 
 <!-- CONTEUDO -->
-<div class="wrap">
+<main class="wrap">
 
-  <!-- CENTRAL -->
-  <div id="central" class="tela ativa">
+  <section id="central" class="tela ativa">
     <img src="https://raw.githubusercontent.com/korvilp-sudo/korvil-site/main/assets/images/logo-korvil.png" alt="Logo KORVIL" class="logo-central">
     <h1>CENTRAL KORVIL</h1>
     <div class="card" onclick="abrirTela('humano')"><h2>1. DESENVOLVIMENTO HUMANO</h2><p>Cursos, Treinamento, Saude e Beleza</p></div>
     <div class="card" onclick="abrirTela('negocios')"><h2>2. NEGOCIOS</h2><p>Parcerias com Profissionais</p></div>
     <div class="card" onclick="abrirTela('servicos')"><h2>3. SERVICOS</h2><p>Profissionais Especializados</p></div>
-  </div>
+  </section>
 
-  <!-- DESENVOLVIMENTO HUMANO -->
-  <div id="humano" class="tela">
+  <section id="humano" class="tela">
     <h1>DESENVOLVIMENTO HUMANO</h1>
     <h2>CURSOS</h2>
     <div class="sub-aba">
       <h4>ÁREAS</h4>
-      <h4 style="color:var(--c);margin-top:12px;">Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
-      <h4 style="color:var(--c);margin-top:12px;">Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
-      <h4 style="color:var(--c);margin-top:12px;">Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4 style="color:var(--c);margin-top:12px;">Saúde:</h4><ul><li>1. K-TH Terapia Holística</li></ul>
-      <h4 style="color:var(--c);margin-top:12px;">Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
+      <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
+      <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
+      <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
+      <h4>Saúde:</h4><ul><li>1. K-TH Terapia Holística</li></ul>
+      <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
-    <button class="btn" onclick="abrirForm('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
+    <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- NEGOCIOS -->
-  <div id="negocios" class="tela">
+  <section id="negocios" class="tela">
     <h1>NEGOCIOS</h1>
     <div class="sub-aba"><h4>PARCERIAS COM PROFISSIONAIS</h4><p>Profissionais das areas KORVIL.</p><span class="tag">Tecnologia</span><span class="tag">Saude</span><span class="tag">Beleza</span><span class="tag">Financas</span></div>
-    <button class="btn" onclick="abrirForm('Parcerias KORVIL - Negocios')">Falar com Profissionais</button>
+    <button class="btn" onclick="abrirWhats('Parcerias KORVIL - Negocios')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- SERVICOS -->
-  <div id="servicos" class="tela">
+  <section id="servicos" class="tela">
     <h1>SERVICOS</h1>
     <div class="sub-aba"><h4>1. CONCERTOS DE CELULAR</h4><p>Profissionais tecnicos.</p></div>
     <div class="sub-aba"><h4>2. TREINAMENTO</h4><p>Profissionais KORVIL.</p></div>
     <div class="sub-aba"><h4>3. CONSULTORIA</h4><p>Profissionais em Financas.</p></div>
     <div class="sub-aba"><h4>4. SAUDE E BELEZA</h4><p>Profissionais da area.</p></div>
-    <button class="btn" onclick="abrirForm('Servicos KORVIL - Servicos')">Contratar Profissionais</button>
+    <button class="btn" onclick="abrirWhats('Servicos KORVIL - Servicos')">Contratar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- SISTEMA K -->
-  <div id="sistema" class="tela">
+  <section id="sistema" class="tela">
     <h1>SISTEMA K</h1>
     <h2>SERVICOS GERAIS PROFISSIONAIS</h2>
     <div class="sub-aba"><ul><li>Eletricista</li><li>Carpinteiro</li><li>Faxineira</li><li>Encanador</li><li>Pintor</li><li>Pedreiro</li></ul></div>
-    <button class="btn" onclick="abrirForm('Sistema K - Servicos Gerais')">Contratar Profissionais</button>
+    <button class="btn" onclick="abrirWhats('Sistema K - Servicos Gerais')">Contratar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- K-TP -->
-  <div id="ktp" class="tela">
+  <section id="ktp" class="tela">
     <h1>K-TP</h1>
     <div class="sub-aba"><h4>PROJETO TRANSFORMACAO</h4><p>11 Anos de conteudo e gestao.</p></div>
-    <button class="btn" onclick="abrirForm('K-TP - Projeto Transformacao')">Entrar no K-TP</button>
+    <button class="btn" onclick="abrirWhats('K-TP - Projeto Transformacao')">Entrar no K-TP</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- K-AFORTUNADO -->
-  <div id="kafortunado" class="tela">
+  <section id="kafortunado" class="tela">
     <h1>K-AFORTUNADO</h1>
     <div class="sub-aba"><h4>CONSULTORIA FINANCEIRA</h4><p>Profissionais em estrategia.</p></div>
-    <button class="btn" onclick="abrirForm('K-AFORTUNADO - Consultoria Financeira')">Agendar Profissionais</button>
+    <button class="btn" onclick="abrirWhats('K-AFORTUNADO - Consultoria Financeira')">Agendar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- K-ALMA -->
-  <div id="kalma" class="tela">
+  <section id="kalma" class="tela">
     <h1>K-ALMA</h1>
     <h2>SAUDE</h2>
     <div class="sub-aba"><ul><li>Terapeuta Holistico</li><li>Dentista</li><li>Fisioterapeuta</li><li>Medico</li></ul></div>
     <h2>BELEZA</h2>
     <div class="sub-aba"><ul><li>Cabeleireiro Unissex</li><li>Barbeiro</li><li>Esteticista</li><li>Manicure</li><li>Sobrancelhas</li></ul></div>
-    <button class="btn" onclick="abrirForm('K-ALMA - Saude e Beleza')">Agendar Profissionais</button>
+    <button class="btn" onclick="abrirWhats('K-ALMA - Saude e Beleza')">Agendar Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </div>
+  </section>
 
-  <!-- TELAS K-AI MENU -->
-  <div id="kai-assistente" class="tela"><h1>K-AI ASSISTENTE</h1><div class="card"><p>Eu sou o K-AI. Posso te explicar Cursos, Servicos, Negocios e te levar pro Whats 13997690898.</p></div><button class="btn" onclick="abrirForm('K-AI - Assistente Virtual')">Falar com K-AI no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
-  <div id="kai-sobre" class="tela"><h1>SOBRE O KORVIL</h1><div class="card"><h4>11 ANOS DE KORVIL</h4><p><b>Sistema K:</b> Eletricista, Pedreiro, Encanador, Pintor, Carpinteiro, Faxineira</p><p><b>K-TP:</b> Projeto Transformacao</p><p><b>K-AFORTUNADO:</b> Consultoria Financeira</p><p><b>K-ALMA:</b> Saude e Beleza</p></div><button class="btn" onclick="abrirForm('KORVIL - Sobre')">Falar sobre KORVIL no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
-  <div id="kai-politica" class="tela"><h1>POLITICA E PRIVACIDADE</h1><div class="card"><p><b>KORVIL LTDA</b></p><p>Dados usados so para contato dos Profissionais. Whats: 13997690898</p></div><button class="btn" onclick="abrirForm('KORVIL - Politica e Privacidade')">Duvidas no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></div>
+  <section id="kai-assistente" class="tela"><h1>K-AI ASSISTENTE</h1><div class="card"><p>Eu sou o K-AI. Clique no meu cubo para abrir o menu. Segure para expandir. Posso te levar pro Whats 13997690898 agora.</p></div><button class="btn" onclick="abrirWhats('K-AI - Assistente Virtual')">Falar com K-AI no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="kai-sobre" class="tela"><h1>SOBRE O KORVIL</h1><div class="card"><h4>11 ANOS DE KORVIL</h4><p><b>Sistema K:</b> Servicos Gerais</p><p><b>K-TP:</b> Projeto Transformacao</p><p><b>K-AFORTUNADO:</b> Financas</p><p><b>K-ALMA:</b> Saude e Beleza</p><p><b>Cursos:</b> Tecnologia, Educacao Fisica, Empreendedorismo</p></div><button class="btn" onclick="abrirWhats('KORVIL - Sobre')">Falar sobre KORVIL no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="kai-politica" class="tela"><h1>POLITICA E PRIVACIDADE</h1><div class="card"><p><b>KORVIL LTDA</b></p><p>LGPD: Seus dados sao usados so para contato. Nao vendemos dados. Whats oficial: 13997690898</p></div><button class="btn" onclick="abrirWhats('KORVIL - Politica e Privacidade')">Duvidas no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
 
-</div>
+</main>
 
 <!-- MODAL CONTRATAR -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <h2 class="logo">KORVIL</h2>
-    <input id="nome" placeholder="Seu Nome">
-    <input id="whats" placeholder="Seu WhatsApp">
+    <input id="nome" placeholder="Seu Nome Completo" required>
+    <input id="whats" placeholder="Seu WhatsApp com DDD" required>
     <input id="cep" placeholder="CEP" onblur="buscaCEP()">
-    <input id="rua" placeholder="Rua">
+    <input id="rua" placeholder="Rua e Numero">
     <button class="btn" onclick="enviarWhats()">Enviar para WhatsApp 13997690898</button>
     <button class="btn voltar" onclick="fecharForm()">Cancelar</button>
   </div>
 </div>
 
-<!-- K-AI RODAPE -->
-<div class="kai-footer">
+<!-- K-AI RODAPE: BALAO ESQUERDA + CUBO DIREITA -->
+<footer class="kai-footer">
   <div class="message-box" id="cubeMessage">Carregando K-AI...</div>
+  
   <div class="scene" id="cubeScene">
     <div class="cube" id="cubeKAI">
       <div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div>
@@ -216,20 +202,27 @@ p{color:var(--text2);font-size:14px;line-height:1.6;}
       <button onclick="abrirTela('kai-assistente');toggleKaiMenu()">1. Assistente Virtual</button>
       <button onclick="abrirTela('kai-sobre');toggleKaiMenu()">2. Sobre o KORVIL</button>
       <button onclick="abrirTela('kai-politica');toggleKaiMenu()">3. Politica e Privacidade</button>
-      <button onclick="abrirForm('K-AI - Menu WhatsApp')">4. Falar no WhatsApp</button>
+      <button onclick="abrirWhats('K-AI - Menu WhatsApp')">4. Falar no WhatsApp</button>
     </div>
   </div>
-</div>
+</footer>
 
-<!-- SCRIPT -->
 <script>
-const WHATS_NUMBER = '5513997690898'; // Whats Business FIXO
-var textoWhats = '';
+const WHATS_NUMBER = '5513997690898'; // Whats Business Oficial KORVIL
+let textoWhats = '';
+let holdTimer = null;
+let isExpanded = false;
+let isSplit = false;
+let isDragging = false;
+let startX = 0;
+
+const cube = document.getElementById("cubeKAI");
+const kaiMenu = document.getElementById("kaiMenu");
 
 function abrirTela(id){
-  document.querySelectorAll('.tela').forEach(function(t){t.classList.remove('ativa')});
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   document.getElementById(id).classList.add('ativa');
-  window.scrollTo(0,0);
+  window.scrollTo({top:0, behavior:'smooth'});
   toggleKaiMenu();
 }
 function toggleMenu(){
@@ -237,7 +230,7 @@ function toggleMenu(){
   document.getElementById('overlay').classList.toggle('ativo');
 }
 function abrirForm(texto){
-  textoWhats = texto; // Salva de qual tela veio
+  textoWhats = texto;
   document.getElementById('modal').classList.add('ativo');
   toggleKaiMenu();
 }
@@ -247,13 +240,29 @@ function fecharForm(){
 async function buscaCEP(){
   const cep=document.getElementById('cep').value.replace(/\D/g,'');
   if(cep.length!==8)return;
-  const res=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-  const d=await res.json();
-  if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
+  try{
+    const res=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+    const d=await res.json();
+    if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
+  }catch(e){}
+}
+
+/* WHATSAPP AUTOMATICO SEM ERRO BUSINESS */
+function abrirWhats(mensagem){
+  abrirForm(mensagem);
 }
 function enviarWhats(){
-  const msg=`KORVIL - ${textoWhats}\n\nDADOS DO CLIENTE:\nNome: ${nome.value}\nWhats: ${whats.value}\nCEP: ${cep.value}\nRua: ${rua.value}\n\nOla, vim do site KORVIL e quero atendimento.`;
-  window.open('https://wa.me/'+WHATS_NUMBER+'?text='+encodeURIComponent(msg),'_blank'); // SEMPRE 13997690898
+  const nome=document.getElementById('nome').value;
+  const whats=document.getElementById('whats').value;
+  const cep=document.getElementById('cep').value;
+  const rua=document.getElementById('rua').value;
+  if(!nome||!whats){alert('Preencha Nome e WhatsApp');return;}
+  
+  const msg=`*KORVIL - ${textoWhats}*\n\n*DADOS DO CLIENTE:*\nNome: ${nome}\nWhats: ${whats}\nCEP: ${cep}\nRua: ${rua}\n\nOla, vim do site KORVIL e quero atendimento.`;
+  
+  // LINK UNIVERSAL: Abre Whats normal ou Business sem erro
+  const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.open(url,'_blank');
   fecharForm();
 }
 
@@ -266,16 +275,43 @@ const messageBox = document.getElementById("cubeMessage");
 function trocarMensagem(){messageBox.textContent = mensagensKAI[msgIndex];msgIndex = Math.floor(Math.random() * mensagensKAI.length);}
 trocarMensagem();setInterval(trocarMensagem, 10000);
 
-// CUBO K-AI LOGICA
-const cube = document.getElementById("cubeKAI");const kaiMenu = document.getElementById("kaiMenu");
-let holdTimer = null;let isExpanded = false;let isSplit = false;let isDragging = false;
-cube.addEventListener("mousedown", ()=>{holdTimer=setTimeout(()=>{isExpanded=!isExpanded;cube.classList.toggle("expanded",isExpanded);trocarMensagem();},800);});
-cube.addEventListener("mouseup",(e)=>{clearTimeout(holdTimer);if(!isDragging){e.stopPropagation();toggleKaiMenu();}});
-cube.addEventListener("click",()=>{if(!isSplit&&!isExpanded&&!isDragging){cube.innerHTML=`<div class="cube-face front" onclick="abrirTela('ktp');toggleKaiMenu()">K-TP</div><div class="cube-face back" onclick="abrirTela('kafortunado');toggleKaiMenu()">K-AFORTUNADO</div><div class="cube-face right" onclick="abrirTela('kalma');toggleKaiMenu()">K-ALMA</div><div class="cube-face left" onclick="abrirTela('sistema');toggleKaiMenu()">Sistema K</div><div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;isSplit=true;trocarMensagem();}else if(isSplit&&!isDragging){cube.innerHTML=`<div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div><div class="cube-face right">K-AI</div><div class="cube-face left">K-AI</div><div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;isSplit=false;trocarMensagem();}});
+// K-AI LOGICA COMPLETA SEM BUG
+cube.addEventListener("mousedown", (e)=>{
+  e.preventDefault();
+  holdTimer=setTimeout(()=>{
+    isExpanded=!isExpanded;
+    cube.classList.toggle("expanded",isExpanded);
+    trocarMensagem();
+  },700);
+});
+cube.addEventListener("mouseup",(e)=>{
+  clearTimeout(holdTimer);
+  if(!isDragging){
+    e.stopPropagation();
+    if(!isExpanded) toggleKaiMenu();
+  }
+});
+cube.addEventListener("click",(e)=>{
+  if(isDragging) return;
+  if(!isSplit && !isExpanded){
+    cube.innerHTML=`
+      <div class="cube-face front" onclick="abrirTela('ktp');toggleKaiMenu()">K-TP</div>
+      <div class="cube-face back" onclick="abrirTela('kafortunado');toggleKaiMenu()">K-AFORTUNADO</div>
+      <div class="cube-face right" onclick="abrirTela('kalma');toggleKaiMenu()">K-ALMA</div>
+      <div class="cube-face left" onclick="abrirTela('sistema');toggleKaiMenu()">Sistema K</div>
+      <div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;
+    isSplit=true;trocarMensagem();
+  }else if(isSplit){
+    cube.innerHTML=`<div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div><div class="cube-face right">K-AI</div><div class="cube-face left">K-AI</div><div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;
+    isSplit=false;trocarMensagem();
+  }
+});
 function toggleKaiMenu(){kaiMenu.classList.toggle('ativo');}
-let startX=0;cube.addEventListener("mousedown",e=>{isDragging=true;startX=e.clientX;});
-document.addEventListener("mousemove",e=>{if(isDragging){const deltaX=e.clientX-startX;cube.style.transform=`rotateY(${deltaX}deg) rotateX(-15deg)`;}});
-document.addEventListener("mouseup",()=>{if(isDragging){cube.style.transform="";setTimeout(()=>isDragging=false,100);}});
+
+// ARRASTAR = GIRAR
+cube.addEventListener("mousedown", e=>{isDragging=true;startX=e.clientX;});
+document.addEventListener("mousemove", e=>{if(isDragging){const deltaX=e.clientX-startX;cube.style.transform=`rotateY(${deltaX}deg) rotateX(-20deg)`;}});
+document.addEventListener("mouseup", ()=>{if(isDragging){cube.style.transform="";setTimeout(()=>isDragging=false,120);}});
 document.addEventListener("click",(e)=>{if(!e.target.closest('.scene'))kaiMenu.classList.remove('ativo');});
 </script>
 </body>
