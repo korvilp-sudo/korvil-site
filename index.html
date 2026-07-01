@@ -96,37 +96,121 @@ h4{color:var(--c);font-size:14px;margin:14px 0 6px 0;font-weight:700;}
       <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
       <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
       <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>KORVIL</title>
+<style>
+:root{--c:#00f5ff;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#000;color:#fff;overflow-x:hidden;font-size:15px;}
+
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:#000e;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;z-index:100;}
+.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;}
+.logo{color:var(--c);font-weight:800;font-size:18px;text-shadow:0 0 12px var(--c);}
+
+.wrap{padding:80px 16px 120px;max-width:680px;margin:auto;}
+h1{font-size:22px;margin-bottom:20px;font-weight:700;text-align:center;}
+h4{color:var(--c);font-size:14px;margin:14px 0 6px 0;font-weight:700;}
+
+.card{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:12px;padding:18px;margin-bottom:14px;cursor:pointer;}
+.tela{display:none;}
+.tela.ativa{display:block;}
+.sub-aba{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:14px;margin-bottom:10px;}
+.sub-aba ul{list-style:none;}
+.sub-aba li{color:#aaa;font-size:14px;padding:7px 0;border-bottom:1px solid #151515;}
+.sub-aba li:last-child{border:0;}
+
+.btn{display:block;background:var(--c);color:#000;text-align:center;padding:14px 16px;border-radius:8px;font-weight:800;font-size:14px;border:0;cursor:pointer;margin-top:14px;width:100%;}
+.btn.voltar{background:#222;color:#fff;width:auto;display:inline-block;padding:12px 18px;margin-right:10px;}
+
+.menu-lateral{position:fixed;top:0;left:-280px;width:270px;height:100%;background:#080808;border-right:1px solid #222;z-index:101;transition:left.3s;padding-top:70px;}
+.menu-lateral.ativo{left:0;}
+.menu-lateral a{display:block;color:#fff;padding:16px 20px;text-decoration:none;border-bottom:1px solid #111;font-size:15px;font-weight:600;}
+.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#000c;display:none;z-index:100;}
+.overlay.ativo{display:block;}
+
+.modal{position:fixed;inset:0;background:#000f;display:none;align-items:center;justify-content:center;z-index:200;}
+.modal.ativo{display:flex;}
+.modal-box{background:#0a0a0a;border:2px solid var(--c);border-radius:14px;padding:22px;width:92%;max-width:400px;}
+.modal-box input{width:100%;padding:14px;margin:8px 0;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;}
+
+.kai-footer{position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;z-index:98;pointer-events:none;}
+.scene{width:66px;height:66px;perspective:700px;flex-shrink:0;position:relative;pointer-events:auto;}
+.cube{width:66px;height:66px;position:relative;transform-style:preserve-3d;animation:spin 7s linear infinite;cursor:pointer;}
+@keyframes spin{0%{transform:rotateX(-20deg) rotateY(0deg);}100%{transform:rotateX(-20deg) rotateY(360deg);}}
+.cube-face{position:absolute;width:66px;height:66px;background:linear-gradient(145deg,#00eaff,#006a7a);border:2px solid var(--c);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:13px;border-radius:8px;box-shadow:0 8px 25px var(--c)90;}
+.front{transform:rotateY(0deg) translateZ(33px);}.back{transform:rotateY(180deg) translateZ(33px);}
+.right{transform:rotateY(90deg) translateZ(33px);}.left{transform:rotateY(-90deg) translateZ(33px);}
+.top{transform:rotateX(90deg) translateZ(33px);}.bottom{transform:rotateX(-90deg) translateZ(33px);}
+
+.message-box{max-width:240px;padding:14px;background:rgba(0,245,255,.15);border:2px solid var(--c);border-radius:12px;color:#fff;font-size:13px;font-weight:600;pointer-events:auto;position:relative;}
+.message-box::after{content:'';position:absolute;right:-12px;top:50%;transform:translateY(-50%);border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:12px solid var(--c);}
+
+.kai-menu-box{position:absolute;bottom:75px;right:0;width:230px;background:#05050aee;border:2px solid var(--c);border-radius:12px;padding:10px;display:none;z-index:99;pointer-events:auto;}
+.kai-menu-box.ativo{display:block;}
+.kai-menu-box button{width:100%;background:transparent;border:0;color:#aaa;padding:12px 10px;font-size:14px;text-align:left;cursor:pointer;border-bottom:1px solid #222;font-weight:600;}
+.kai-menu-box button:last-child{border:0;}
+</style>
+</head>
+<body>
+
+<div class="topbar"><button class="menu-btn" onclick="toggleMenu()">MENU</button><div class="logo">KORVIL</div></div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<nav class="menu-lateral" id="menu">
+  <a onclick="abrirTela('kalma');toggleMenu()">K-ALMA</a>
+  <a onclick="abrirTela('kafortunado');toggleMenu()">K-AFORTUNADO</a>
+  <a onclick="abrirTela('ktp');toggleMenu()">K-TP</a>
+  <a onclick="abrirTela('sistema');toggleMenu()">SISTEMA K</a>
+  <a onclick="abrirTela('central');toggleMenu()">CENTRAL KORVIL</a>
+</nav>
+
+<main class="wrap">
+  <section id="central" class="tela ativa"><h1>CENTRAL KORVIL</h1>
+    <div class="card" onclick="abrirTela('humano')"><h2>1. DESENVOLVIMENTO HUMANO</h2></div>
+    <div class="card" onclick="abrirTela('negocios')"><h2>2. NEGOCIOS</h2></div>
+    <div class="card" onclick="abrirTela('servicos')"><h2>3. SERVICOS</h2></div>
+  </section>
+
+  <section id="humano" class="tela"><h1>DESENVOLVIMENTO HUMANO</h1><h2>CURSOS</h2>
+    <div class="sub-aba">
+      <h4>ÁREAS</h4>
+      <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
+      <h4>Educação Física:</h4><ul><li>1. Treinamento Personalizado</li></ul>
+      <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
       <h4>Saúde:</h4><ul><li>1. K-TH Terapia Holística</li></ul>
       <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
-    <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
+    <button class="btn" onclick="abrirWhats('Cursos KORVIL')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
   </section>
 
-  <section id="negocios" class="tela"><h1>NEGOCIOS</h1><button class="btn" onclick="abrirWhats('Parcerias KORVIL')">Falar com Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="servicos" class="tela"><h1>SERVICOS</h1><button class="btn" onclick="abrirWhats('Servicos KORVIL')">Contratar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="negocios" class="tela"><h1>NEGOCIOS</h1><button class="btn" onclick="abrirWhats('Negocios')">Falar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="servicos" class="tela"><h1>SERVICOS</h1><button class="btn" onclick="abrirWhats('Servicos')">Contratar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
   <section id="sistema" class="tela"><h1>SISTEMA K</h1><button class="btn" onclick="abrirWhats('Sistema K')">Contratar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
   <section id="ktp" class="tela"><h1>K-TP</h1><button class="btn" onclick="abrirWhats('K-TP')">Entrar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
   <section id="kafortunado" class="tela"><h1>K-AFORTUNADO</h1><button class="btn" onclick="abrirWhats('K-AFORTUNADO')">Agendar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
   <section id="kalma" class="tela"><h1>K-ALMA</h1><button class="btn" onclick="abrirWhats('K-ALMA')">Agendar</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
 
-  <section id="kai-assistente" class="tela"><h1>K-AI ASSISTENTE</h1><button class="btn" onclick="abrirWhats('K-AI - Assistente')">Falar no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kai-sobre" class="tela"><h1>SOBRE</h1><button class="btn" onclick="abrirWhats('KORVIL - Sobre')">Falar no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kai-politica" class="tela"><h1>POLITICA</h1><button class="btn" onclick="abrirWhats('KORVIL - Politica')">Duvidas</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="kai-assistente" class="tela"><h1>K-AI ASSISTENTE</h1><button class="btn" onclick="abrirWhats('K-AI')">Falar no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="kai-sobre" class="tela"><h1>SOBRE</h1><button class="btn" onclick="abrirWhats('Sobre')">Falar no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <section id="kai-politica" class="tela"><h1>POLITICA</h1><button class="btn" onclick="abrirWhats('Politica')">Duvidas</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
 </main>
 
 <div class="modal" id="modal"><div class="modal-box">
   <h2 class="logo">KORVIL</h2>
-  <input id="nome" placeholder="Seu Nome Completo" required>
-  <input id="whats" placeholder="Seu WhatsApp com DDD" required>
+  <input id="nome" placeholder="Seu Nome" required>
+  <input id="whats" placeholder="Seu WhatsApp" required>
   <input id="cep" placeholder="CEP" onblur="buscaCEP()">
-  <input id="rua" placeholder="Rua e Numero">
-  <button class="btn" onclick="enviarWhats()">Enviar para WhatsApp 13997690898</button>
+  <input id="rua" placeholder="Rua">
+  <button class="btn" onclick="enviarWhats()">Enviar 13997690898</button>
   <button class="btn voltar" onclick="fecharForm()">Cancelar</button>
 </div></div>
 
 <footer class="kai-footer">
-  <div class="message-box" id="cubeMessage">Carregando K-AI...</div>
+  <div class="message-box" id="cubeMessage">K-AI online...</div>
   <div class="scene"><div class="cube" id="cubeKAI">
     <div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div>
     <div class="cube-face right">K-AI</div><div class="cube-face left">K-AI</div>
@@ -136,74 +220,33 @@ h4{color:var(--c);font-size:14px;margin:14px 0 6px 0;font-weight:700;}
     <button onclick="abrirTela('kai-assistente');toggleKaiMenu()">1. Assistente Virtual</button>
     <button onclick="abrirTela('kai-sobre');toggleKaiMenu()">2. Sobre o KORVIL</button>
     <button onclick="abrirTela('kai-politica');toggleKaiMenu()">3. Politica</button>
-    <button onclick="abrirWhats('K-AI - Menu WhatsApp')">4. Falar no WhatsApp</button>
+    <button onclick="abrirWhats('K-AI Whats')">4. Falar no WhatsApp</button>
   </div></div>
 </footer>
 
 <script>
 const WHATS_NUMBER = '5513997690898';
-let textoWhats = '', holdTimer = null, isExpanded = false, isSplit = false, isDragging = false, startX = 0, touchStartTime = 0;
+let textoWhats = '';
 const cube = document.getElementById("cubeKAI"), kaiMenu = document.getElementById("kaiMenu");
 
-function abrirTela(id){document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));document.getElementById(id).classList.add('ativa');window.scrollTo({top:0});toggleKaiMenu();}
+function abrirTela(id){document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));document.getElementById(id).classList.add('ativa');window.scrollTo(0,0);kaiMenu.classList.remove('ativo');}
 function toggleMenu(){document.getElementById('menu').classList.toggle('ativo');document.getElementById('overlay').classList.toggle('ativo');}
-function abrirWhats(texto){textoWhats=texto;document.getElementById('modal').classList.add('ativo');toggleKaiMenu();}
+function abrirWhats(texto){textoWhats=texto;document.getElementById('modal').classList.add('ativo');kaiMenu.classList.remove('ativo');}
 function fecharForm(){document.getElementById('modal').classList.remove('ativo');}
 async function buscaCEP(){const cep=document.getElementById('cep').value.replace(/\D/g,'');if(cep.length===8){try{const d=await fetch(`https://viacep.com.br/ws/${cep}/json/`).then(r=>r.json());if(!d.erro)document.getElementById('rua').value=d.logradouro;}catch(e){}}}
+function enviarWhats(){const n=document.getElementById('nome').value,w=document.getElementById('whats').value,c=document.getElementById('cep').value,r=document.getElementById('rua').value;if(!n||!w){alert('Preencha Nome e WhatsApp');return;}const msg=`*KORVIL - ${textoWhats}*\nNome: ${n}\nWhats: ${w}\nCEP: ${c}\nRua: ${r}`;window.location.href=`https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(msg)}`;}
 
-function enviarWhats(){
-  const nome=document.getElementById('nome').value, whats=document.getElementById('whats').value, cep=document.getElementById('cep').value, rua=document.getElementById('rua').value;
-  if(!nome||!whats){alert('Preencha Nome e WhatsApp');return;}
-  const msg=`*KORVIL - ${textoWhats}*\n\n*DADOS:*\nNome: ${nome}\nWhats: ${whats}\nCEP: ${cep}\nRua: ${rua}\n\nOla, vim do site KORVIL.`;
-  window.location.href = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(msg)}`;
-}
+const mensagens=["KORVIL 11 anos","Profissionais online","Whats 13997690898","K-AI 24h","Entre hoje"];
+let i=0;const box=document.getElementById("cubeMessage");setInterval(()=>{box.textContent=mensagens[i];i=(i+1)%mensagens.length;},10000);
 
-const mensagensKAI=["KORVIL 11 anos","Profissionais online","Manutencao Celular","Negocio Proprio","K-TH Terapia","Cabeleireiro Unissex","Eletricista 24h","K-TP Projeto","K-AFORTUNADO Financas","K-ALMA Saude","Whats 13997690898","K-AI 24h","Resultado KORVIL","Entre hoje","Saude e Beleza","Tecnologia","Consultoria","Impulso KORVIL","Mude seu jogo","Central ativa"];
-let msgIndex=Math.floor(Math.random()*mensagensKAI.length);const messageBox=document.getElementById("cubeMessage");
-function trocarMensagem(){messageBox.textContent=mensagensKAI[msgIndex];msgIndex=Math.floor(Math.random()*mensagensKAI.length);}
-trocarMensagem();setInterval(trocarMensagem,10000);
-
-/* K-AI LOGICA CORRIGIDA: CLIQUE = MENU | SEGURAR = EXPANDIR */
-cube.addEventListener("touchstart", e=>{touchStartTime=Date.now();holdTimer=setTimeout(()=>{isExpanded=!isExpanded;cube.classList.toggle("expanded",isExpanded);trocarMensagem();},700);});
-cube.addEventListener("mousedown", e=>{touchStartTime=Date.now();holdTimer=setTimeout(()=>{isExpanded=!isExpanded;cube.classList.toggle("expanded",isExpanded);trocarMensagem();},700);});
-
-cube.addEventListener("touchend", e=>{
-  clearTimeout(holdTimer);
-  const touchDuration = Date.now() - touchStartTime;
-  if(touchDuration < 700 &&!isDragging){ // CLIQUE RAPIDO < 700ms = ABRE MENU
-    e.stopPropagation();
-    if(!isExpanded) toggleKaiMenu();
-  }
-});
-cube.addEventListener("mouseup", e=>{
-  clearTimeout(holdTimer);
-  const touchDuration = Date.now() - touchStartTime;
-  if(touchDuration < 700 &&!isDragging){ // CLIQUE RAPIDO < 700ms = ABRE MENU
-    e.stopPropagation();
-    if(!isExpanded) toggleKaiMenu();
-  }
-});
-
-cube.addEventListener("click",()=>{
-  if(isDragging || isExpanded) return;
-  if(!isSplit){
-    cube.innerHTML=`<div class="cube-face front" onclick="abrirTela('ktp');toggleKaiMenu()">K-TP</div><div class="cube-face back" onclick="abrirTela('kafortunado');toggleKaiMenu()">K-AFORTUNADO</div><div class="cube-face right" onclick="abrirTela('kalma');toggleKaiMenu()">K-ALMA</div><div class="cube-face left" onclick="abrirTela('sistema');toggleKaiMenu()">Sistema K</div><div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;
-    isSplit=true;trocarMensagem();
-  }else{
-    cube.innerHTML=`<div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div><div class="cube-face right">K-AI</div><div class="cube-face left">K-AI</div><div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>`;
-    isSplit=false;trocarMensagem();
-  }
-});
-
-function toggleKaiMenu(){kaiMenu.classList.toggle('ativo');}
-
-cube.addEventListener("mousedown",e=>{isDragging=true;startX=e.clientX;});
-cube.addEventListener("touchstart",e=>{isDragging=true;startX=e.touches[0].clientX;});
-document.addEventListener("mousemove",e=>{if(isDragging){cube.style.transform=`rotateY(${e.clientX-startX}deg) rotateX(-20deg)`;}});
-document.addEventListener("touchmove",e=>{if(isDragging){cube.style.transform=`rotateY(${e.touches[0].clientX-startX}deg) rotateX(-20deg)`;}});
-document.addEventListener("mouseup",()=>{if(isDragging){cube.style.transform="";setTimeout(()=>isDragging=false,120);}});
-document.addEventListener("touchend",()=>{if(isDragging){cube.style.transform="";setTimeout(()=>isDragging=false,120);}});
-document.addEventListener("click",e=>{if(!e.target.closest('.scene'))kaiMenu.classList.remove('ativo');});
+/* K-AI: SÓ 1 CLIQUE ABRE/FECHA MENU. ACABOU. */
+cube.onclick = function(e){
+  e.stopPropagation();
+  kaiMenu.classList.toggle('ativo');
+};
+document.onclick = function(e){
+  if(!e.target.closest('.scene')) kaiMenu.classList.remove('ativo');
+};
 </script>
 </body>
 </html>
