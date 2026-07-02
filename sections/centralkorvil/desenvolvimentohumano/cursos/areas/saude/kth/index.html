@@ -2,223 +2,99 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>K-TH v12 | Korvil</title>
+<title>K-TH v14</title>
 <style>
-  :root{--bg:#06070b;--panel:#0d1017;--card:#11141d;--text:#eaf6ff;--muted:#7d8aa1;--neon:#00ffff;--ok:#00ff88;--err:#ff3366;--border:#1a2030;--glow:0 0 12px rgba(0,255,255,.35)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font:14px/1.6 Inter,Arial}
-  header{position:sticky;top:0;z-index:999;background:rgba(6,7,11,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.topbar{display:flex;align-items:center;gap:12px;padding:10px 12px}
-.logo{font-weight:900;font-size:18px;color:var(--neon)}
+:root{--bg:#06070b;--panel:#0d1017;--card:#11141d;--text:#eaf6ff;--muted:#7d8aa1;--neon:#00ffff;--ok:#00ff88;--err:#ff3366;--border:#1a2030}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:14px Arial}
+header{position:sticky;top:0;background:#06070b;border-bottom:1px solid var(--border);z-index:999}
+.topbar{display:flex;gap:12px;padding:10px}
+.logo{color:var(--neon);font-weight:900;font-size:18px}
 .wrap{display:grid;grid-template-columns:340px 1fr}
-  @media(max-width:1100px){.wrap{grid-template-columns:1fr} aside{position:fixed;inset:52px 0 0 0;transform:translateX(-100%);transition:.3s;z-index:998;background:var(--panel);width:88%;border-right:1px solid var(--border)}}
-  aside{height:calc(100vh - 52px);position:sticky;top:52px;overflow:auto;padding:12px}
-  main{padding:0;margin:0} /* SEM ESPAÇO NO TOPO */
-.menu-btn{display:none;padding:8px;border:1px solid var(--border);border-radius:8px;background:#0a0d14;color:var(--neon)}
-  @media(max-width:1100px){.menu-btn{display:block}}
+@media(max-width:1100px){.wrap{grid-template-columns:1fr} aside{position:fixed;inset:52px 0 0 0;width:88%;background:var(--panel);transform:translateX(-100%);transition:.3s;z-index:998}}
+aside{height:calc(100vh - 52px);position:sticky;top:52px;overflow:auto;padding:12px}
+main{padding:0} /* SEM ESPAÇO */
+.menu-btn{display:none;padding:8px;border:1px solid var(--border);background:#0a0d14;color:var(--neon);border-radius:8px}
+@media(max-width:1100px){.menu-btn{display:block}}
 .overlay{display:none;position:fixed;inset:0;background:#0008;z-index:997}
 .overlay.show{display:block}
-.tabs{display:flex;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border);background:var(--panel)}
-.tab{padding:8px 14px;border:1px solid var(--border);border-radius:8px;background:#0b0e15;color:var(--muted);font-weight:700;cursor:pointer;font-size:13px}
-.tab.active{border-color:var(--neon);color:var(--neon);box-shadow:var(--glow)}
-.timeline{padding:12px}
-.ano-title{font-size:18px;color:var(--neon);margin:0 0 12px}
-.fase{border:1px solid var(--border);border-radius:10px;background:var(--card);margin-bottom:10px}
-.fase-head{padding:12px;background:#0b0e15;display:flex;justify-content:space-between;cursor:pointer}
-.fase-head h3{margin:0;color:var(--neon);font-size:14px}
-.fase-body{display:none;padding:10px;color:var(--muted);font-size:13px}
-.fase.open.fase-body{display:block}
-.course-title{padding:8px;border-bottom:1px solid var(--border);margin-bottom:12px}
-.course-title h1{font-size:16px;margin:0;color:var(--neon)}
-.stat{font-size:12px;color:var(--muted);margin-top:4px}
-.modulo{margin-bottom:10px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#0b0e15}
-.modulo-head{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:14px}
-.modulo-head span{color:var(--muted);font-size:12px}
-.modulo.open.aulas{display:block}
+.tabs{display:flex;gap:8px;padding:10px;border-bottom:1px solid var(--border)}
+.tab{padding:8px 14px;border:1px solid var(--border);border-radius:8px;background:#0b0e15;color:var(--muted);font-weight:700;cursor:pointer}
+.tab.active{border-color:var(--neon);color:var(--neon)}
+.course-title{border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px}
+.course-title h1{font-size:16px;color:var(--neon);margin:0}
+.stat{font-size:12px;color:var(--muted)}
+.modulo{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:#0b0e15;overflow:hidden}
+.modulo-head{padding:12px;display:flex;justify-content:space-between;cursor:pointer;font-weight:600}
+.modulo-head span{font-size:12px;color:var(--muted)}
 .aulas{display:none;padding:6px 8px;background:#0a0d14}
-.aula{padding:8px 10px;border-radius:6px;margin:4px 0;background:#0d111a;font-size:13px;cursor:pointer;border:1px solid transparent;color:var(--muted)}
-.aula:hover{border-color:var(--neon);color:var(--text)}
-.aula.active{border-color:var(--neon);background:#0f1622;color:var(--neon)}
-.aula.locked{opacity:.35;pointer-events:none}
+.modulo.open.aulas{display:block}
+.aula{padding:8px;margin:4px 0;background:#0d111a;border-radius:6px;font-size:13px;cursor:pointer;border:1px solid transparent;color:var(--muted)}
+.aula.locked{opacity:.3;pointer-events:none}
 .aula.completed{border-color:var(--ok);color:var(--ok)}
-.player{margin:0;border:1px solid var(--border);border-radius:0;background:var(--card);overflow:hidden} /* SEM MARGIN TOPO */
-.video-wrap{position:relative;padding-top:56.25%;background:#000;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.aula.active{border-color:var(--neon);color:var(--neon)}
+.player{border:1px solid var(--border);margin:0}
+.video-wrap{position:relative;padding-top:56.25%;background:#000}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .content{padding:14px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chip{font-size:11px;padding:6px 10px;border:1px solid var(--neon);border-radius:999px;color:var(--neon);background:#0b0e15}
-.chip.gray{border-color:var(--border);color:var(--muted)}
-.content h2{font-size:18px;color:var(--neon);margin:0 0 10px;text-shadow:var(--glow)}
-.tema-nav{display:flex;gap:6px;margin:10px 0;flex-wrap:wrap}
-.tema-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:#0b0e15;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
-.tema-btn.active{border-color:var(--neon);color:var(--neon);box-shadow:var(--glow)}
-.tema-btn.completed{border-color:var(--ok);color:var(--ok)}
+.chips{display:flex;gap:6px;margin:10px 0;flex-wrap:wrap}
+.chip{font-size:11px;padding:6px 10px;border:1px solid var(--neon);border-radius:20px;color:var(--neon)}
+h2{color:var(--neon);font-size:18px;margin:0 0 10px}
+.tema-nav{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.tema-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:#0b0e15;color:var(--muted);font-size:12px;cursor:pointer;font-weight:600}
+.tema-btn.active{border-color:var(--neon);color:var(--neon)}
 .pagina-nav{display:flex;gap:6px;margin:10px 0}
-.p-btn{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#0a0d14;color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
+.p-btn{padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:#0a0d14;color:var(--muted);font-size:12px;cursor:pointer;font-weight:600}
 .p-btn.active{border-color:var(--neon);color:var(--neon)}
 .pagina{margin-top:12px;padding:14px;border:1px solid var(--border);border-radius:10px;background:#0b0e15}
-.pagina h4{font-size:15px;color:var(--neon);margin:0 0 8px}
-.pagina p{font-size:13px;color:var(--muted);margin:0}
-.avaliacao{margin-top:16px;padding:16px;border:2px solid var(--neon);border-radius:12px;background:#0a0f14;box-shadow:var(--glow)}
-.avaliacao h3{font-size:15px;color:var(--neon);margin:0 0 8px}
-.avaliacao p{font-size:12px;color:var(--muted);margin:0 0 10px}
-.questao{margin:12px 0;padding:12px;border:1px solid var(--border);border-radius:8px;background:#0b0e15}
-.questao p{margin:0 0 8px;font-weight:600;font-size:13px}
-.opcao{display:block;margin:6px 0;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:#0a0d14;cursor:pointer;font-size:13px}
-.opcao:hover{border-color:var(--neon)}
+.pagina h4{color:var(--neon);font-size:15px;margin:0 0 8px}
+.avaliacao{border:2px solid var(--neon);padding:16px;margin-top:16px;border-radius:12px;background:#0a0f14}
+.avaliacao h3{color:var(--neon);font-size:15px;margin:0 0 8px}
+.questao{border:1px solid var(--border);padding:12px;margin:12px 0;border-radius:8px;background:#0b0e15}
+.questao p{font-weight:600;margin:0 0 8px}
+.opcao{border:1px solid var(--border);padding:8px;margin:6px 0;border-radius:6px;background:#0a0d14;cursor:pointer}
 .opcao.selecionada{border-color:var(--neon)}
 .opcao.correta{border-color:var(--ok);background:#0a1a14}
 .opcao.errada{border-color:var(--err);background:#1a0a0f}
-.resultado{margin-top:10px;padding:10px;border-radius:8px;font-weight:700;text-align:center;font-size:13px}
-.resultado.aprovado{background:#0a1a14;color:var(--ok);border:1px solid var(--ok)}
-.resultado.reprovado{background:#1a0a0f;color:var(--err);border:1px solid var(--err)}
-.navfooter{display:flex;gap:8px;justify-content:space-between;padding:12px;border-top:1px solid var(--border);background:#0b0e15;position:sticky;bottom:0}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:#0a0d14;color:var(--text);font-weight:700;font-size:13px;cursor:pointer}
-.btn.primary{background:var(--neon);color:#001012;border:0;box-shadow:var(--glow)}
-.btn:disabled{opacity:.3;cursor:not-allowed}
+.resultado{padding:10px;margin-top:10px;border-radius:8px;text-align:center;font-weight:700}
+.resultado.aprovado{border:1px solid var(--ok);color:var(--ok);background:#0a1a14}
+.resultado.reprovado{border:1px solid var(--err);color:var(--err);background:#1a0a0f}
+.navfooter{display:flex;justify-content:space-between;padding:12px;border-top:1px solid var(--border);position:sticky;bottom:0;background:#0b0e15}
+.btn{padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:#0a0d14;color:var(--text);font-weight:700;cursor:pointer}
+.btn.primary{background:var(--neon);color:#000;border:0}
+.btn:disabled{opacity:.3}
 </style>
 </head>
 <body>
-<header>
-  <div class="topbar">
-    <button class="menu-btn" id="btnMenu">☰</button>
-    <div class="logo">KORVIL</div>
-    <div style="color:var(--muted);font-size:12px">Cursos > Saúde > K-TH</div>
-  </div>
-</header>
-
-<div class="overlay" id="overlay"></div>
+<header><div class="topbar"><button class="menu-btn" id="m">☰</button><div class="logo">KORVIL</div><div style="color:var(--muted);font-size:12px">Cursos > Saúde > K-TH</div></div></header>
+<div class="overlay" id="o"></div>
 <div class="wrap">
-  <aside id="sidebar">
-    <div class="course-title">
-      <h1>K-TH Formação Profissional</h1>
-      <div class="stat">11 Módulos • 55 Aulas • 275 Temas</div>
-    </div>
-    <div id="menuModulos"></div>
-  </aside>
-
-  <main>
-    <div class="tabs">
-      <div class="tab active" id="tabCron">Cronograma Anual</div>
-      <div class="tab" id="tabAula">Área de Aula</div>
-    </div>
-
-    <div id="tab-cronograma" class="timeline">
-      <h2 class="ano-title">Cronograma Anual K-TH</h2>
-      <div class="fase open"><div class="fase-head"><h3>Janeiro e Fevereiro | Fase 1: Formação Básica</h3><span>M1 M2</span></div><div class="fase-body"><p><b>Módulo 1:</b> Massoterapia Profissional | <b>Módulo 2:</b> Cuidador de Idosos</p></div></div>
-      <div class="fase"><div class="fase-head"><h3>Março a Maio | Fase 2: Formação em Cuidados</h3><span>M3 M4 M5</span></div><div class="fase-body"><p><b>Módulo 3:</b> Terapias Holísticas | <b>Módulo 4:</b> Primeiros Socorros | <b>Módulo 5:</b> Cuidador Infantil</p></div></div>
-      <div class="fase"><div class="fase-head"><h3>Junho a Agosto | Fase 3: Desenvolvimento Profissional</h3><span>M6 M7 M8</span></div><div class="fase-body"><p><b>Módulo 6:</b> Clínica SPA | <b>Módulo 7:</b> Estética Corporal | <b>Módulo 8:</b> Educação em Saúde</p></div></div>
-      <div class="fase"><div class="fase-head"><h3>Setembro a Novembro | Fase 4: Formação Empreendedora</h3><span>M9 M10 M11</span></div><div class="fase-body"><p><b>Módulo 9:</b> Atendimento Humanizado | <b>Módulo 10:</b> Empreendedorismo | <b>Módulo 11:</b> Prática Supervisionada</p></div></div>
-      <div class="fase"><div class="fase-head"><h3>Dezembro: Conclusão</h3><span>Certificados</span></div><div class="fase-body"><p>Revisão | Avaliações Finais | Certificados | Formatura</p></div></div>
-    </div>
-
-    <div id="tab-aula" style="display:none">
-      <div class="player">
-        <div class="video-wrap" id="videoWrap">[Selecione uma aula no menu lateral]</div>
-        <div class="content" id="conteudoAula">
-          <div class="chips"><span class="chip">Selecione uma Aula</span></div>
-          <h2>Bem-vindo ao K-TH</h2>
-          <p>Regra: 5 Páginas > Avaliação 70% > Libera Próxima Aula. Sem limite de tentativas.</p>
-        </div>
-        <div class="navfooter">
-          <button class="btn" id="btnAnt" disabled>← Aula Anterior</button>
-          <button class="btn primary" id="btnConcluir" disabled>✓ Concluir Aula</button>
-          <button class="btn primary" id="btnProx" disabled>Próxima Aula →</button>
-        </div>
-      </div>
-    </div>
-  </main>
-</div>
-
+<aside id="s"><div class="course-title"><h1>K-TH Formação</h1><div class="stat">11 Módulos • 55 Aulas</div></div><div id="menu"></div></aside>
+<main>
+<div class="tabs"><div class="tab active" id="t1">Cronograma</div><div class="tab" id="t2">Aula</div></div>
+<div id="c1" style="padding:12px"><h2 style="color:var(--neon)">Cronograma K-TH</h2><p style="color:var(--muted)">M1 M2 M3 M4 M5 M6 M7 M8 M9 M10 M11</p></div>
+<div id="c2" style="display:none"><div class="player"><div class="video-wrap" id="v">[Selecione]</div><div class="content" id="c"><div class="chips"><span class="chip">Selecione</span></div><h2>Bem-vindo</h2></div><div class="navfooter"><button class="btn" id="ant" disabled>← Anterior</button><button class="btn primary" id="con" disabled>✓ Concluir</button><button class="btn primary" id="prox" disabled>Próxima →</button></div></div></div>
+</main></div>
 <script>
-// DADOS: 11 MÓDULOS x 5 AULAS x 5 TEMAS
-const DADOS={
- 1:{nome:"Módulo 1: Massoterapia Profissional",video:"j3PdVh1j7e0",aulas:[
-    {nome:"Aula 1: História da Massoterapia",temas:["Tema 1: Origens da Massoterapia","Tema 2: Evolução Histórica","Tema 3: Grandes Mestres","Tema 4: Massoterapia no Brasil","Tema 5: Tendências Atuais"]},
-    {nome:"Aula 2: Anatomia Básica",temas:["Tema 1: Sistema Muscular","Tema 2: Sistema Esquelético","Tema 3: Sistema Circulatório","Tema 4: Sistema Nervoso","Tema 5: Pele e Tecidos"]},
-    {nome:"Aula 3: Biossegurança",temas:["Tema 1: Normas de Higiene","Tema 2: EPIs e Proteção","Tema 3: Desinfecção","Tema 4: Descarte de Resíduos","Tema 5: Prevenção de Riscos"]},
-    {nome:"Aula 4: Anamnese",temas:["Tema 1: Entrevista Inicial","Tema 2: Histórico de Saúde","Tema 3: Contraindicações","Tema 4: Ficha do Cliente","Tema 5: Conduta Ética"]},
-    {nome:"Aula 5: Massagem Relaxante",temas:["Tema 1: Técnicas Básicas","Tema 2: Manobras de Deslizamento","Tema 3: Amassamento","Tema 4: Percussão","Tema 5: Finalização"]},
-  ]},
- 2:{nome:"Módulo 2: Cuidador de Idosos",video:"k4_RvR3QZ8k",aulas:[
-    {nome:"Aula 1: Envelhecimento",temas:["Tema 1: Processo de Envelhecer","Tema 2: Aspectos Biológicos","Tema 3: Aspectos Psicológicos","Tema 4: Aspectos Sociais","Tema 5: Mitos e Verdades"]},
-    {nome:"Aula 2: Higiene",temas:["Tema 1: Banho no Leito","Tema 2: Higiene Bucal","Tema 3: Troca de Roupas","Tema 4: Cuidados com a Pele","Tema 5: Prevenção de Escaras"]},
-    {nome:"Aula 3: Alimentação",temas:["Tema 1: Dieta do Idoso","Tema 2: Hidratação","Tema 3: Dificuldade de Deglutição","Tema 4: Dietas Especiais","Tema 5: Rotina Alimentar"]},
-    {nome:"Aula 4: Mobilização",temas:["Tema 1: Mudança de Decúbito","Tema 2: Transferência","Tema 3: Deambulação","Tema 4: Uso de Andador","Tema 5: Prevenção de Quedas"]},
-    {nome:"Aula 5: Administração de Medicamentos",temas:["Tema 1: Tipos de Medicamentos","Tema 2: Vias de Administração","Tema 3: Horários e Doses","Tema 4: Efeitos Colaterais","Tema 5: Limites Legais"]},
-  ]},
- 3:{nome:"Módulo 3: Terapias Holísticas",video:"VaoN_5HjQjM",aulas:[{nome:"Aula 1: Introdução",temas:["Tema 1: Conceito Holístico","Tema 2: Corpo Mente Espírito","Tema 3: Energia Vital","Tema 4: Equilíbrio","Tema 5: Princípios"]},{nome:"Aula 2: Terapias Complementares",temas:["Tema 1: O que são","Tema 2: Principais Tipos","Tema 3: Indicações","Tema 4: Contraindicações","Tema 5: Integração"]},{nome:"Aula 3: Energia Vital",temas:["Tema 1: Conceito de Qi","Tema 2: Canais Energéticos","Tema 3: Bloqueios","Tema 4: Harmonização","Tema 5: Prática"]},{nome:"Aula 4: Chakras",temas:["Tema 1: Os 7 Chakras","Tema 2: Funções","Tema 3: Desequilíbrios","Tema 4: Técnicas","Tema 5: Ativação"]},{nome:"Aula 5: Cromoterapia",temas:["Tema 1: Cores e Frequências","Tema 2: Aplicações","Tema 3: Protocolos","Tema 4: Materiais","Tema 5: Prática"]}]},
- 4:{nome:"Módulo 4: Primeiros Socorros",video:"GswXx1d2dS4",aulas:[{nome:"Aula 1: Emergências",temas:["Tema 1: Avaliação Inicial","Tema 2: Sinais Vitais","Tema 3: Prioridades","Tema 4: Acionar SAMU","Tema 5: Segurança"]},{nome:"Aula 2: RCP",temas:["Tema 1: Reconhecer PCR","Tema 2: Compressões","Tema 3: Ventilação","Tema 4: DEA","Tema 5: Prática"]},{nome:"Aula 3: Engasgo",temas:["Tema 1: Identificar Engasgo","Tema 2: Manobra Heimlich","Tema 3: Bebês","Tema 4: Cuidados","Tema 5: Prática"]},{nome:"Aula 4: Queimaduras",temas:["Tema 1: Tipos","Tema 2: Graus","Tema 3: Primeiros Cuidados","Tema 4: O que não fazer","Tema 5: Encaminhamento"]},{nome:"Aula 5: Hemorragias",temas:["Tema 1: Tipos","Tema 2: Compressão","Tema 3: Torniquete","Tema 4: Choque","Tema 5: Conduta"]}]},
- 5:{nome:"Módulo 5: Cuidador Infantil",video:"b7o0z0h2w0k",aulas:[{nome:"Aula 1: Desenvolvimento",temas:["Tema 1: Etapas","Tema 2: 0 a 2 anos","Tema 3: 2 a 5 anos","Tema 4: 6 a 12 anos","Tema 5: Sinais de Alerta"]},{nome:"Aula 2: Higiene",temas:["Tema 1: Banho","Tema 2: Troca de Fraldas","Tema 3: Higiene Bucal","Tema 4: Unhas","Tema 5: Rotina"]},{nome:"Aula 3: Alimentação",temas:["Tema 1: Aleitamento","Tema 2: Introdução Alimentar","Tema 3: Cardápio","Tema 4: Engasgo","Tema 5: Hidratação"]},{nome:"Aula 4: Sono",temas:["Tema 1: Necessidade","Tema 2: Ambiente","Tema 3: Rotina","Tema 4: Cólicas","Tema 5: Segurança"]},{nome:"Aula 5: Recreação",temas:["Tema 1: Brincadeiras","Tema 2: Estimulação","Tema 3: Limites","Tema 4: Criatividade","Tema 5: Socialização"]}]},
- 6:{nome:"Módulo 6: Clínica SPA",video:"X1C_qUK1B-Y",aulas:[{nome:"Aula 1: Recepção",temas:["Tema 1: Primeiro Contato","Tema 2: Agendamento","Tema 3: Acolhimento","Tema 4: Ficha","Tema 5: Despedida"]},{nome:"Aula 2: Organização",temas:["Tema 1: Ambiente","Tema 2: Materiais","Tema 3: Agenda","Tema 4: Estoque","Tema 5: Limpeza"]},{nome:"Aula 3: Agendamentos",temas:["Tema 1: Sistema","Tema 2: Remarcação","Tema 3: Cancelamento","Tema 4: Lista Espera","Tema 5: Pontualidade"]},{nome:"Aula 4: Atendimento Humanizado",temas:["Tema 1: Empatia","Tema 2: Escuta","Tema 3: Comunicação","Tema 4: Sigilo","Tema 5: Ética"]},{nome:"Aula 5: Biossegurança",temas:["Tema 1: Higienização","Tema 2: EPIs","Tema 3: Toalhas","Tema 4: Maca","Tema 5: Protocolos"]}]},
- 7:{nome:"Módulo 7: Estética Corporal",video:"mK5_8Q1q9vA",aulas:[{nome:"Aula 1: Relaxamento",temas:["Tema 1: Ambiente SPA","Tema 2: Música","Tema 3: Aromas","Tema 4: Iluminação","Tema 5: Condução"]},{nome:"Aula 2: SPA",temas:["Tema 1: Conceito","Tema 2: Serviços","Tema 3: Roteiro","Tema 4: Produtos","Tema 5: Experiência"]},{nome:"Aula 3: Protocolos Corporais",temas:["Tema 1: Esfoliação","Tema 2: Envolvimento","Tema 3: Hidratação","Tema 4: Drenagem","Tema 5: Sequência"]},{nome:"Aula 4: Bem-estar",temas:["Tema 1: Conceito","Tema 2: Qualidade Vida","Tema 3: Equilíbrio","Tema 4: Autocuidado","Tema 5: Resultados"]},{nome:"Aula 5: Atendimento",temas:["Tema 1: Consulta","Tema 2: Anamnese Estética","Tema 3: Indicação","Tema 4: Pacote","Tema 5: Fidelização"]}]},
- 8:{nome:"Módulo 8: Educação em Saúde",video:"xG9C9aKzV4M",aulas:[{nome:"Aula 1: Hábitos Saudáveis",temas:["Tema 1: Conceito","Tema 2: Alimentação","Tema 3: Atividade Física","Tema 4: Sono","Tema 5: Lazer"]},{nome:"Aula 2: Alimentação",temas:["Tema 1: Pirâmide","Tema 2: Água","Tema 3: Ultraprocessados","Tema 4: Planejamento","Tema 5: Dicas"]},{nome:"Aula 3: Sono",temas:["Tema 1: Importância","Tema 2: Higiene Sono","Tema 3: Insônia","Tema 4: Rotina","Tema 5: Ambiente"]},{nome:"Aula 4: Exercícios",temas:["Tema 1: Benefícios","Tema 2: Tipos","Tema 3: Frequência","Tema 4: Motivação","Tema 5: Segurança"]},{nome:"Aula 5: Estresse",temas:["Tema 1: O que é","Tema 2: Sinais","Tema 3: Manejo","Tema 4: Relaxamento","Tema 5: Ajuda"]}]},
- 9:{nome:"Módulo 9: Atendimento Humanizado",video:"qWQ3Q3Q3Q3Q",aulas:[{nome:"Aula 1: Comunicação",temas:["Tema 1: Verbal","Tema 2: Não Verbal","Tema 3: Escuta Ativa","Tema 4: Feedback","Tema 5: Assertividade"]},{nome:"Aula 2: Empatia",temas:["Tema 1: Conceito","Tema 2: Prática","Tema 3: Limites","Tema 4: Conexão","Tema 5: Cuidado"]},{nome:"Aula 3: Inteligência Emocional",temas:["Tema 1: Autoconsciência","Tema 2: Autorregulação","Tema 3: Empatia","Tema 4: Habilidades Sociais","Tema 5: Motivação"]},{nome:"Aula 4: Ética",temas:["Tema 1: Princípios","Tema 2: Sigilo","Tema 3: Limites","Tema 4: Responsabilidade","Tema 5: Código"]},{nome:"Aula 5: Liderança",temas:["Tema 1: Perfil","Tema 2: Equipe","Tema 3: Motivação","Tema 4: Gestão","Tema 5: Exemplo"]}]},
-10:{nome:"Módulo 10: Empreendedorismo",video:"fG8T0wH1YvE",aulas:[{nome:"Aula 1: Abrir Negócio",temas:["Tema 1: Plano","Tema 2: CNPJ","Tema 3: Local","Tema 4: Investimento","Tema 5: Burocracia"]},{nome:"Aula 2: Marketing",temas:["Tema 1: Posicionamento","Tema 2: Público","Tema 3: Canais","Tema 4: Conteúdo","Tema 5: Estratégia"]},{nome:"Aula 3: Vendas",temas:["Tema 1: Abordagem","Tema 2: Necessidade","Tema 3: Proposta","Tema 4: Fechamento","Tema 5: Pós-venda"]},{nome:"Aula 4: Atendimento",temas:["Tema 1: Experiência","Tema 2: Diferencial","Tema 3: Follow-up","Tema 4: CRM","Tema 5: Encantamento"]},{nome:"Aula 5: Precificação",temas:["Tema 1: Custos","Tema 2: Concorrência","Tema 3: Valor","Tema 4: Pacotes","Tema 5: Lucro"]}]},
-11:{nome:"Módulo 11: Prática Supervisionada",video:"L8QJ7J2fQvQ",aulas:[{nome:"Aula 1: Estudos de Caso",temas:["Tema 1: Análise","Tema 2: Diagnóstico","Tema 3: Plano","Tema 4: Execução","Tema 5: Resultado"]},{nome:"Aula 2: Simulações",temas:["Tema 1: Roteiro","Tema 2: Papéis","Tema 3: Prática","Tema 4: Feedback","Tema 5: Ajuste"]},{nome:"Aula 3: Atendimento Supervisionado",temas:["Tema 1: Observação","Tema 2: Execução","Tema 3: Supervisão","Tema 4: Correção","Tema 5: Aprovação"]},{nome:"Aula 4: Protocolos Completos",temas:["Tema 1: Passo a Passo","Tema 2: Materiais","Tema 3: Tempo","Tema 4: Avaliação","Tema 5: Registro"]},{nome:"Aula 5: Avaliação Prática",temas:["Tema 1: Critérios","Tema 2: Desempenho","Tema 3: Ética","Tema 4: Técnica","Tema 5: Aprovação"]}]}
-};
-
-const QUESTOES={
- 1:[{q:"1. Quem é considerado o pai da massoterapia moderna?",o:["Per Henrik Ling","Hipócrates","Galeno","Avicena"],r:0},
-     {q:"2. A massagem relaxante atua principalmente em qual sistema?",o:["Digestivo","Nervoso Parassimpático","Circulatório","Respiratório"],r:1},
-     {q:"3. Biossegurança significa:",o:["Massagear forte","Prevenir riscos e infecções","Usar óleos caros","Atender mais clientes"],r:1},
-     {q:"4. Anamnese é:",o:["Tipo de massagem","Entrevista inicial com o cliente","Óleo essencial","Equipamento"],r:1},
-     {q:"5. Contraindicação absoluta para massagem:",o:["Estresse","Febre alta","Cansaço","Dor leve"],r:1}],
- 2:[{q:"1. Envelhecimento é um processo:",o:["Patológico","Natural e progressivo","Doença","Evitar"],r:1},
-     {q:"2. Para prevenir escaras o cuidador deve:",o:["Deixar no leito","Mudar decúbito a cada 2h","Não hidratar","Prender no quarto"],r:1},
-     {q:"3. Hidratação do idoso deve ser:",o:["2L por dia","Apenas se pedir","500ml por dia","Não precisa"],r:0},
-     {q:"4. Administrar medicamento é função:",o:["Do cuidador sempre","Do enfermeiro ou familiar","Do vizinho","De qualquer pessoa"],r:1},
-     {q:"5. Quedas no idoso são prevenidas com:",o:["Ambiente desorganizado","Tapetes soltos","Ambiente seguro","Escuridão"],r:2}]
-};
-for(let i=3;i<=11;i++){QUESTOES[i]=QUESTOES[1].map(x=>({...x}))}
-
-let estado={aula:null,tema:1,pagina:1,respostas:{},concluidas:JSON.parse(localStorage.getItem('kth_v12')||'[]'),temasOK:JSON.parse(localStorage.getItem('kth_temas_v12')||'{}')};
-const $=s=>document.querySelector(s);const $$=s=>document.querySelectorAll(s);
-
-function montarMenu(){
-  const wrap=$('#menuModulos');wrap.innerHTML='';
-  Object.keys(DADOS).forEach(m=>{
-    const mod=DADOS[m];let aulas='';
-    mod.aulas.forEach((aulaObj,i)=>{const id=`M${m}-A${i+1}`;const ok=estado.concluidas.includes(id);aulas+=`<div class="aula locked ${ok?'completed':''}" data-id="${id}">${i+1}. ${aulaObj.nome}</div>`});
-    const concluidasMod=estado.concluidas.filter(x=>x.startsWith(`M${m}-`)).length;
-    wrap.innerHTML+=`<div class="modulo" id="mod${m}"><div class="modulo-head">${mod.nome}<span>${concluidasMod}/${mod.aulas.length}</span></div><div class="aulas">${aulas}</div></div>`;
-  });
-  $$('.modulo-head').forEach(el=>el.onclick=()=>el.parentElement.classList.toggle('open'));
-  $$('.aula').forEach(el=>el.onclick=()=>!el.classList.contains('locked')&&carregarAula(el.dataset.id));
-}
-
-function carregarAula(id){
-  estado.aula=id;estado.tema=1;estado.pagina=1;estado.respostas={};$('#tabAula').click();
-  const [m,a]=id.replace('M','').split('-A').map(Number);
-  const mod=DADOS[m];const aulaObj=mod.aulas[a-1];
-  $('#videoWrap').innerHTML=`<iframe src="https://www.youtube.com/embed/${mod.video}" allowfullscreen></iframe>`;
-  let nav='';aulaObj.temas.forEach((t,i)=>{const ok=estado.temasOK[id]?.includes(i+1);nav+=`<button class="tema-btn ${i===0?'active':''} ${ok?'completed':''}" data-t="${i+1}">${t}</button>`});
-  $('#conteudoAula').innerHTML=`<div class="chips"><span class="chip">M${m}-A${a}</span><span class="chip gray">${aulaObj.nome}</span></div><h2>M${m}-A${a} – ${aulaObj.nome}</h2><div class="tema-nav">${nav}</div><div id="paginaArea"></div>`;
-  $$('.tema-btn').forEach(b=>b.onclick=()=>trocarTema(+b.dataset.t));renderPagina();
-  $$('.aula').forEach(x=>x.classList.remove('active'));$(`[data-id="${id}"]`).classList.add('active');
-  const idx=(m-1)*5+(a-1);$('#btnAnt').disabled=idx===0;$('#btnProx').disabled=true;$('#btnConcluir').disabled=true;if(window.innerWidth<1100)toggleMenu(false);
-}
-
-function trocarTema(t){estado.tema=t;estado.pagina=1;estado.respostas={};$$('.tema-btn').forEach((b,i)=>b.classList.toggle('active',i+1===t));renderPagina()}
-function trocarPagina(p){estado.pagina=p;$$('.p-btn').forEach((b,i)=>b.classList.toggle('active',i+1===p));renderPagina()}
-function renderPagina(){
-  const[m,a]=estado.aula.replace('M','').split('-A').map(Number);
-  const mod=DADOS[m];const aulaObj=mod.aulas[a-1];const temaNome=aulaObj.temas[estado.tema-1];
-  const tit=['Objetivo','Materiais','Preparação','Execução','Finalização'];
-  let html='';
-  for(let p=1;p<=5;p++){
-    let extra='';
-    if(p===5&&estado.tema===5&&!estado.concluidas.includes(estado.aula)){
-      extra=`<div class="avaliacao"><h3>📝 Exercício de Avaliação: ${temaNome}</h3><p>Acerte 70% ou mais para liberar a próxima aula. Sem limite de tentativas.</p><div id="q"></div><button class="btn primary" id="env">Enviar Avaliação</button><div id="res"></div></div>`;
-    }
-    html+=`<div class="pagina" style="display:${p===estado.pagina?'block':'none'}"><h4>Página ${p} – ${tit[p-1]}</h4><p>[CONTEÚDO] Módulo ${m}: ${mod.nome} | Aula ${a}: ${aulaObj.nome} | ${temaNome} | Página ${p} – ${tit[p-1]}.</p>${extra}</div>`;
-  }
-  let btns='<div class="pagina-nav">';for(let p=1;p<=5;p++){btns+=`<button class="p-btn ${p===estado.pagina?'active':''}" data-p="${p}">${p}</button>`}btns+='</div>';
-  $('#paginaArea').innerHTML=btns+html;
-  $$('.p-btn').forEach(b=>b.onclick=()=>trocarPagina(+b.dataset.p));
-  if($('#env')){carregarQuestoes(m)}
-}
-function carregarQuestoes(m){
-  const qs=QUESTOES[m];let h='';
-  qs.forEach((q,i)=>{h+=`<div class="questao"><p>${q.q}</p>`
+const D={1:{n:"Módulo 1: Massoterapia Profissional",y:"j3PdVh1j7e0",a:[{n:"Aula 1: História da Massoterapia",t:["Tema 1: Origens","Tema 2: Evolução","Tema 3: Mestres","Tema 4: Brasil","Tema 5: Tendências"]},{n:"Aula 2: Anatomia",t:["Tema 1: Muscular","Tema 2: Esquelético","Tema 3: Circulatório","Tema 4: Nervoso","Tema 5: Pele"]},{n:"Aula 3: Biossegurança",t:["Tema 1: Higiene","Tema 2: EPIs","Tema 3: Desinfecção","Tema 4: Resíduos","Tema 5: Riscos"]},{n:"Aula 4: Anamnese",t:["Tema 1: Entrevista","Tema 2: Histórico","Tema 3: Contraindicações","Tema 4: Ficha","Tema 5: Ética"]},{n:"Aula 5: Relaxante",t:["Tema 1: Básicas","Tema 2: Deslizamento","Tema 3: Amassamento","Tema 4: Percussão","Tema 5: Finalização"]}]},2:{n:"Módulo 2: Cuidador Idosos",y:"k4_RvR3QZ8k",a:[{n:"Aula 1: Envelhecimento",t:["Tema 1: Processo","Tema 2: Biológico","Tema 3: Psicológico","Tema 4: Social","Tema 5: Mitos"]},{n:"Aula 2: Higiene",t:["Tema 1: Banho","Tema 2: Bucal","Tema 3: Roupas","Tema 4: Pele","Tema 5: Escaras"]},{n:"Aula 3: Alimentação",t:["Tema 1: Dieta","Tema 2: Hidratação","Tema 3: Deglutição","Tema 4: Especiais","Tema 5: Rotina"]},{n:"Aula 4: Mobilização",t:["Tema 1: Decúbito","Tema 2: Transferência","Tema 3: Deambulação","Tema 4: Andador","Tema 5: Quedas"]},{n:"Aula 5: Medicamentos",t:["Tema 1: Tipos","Tema 2: Vias","Tema 3: Doses","Tema 4: Efeitos","Tema 5: Limites"]}]}};
+for(let m=3;m<=11;m++){D[m]={n:`Módulo ${m}: Módulo ${m}`,y:"j3PdVh1j7e0",a:[]};for(let a=1;a<=5;a++){D[m].a.push({n:`Aula ${a}: Aula ${a}`,t:["Tema 1: T1","Tema 2: T2","Tema 3: T3","Tema 4: T4","Tema 5: T5"]})}}
+const Q={1:[{q:"1. Pai da massoterapia?",o:["Per Henrik Ling","Hipócrates","Galeno","Avicena"],r:0},{q:"2. Relaxante atua no?",o:["Digestivo","Nervoso","Circulatório","Respiratório"],r:1},{q:"3. Biossegurança?",o:["Força","Prevenir riscos","Óleo caro","Mais clientes"],r:1},{q:"4. Anamnese?",o:["Massagem","Entrevista","Óleo","Equip"],r:1},{q:"5. Contraindicação?",o:["Estresse","Febre alta","Cansaço","Dor"],r:1}],2:[{q:"1. Envelhecimento?",o:["Patológico","Natural","Doença","Evitar"],r:1},{q:"2. Prevenir escaras?",o:["Leito","2h decúbito","Sem água","Prender"],r:1},{q:"3. Água idoso?",o:["2L","Se pedir","500ml","Nada"],r:0},{q:"4. Dar remédio?",o:["Cuidador","Enfermeiro","Vizinho","Qualquer"],r:1},{q:"5. Prevenir quedas?",o:["Bagunça","Tapete","Seguro","Escuro"],r:2}]};
+for(let i=3;i<=11;i++){Q[i]=Q[1]}
+let E={a:null,t:1,p:1,r:{},c:JSON.parse(localStorage.k14||'[]'),to:JSON.parse(localStorage.k14t||'{}')};
+const $=x=>document.querySelector(x),$$=x=>document.querySelectorAll(x);
+function M(){let h='';Object.keys(D).forEach(m=>{let a='';D[m].a.forEach((x,i)=>{let id=`M${m}-A${i+1}`,ok=E.c.includes(id);a+=`<div class="aula locked ${ok?'completed':''}" data="${id}">${i+1}. ${x.n}</div>`});let ok=D[m].a.filter((_,i)=>E.c.includes(`M${m}-A${i+1}`)).length;h+=`<div class="modulo" id="m${m}"><div class="modulo-head">${D[m].n}<span>${ok}/5</span></div><div class="aulas">${a}</div></div>`});$('#menu').innerHTML=h;$$('.modulo-head').forEach(x=>x.onclick=()=>x.parentElement.classList.toggle('open'));$$('.aula').forEach(x=>x.onclick=()=>!x.classList.contains('locked')&&A(x.dataset))}
+function A(id){E.a=id;E.t=1;E.p=1;E.r={};$('#t2').click();let[m,a]=id.replace('M','').split('-A').map(Number),d=D[m],x=d.a[a-1];$('#v').innerHTML=`<iframe src="https://www.youtube.com/embed/${d.y}" allowfullscreen></iframe>`;let n='';x.t.forEach((t,i)=>{let ok=E.to[id]?.includes(i+1);n+=`<button class="tema-btn ${i?'':'active'} ${ok?'completed':''}" data="${i+1}">${t}</button>`});$('#c').innerHTML=`<div class="chips"><span class="chip">${d.n}</span><span class="chip">${x.n}</span></div><h2>${d.n} > ${x.n}</h2><div class="tema-nav">${n}</div><div id="pa"></div>`;$$('.tema-btn').forEach(b=>b.onclick=()=>T(+b.dataset));P();$$('.aula').forEach(z=>z.classList.remove('active'));$(`[data="${id}"]`).classList.add('active');let i=(m-1)*5+(a-1);$('#ant').disabled=i===0;$('#prox').disabled=1;$('#con').disabled=1;if(innerWidth<1100)L()}
+function T(t){E.t=t;E.p=1;E.r={};$$('.tema-btn').forEach((b,i)=>b.classList.toggle('active',i+1===t));P()}
+function X(p){E.p=p;$$('.p-btn').forEach((b,i)=>b.classList.toggle('active',i+1===p));P()}
+function P(){let[m,a]=E.a.replace('M','').split('-A').map(Number),d=D[m],x=d.a[a-1],t=x.t[E.t-1],n=['Objetivo','Materiais','Preparação','Execução','Finalização'];let h='';for(let p=1;p<=5;p++){let e='';if(p===5&&E.t===5&&!E.c.includes(E.a)){e=`<div class="avaliacao"><h3>📝 Avaliação: ${t}</h3><p>70% para liberar. Sem limite.</p><div id="q"></div><button class="btn primary" id="env">Enviar</button><div id="res"></div></div>`}h+=`<div class="pagina" style="display:${p===E.p?'block':'none'}"><h4>Página ${p}: ${n[p-1]}</h4><p>${d.n} > ${x.n} > ${t} > Página ${p}: ${n[p-1]}</p>${e}</div>`}let b='<div class="pagina-nav">';for(let p=1;p<=5;p++){b+=`<button class="p-btn ${p===E.p?'active':''}" data="${p}">${p}</button>`}b+='</div>';$('#pa').innerHTML=b+;$$('.p-btn').forEach(z=>z.onclick=()=>X(+z.dataset));if($('#env'))C(m)}
+function C(m){let q=Q[m],h='';q.forEach((x,i)=>{h+=`<div class="questao"><p>${x.q}</p>`;x.o.forEach((o,j)=>h+=`<div class="opcao" data-q="${i}" data-o="${j}">${String.fromCharCode(65+j)}) ${o}</div>`);h+='</div>'});$('#q').innerHTML=h;$$('.opcao').forEach(o=>o.onclick=()=>{let qi=+o.dataset.q,oi=+o.dataset.o;E.r[qi]=oi;$$('.opcao[data-q="'+qi+'"]').forEach(z=>z.classList.remove('selecionada'));o.classList.add('selecionada')});$('#env').onclick=F}
+function F(){let[m]=E.a.replace('M','').split('-A').map(Number),q=Q[m],ac=0;q.forEach((x,i)=>{let r=E.r[i];if(r===x.r)ac++;$$('.opcao[data-q="'+i+'"]').forEach((o,j)=>{o.classList.remove('correta','errada');if(j===x.r)o.classList.add('correta');else if(j===r&&r!==x.r)o.classList.add('errada')})});let pct=Math.round(ac/q.length*100),ok=pct>=70;$('#res').innerHTML=`<div class="resultado ${ok?'aprovado':'reprovado'}">${ok?'APROVADO':'REPROVADO'}: ${ac}/${q.length} = ${pct}%</div>${ok?'<button class="btn primary" id="px">Próxima →</button>':'<button class="btn primary" id="rf">Refazer</button>'}`;if(ok){E.to[E.a]=E.to[E.a]||[];if(!E.to[E.a].includes(5))E.to[E.a].push(5);localStorage.k14t=JSON.stringify(E.to);$('#prox').disabled=0;$('#con').disabled=0}else{$('#rf').onclick=()=>{E.r={};$('#res').innerHTML='';C(m)}}$('#px').onclick=N}
+function J(){if(!E.a)return;if(!E.c.includes(E.a))E.c.push(E.a);localStorage.k14=JSON.stringify(E.c);M()}
+function N(){let[m,a]=E.a.replace('M','').split('-A').map(Number),i=(m-1)*5+(a-1);if(i<54)A(`M${Math.floor((i+1)/5)+1}-A${(i+1)%5+1}`)}
+function B(){let[m,a]=E.a.replace('M','').split('-A').map(Number),i=(m-1)*5+(a-1);if(i>0)A(`M${Math.floor((i-1)/5)+1}-A${(i-1)%5+1}`)}
+function S(n){$$('.tab').forEach(t=>t.classList.remove('active'));$('#t'+n).classList.add('active');$('#c1').style.display=n===1?'block':'none';$('#c2').style.display=n===2?'block':'none'}
+function L(){$('#s').style.transform=$('#s').style.transform==='translateX(0px)'?'translateX(-100%)':'translateX(0px)';$('#o').classList.toggle('show')}
+$('#m').onclick=L;$('#o').onclick=L;$('#t1').onclick=()=>S(1);$('#t2').onclick=()=>S(2);$('#ant').onclick=B;$('#prox').onclick=N;$('#con').onclick=J;M();
+</script>
+</body>
+</html>
