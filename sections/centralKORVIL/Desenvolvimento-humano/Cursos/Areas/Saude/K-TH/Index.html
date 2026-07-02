@@ -1,1 +1,103 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>K-TH | Área do Aluno | KORVIL</title>
+<style>
+:root{--c:#00f5ff; --bg:#000; --text:#fff; --text2:#aaa; --ok:#00ff88; --warn:#ffb800;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
+body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.topbar{position:sticky;top:0;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;z-index:100;}
+.logo{color:var(--c);font-weight:800;font-size:16px;letter-spacing:1px;}
+.btn-top{background:transparent;border:1px solid var(--c);color:var(--c);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;}
+.wrap{padding:20px 16px 40px;max-width:680px;margin:auto;animation:fadeIn.3s;}
+h1{color:var(--text);font-size:20px;margin-bottom:4px;font-weight:700;text-align:center;}
+h2{color:var(--text);font-size:16px;margin:18px 0 10px 0;font-weight:700;}
+h3{color:var(--c);font-size:15px;margin-bottom:4px;}
+p{color:var(--text2);font-size:14px;line-height:1.7;}
+.sub{color:var(--text2);font-size:12px;text-align:center;margin-bottom:16px;}
+.card{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.2s;}
+.card:active{border-color:var(--c);transform:scale(.98);}
+.card.meta{font-size:12px;color:var(--text2);margin-top:4px;}
+.tela{display:none;}
+.tela.ativa{display:block;}
+.btn{display:block;background:var(--c);color:#000;text-align:center;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;border:0;cursor:pointer;margin-top:14px;width:100%;}
+.btn:active{transform:scale(.97);}
+.btn.voltar{background:#1a1a1a;color:var(--text);width:auto;display:inline-flex;align-items:center;gap:6px;padding:10px 16px;margin-top:0;}
+.btn.sec{background:#111;color:var(--c);border:1px solid #333;}
+.progresso{height:6px;background:#111;border-radius:6px;overflow:hidden;margin:10px 0;}
+.progresso-bar{height:100%;background:var(--c);width:0%;transition:.3s;}
+.aula{background:#0d0d0d;border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.aula h4{color:var(--text);font-size:15px;margin:0;}
+.aula span{font-size:12px;color:var(--text2);background:#111;padding:4px 8px;border-radius:6px;white-space:nowrap;}
+.aula.concluida{border-color:var(--ok);}
+.aula.concluida h4{color:var(--ok);}
+.aula.concluida span{background:var(--ok);color:#000;font-weight:700;}
+.tema{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;}
+.tema:active{border-color:var(--c);}
+.tema.check{float:right;color:var(--ok);font-weight:700;display:none;}
+.tema.concluido.check{display:inline;}
+.pagina{background:#111;border:1px solid #222;border-radius:8px;padding:16px;margin-bottom:12px;}
+.pag-nav{display:flex;justify-content:space-between;margin-top:14px;gap:10px;}
+.pag-nav.btn{width:100%;}
+.exercicio{background:#0a0a0a;border-left:3px solid var(--warn);padding:12px;border-radius:6px;margin-top:10px;font-size:13px;}
+.breadcrumb{font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;gap:6px;flex-wrap:wrap;}
+.breadcrumb span{color:var(--c);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../../../../" class="btn-top">← KORVIL</a>
+  <div class="logo">K-TH</div>
+  <a href="https://wa.me/5513997690898" class="btn-top">Suporte</a>
+</header>
+
+<main class="wrap">
+  <!-- TELA 1: DASHBOARD -->
+  <section id="kth" class="tela ativa">
+    <h1>K-TH TERAPIA HOLÍSTICA</h1>
+    <p class="sub">Formação em 12 Meses | 80 Aulas | Certificado KORVIL</p>
+    <div class="progresso"><div class="progresso-bar" style="width:2%;"></div></div>
+    <p style="text-align:center;font-size:12px;color:var(--text2);margin-bottom:18px;">Progresso: 2%</p>
+    <h2>SEU CRONOGRAMA</h2>
+    <div class="card" onclick="abrirTela('kth-m1')"><h3>Jan-Mar | Módulo 1: Formação Básica</h3><p class="meta">20 Aulas | 5/semana | 1 por dia</p></div>
+    <div class="card" onclick="abrirTela('kth-m2')"><h3>Abr-Jun | Módulo 2: Formação em Cuidados</h3><p class="meta">20 Aulas | 5/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-m3')"><h3>Jul-Set | Módulo 3: Desenvolvimento Profissional</h3><p class="meta">20 Aulas | 5/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-m4')"><h3>Out-Nov | Módulo 4: Empreendedora e Prática</h3><p class="meta">20 Aulas | 5/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-dez')"><h3>Dezembro | Conclusão da Turma</h3><p class="meta">Certificados, Formatura, Banco KORVIL</p></div>
+  </section>
+
+  <!-- TELA 2: MÓDULO 1 -->
+  <section id="kth-m1" class="tela">
+    <div class="breadcrumb"><span>Módulo 1</span> > Aulas</div>
+    <h1>Módulo 1: Formação Básica</h1>
+    <p class="sub">Jan-Mar | 20 Aulas | Ritmo: 5 por semana</p>
+    <div class="progresso"><div class="progresso-bar" style="width:10%;"></div></div>
+    <p style="text-align:center;font-size:12px;color:var(--text2);margin-bottom:14px;">2 de 20 concluídas</p>
+    <h2>SEMANA 1</h2>
+    <div class="aula concluida" onclick="abrirTela('kth-m1-a1')"><h4>Aula 1: Introdução ao K-TH</h4><span>✓</span></div>
+    <div class="aula" onclick="abrirTela('kth-m1-a2')"><h4>Aula 2: Energia Vital</h4><span>5 Temas</span></div>
+    <div class="aula" onclick="abrirTela('kth-m1-a3')"><h4>Aula 3: Os 7 Chakras</h4><span>5 Temas</span></div>
+    <div class="aula" onclick="abrirTela('kth-m1-a4')"><h4>Aula 4: Auto Reiki Nível 1</h4><span>5 Temas</span></div>
+    <div class="aula" onclick="abrirTela('kth-m1-a5')"><h4>Aula 5: Limpeza Energética</h4><span>5 Temas</span></div>
+    <h2 style="margin-top:20px;">SEMANA 2</h2>
+    <div class="aula" onclick="abrirTela('kth-m1-a6')"><h4>Aula 6:...</h4><span>5 Temas</span></div>
+    <p style="color:var(--text2);font-size:12px;text-align:center;margin-top:10px;">Aula 7 a 20</p>
+    <button class="btn voltar" onclick="abrirTela('kth')">← Voltar para Módulos</button>
+  </section>
+
+  <!-- TELA 3: AULA 1 -->
+  <section id="kth-m1-a1" class="tela">
+    <div class="breadcrumb"><span>Módulo 1</span> > <span>Aula 1</span> > Temas</div>
+    <h1>Aula 1: Introdução ao K-TH</h1>
+    <p class="sub">5 Temas | 25 Páginas | Tempo: 45min</p>
+    <div class="progresso"><div class="progresso-bar" style="width:20%;"></div></div>
+    <div class="tema concluido" onclick="abrirTela('kth-m1-a1-t1')"><h4>Tema 1: O que é Terapia Holística <span class="check">✓</span></h4><p>5 Páginas concluídas</p></div>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t2')"><h4>Tema 2: História do KORVIL <span class="check"></span></h4><p>5 Páginas</p></div>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t3')"><h4>Tema 3: Ética e Postura <span class="check"></span></h4><p>5 Páginas</p></div>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t4')"><h4>Tema 4: Metodologia K-TH <span class="check"></span></h4><p>5 Páginas</p></div>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t5')
