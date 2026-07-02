@@ -27,6 +27,7 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .btn:active{transform:scale(.97);}
 .btn.voltar{background:#1a1a1a;color:var(--text);width:auto;display:inline-flex;align-items:center;gap:6px;padding:10px 16px;margin-top:0;}
 .btn.sec{background:#111;color:var(--c);border:1px solid #333;}
+.btn[disabled]{background:#222;color:#555;cursor:not-allowed;}
 .progresso{height:6px;background:#111;border-radius:6px;overflow:hidden;margin:10px 0;}
 .progresso-bar{height:100%;background:var(--c);width:0%;transition:.3s;}
 .aula{background:#0d0d0d;border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
@@ -39,9 +40,9 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .tema:active{border-color:var(--c);}
 .tema.check{float:right;color:var(--ok);font-weight:700;display:none;}
 .tema.concluido.check{display:inline;}
-.pagina{background:#111;border:1px solid #222;border-radius:8px;padding:16px;margin-bottom:12px;}
+.pagina{background:#111;border:1px solid #222;border-radius:8px;padding:16px;margin-bottom:12px;min-height:200px;}
 .pag-nav{display:flex;justify-content:space-between;margin-top:14px;gap:10px;}
-.pag-nav.btn{width:100%;}
+.pag-nav.btn{width:49%;}
 .exercicio{background:#0a0a0a;border-left:3px solid var(--warn);padding:12px;border-radius:6px;margin-top:10px;font-size:13px;}
 .breadcrumb{font-size:12px;color:var(--text2);margin-bottom:10px;display:flex;gap:6px;flex-wrap:wrap;}
 .breadcrumb span{color:var(--c);}
@@ -81,9 +82,6 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
     <div class="aula" onclick="abrirTela('kth-m1-a3')"><h4>Aula 3: Os 7 Chakras</h4><span>5 Temas</span></div>
     <div class="aula" onclick="abrirTela('kth-m1-a4')"><h4>Aula 4: Auto Reiki Nivel 1</h4><span>5 Temas</span></div>
     <div class="aula" onclick="abrirTela('kth-m1-a5')"><h4>Aula 5: Limpeza Energetica</h4><span>5 Temas</span></div>
-    <h2 style="margin-top:20px;">SEMANA 2</h2>
-    <div class="aula" onclick="abrirTela('kth-m1-a6')"><h4>Aula 6:...</h4><span>5 Temas</span></div>
-    <p style="color:var(--text2);font-size:12px;text-align:center;margin-top:10px;">Aula 7 a 20</p>
     <button class="btn voltar" onclick="abrirTela('kth')">← Voltar para Modulos</button>
   </section>
 
@@ -91,6 +89,4 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
     <div class="breadcrumb"><span>Modulo 1</span> > <span>Aula 1</span> > Temas</div>
     <h1>Aula 1: Introducao ao K-TH</h1>
     <p class="sub">5 Temas | 25 Paginas | Tempo: 45min</p>
-    <div class="progresso"><div class="progresso-bar" style="width:20%;"></div></div>
-    <div class="tema concluido" onclick="abrirTela('kth-m1-a1-t1')"><h4>Tema 1: O que e Terapia Holistica <span class="check">✓</span></h4><p>5 Paginas concluidas</p></div>
-    <div class="tema" onclick="abrirTela('kth-m1-a1-t2')
+    <div class="progresso
