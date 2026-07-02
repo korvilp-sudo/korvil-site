@@ -88,7 +88,7 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
       <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
       <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
       <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4>Saúde:</h4><ul><li>1. K-TH Terapia Holística</li></ul>
+      <h4>Saúde:</h4><ul><li onclick="window.location.href='./sections/centralKORVIL/Desenvolvimento-humano/Cursos/Areas/Saude/k-th/'" style="cursor:pointer;color:var(--c);">1. K-TH Terapia Holística →</li></ul>
       <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
     <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
@@ -181,15 +181,10 @@ function enviarWhats(){
   const msg=`*KORVIL - ${textoWhats}*\n\n*DADOS DO CLIENTE:*\nNome: ${nome}\nWhats: ${whats}\nCEP: ${cep}\nRua: ${rua}\n\nOla, vim do site KORVIL e quero atendimento.`;
   const texto = encodeURIComponent(msg);
 
-  // 1. Tenta abrir no APP Whats normal/Business
   const appLink = `https://wa.me/55${WHATS_NUMBER}?text=${texto}`;
-
-  // 2. Fallback se o app falhar: Abre Web Whats
   const webLink = `https://web.whatsapp.com/send?phone=55${WHATS_NUMBER}&text=${texto}`;
 
   const newWindow = window.open(appLink, '_blank');
-
-  // Se bloqueou popup, força Web
   setTimeout(()=>{ if(!newWindow || newWindow.closed || typeof newWindow.closed=='undefined'){ window.open(webLink, '_blank'); }}, 500);
 
   fecharForm();
