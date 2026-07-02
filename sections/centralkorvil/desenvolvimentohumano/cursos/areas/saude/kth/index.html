@@ -1,1 +1,135 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-TH Terapia Holística | Korvil</title>
+<style>
+  :root{--bg:#0f1115;--card:#1a1d23;--accent:#ffae42;--text:#e9eef5;--muted:#9aa3b2}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+ .wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+  @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+  aside{background:var(--card);padding:20px;border-right:1px solid #222}
+  aside h2{color:var(--accent);font-size:18px;margin:0 0 12px}
+  aside.progress{height:8px;background:#222;border-radius:999px;overflow:hidden;margin-bottom:16px}
+  aside.bar{height:100%;width:0%;background:var(--accent)}
+ .modulo{margin-bottom:18px}
+ .modulo h3{font-size:14px;color:var(--muted);margin:0 0 8px;text-transform:uppercase}
+ .aula{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--text);margin-bottom:6px;background:#111;border:1px solid transparent}
+ .aula.active{border-color:var(--accent);background:#1f2430}
+ .aula.locked{opacity:.5;pointer-events:none}
+  main{padding:24px}
+ .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+ .topbar a{color:var(--muted);text-decoration:none;font-size:14px}
+  article{background:var(--card);padding:24px;border-radius:12px;border:1px solid #222}
+  article h1{margin:0 0 12px;color:var(--accent)}
+  article p{line-height:1.7;color:#d7deea}
+ .navbotoes{display:flex;gap:10px;margin-top:20px}
+ .btn{padding:10px 14px;border-radius:8px;border:1px solid #333;background:#111;color:var(--text);text-decoration:none;font-weight:600}
+ .btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+ .btn:disabled{opacity:.4;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <h2>K-TH Terapia Holística</h2>
+    <div class="progress"><div class="bar" id="barraProgresso"></div></div>
+
+    <div class="modulo">
+      <h3>Módulo 1: Fundamentos</h3>
+      <a class="aula active" href="#aula1" onclick="carregarAula(1)">Aula 1: O que é K-TH</a>
+      <a class="aula" href="#aula2" onclick="carregarAula(2)">Aula 2: Princípios Energéticos</a>
+      <a class="aula locked" href="#aula3" onclick="carregarAula(3)">Aula 3: Ética na Terapia</a>
+    </div>
+
+    <div class="modulo">
+      <h3>Módulo 2: Prática</h3>
+      <a class="aula locked" href="#aula4" onclick="carregarAula(4)">Aula 4: Técnicas de Anamnese</a>
+      <a class="aula locked" href="#aula5" onclick="carregarAula(5)">Aula 5: Aplicação K-TH</a>
+    </div>
+
+    <a href="../../../../../../index.html" style="display:block;margin-top:20px;color:var(--muted);text-decoration:none">← Voltar para Cursos</a>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <a href="../../../../../../index.html">Korvil > Cursos > Saúde > K-TH</a>
+      <span id="contadorAula">Aula 1 de 5</span>
+    </div>
+
+    <article id="conteudoAula">
+      <h1>Aula 1: O que é K-TH</h1>
+      <p>
+        K-TH é a metodologia de Terapia Holística da Korvil. Ela integra corpo, mente e energia
+        através de técnicas práticas e protocolos de atendimento.
+      </p>
+      <p><strong>Objetivo da aula:</strong> Entender a base filosófica do K-TH e como ele se diferencia de outras terapias.</p>
+      <ul>
+        <li>Origem do método</li>
+        <li>Pilares: Presença, Escuta, Campo</li>
+        <li>Quem pode aplicar</li>
+      </ul>
+    </article>
+
+    <div class="navbotoes">
+      <button class="btn" id="btnAnterior" onclick="anteriorAula()" disabled>← Aula Anterior</button>
+      <button class="btn primary" id="btnProximo" onclick="proximaAula()">Próxima Aula →</button>
+      <button class="btn" onclick="concluirAula()">Marcar como Concluída</button>
+    </div>
+  </main>
+</div>
+
+<script>
+  const totalAulas = 5;
+  let aulaAtual = 1;
+  let aulasConcluidas = JSON.parse(localStorage.getItem('kth_progresso') || '[]');
+
+  const dadosAulas = {
+    1: {titulo:"Aula 1: O que é K-TH", html:`<h1>Aula 1: O que é K-TH</h1><p>K-TH é a metodologia de Terapia Holística da Korvil. Integra corpo, mente e energia.</p><p><strong>Objetivo:</strong> Base filosófica do método.</p><ul><li>Origem</li><li>Pilares: Presença, Escuta, Campo</li></ul>`},
+    2: {titulo:"Aula 2: Princípios Energéticos", html:`<h1>Aula 2: Princípios Energéticos</h1><p>Aqui você aprende a identificar e conduzir o campo energético do cliente.</p><p><strong>Prática:</strong> Exercício de aterramento e centralização.</p>`},
+    3: {titulo:"Aula 3: Ética na Terapia", html:`<h1>Aula 3: Ética na Terapia</h1><p>Limites, sigilo e postura do terapeuta K-TH.</p>`},
+    4: {titulo:"Aula 4: Técnicas de Anamnese", html:`<h1>Aula 4: Técnicas de Anamnese</h1><p>Como conduzir a primeira sessão e levantar os pontos de bloqueio.</p>`},
+    5: {titulo:"Aula 5: Aplicação K-TH", html:`<h1>Aula 5: Aplicação K-TH</h1><p>Passo a passo de uma sessão completa do início ao fechamento.</p><p><strong>Parabéns!</strong> Você concluiu o módulo básico.</p>`}
+  };
+
+  function carregarAula(n){
+    if(n > totalAulas) return;
+    aulaAtual = n;
+    document.getElementById('conteudoAula').innerHTML = dadosAulas[n].html;
+    document.getElementById('contadorAula').innerText = `Aula ${n} de ${totalAulas}`;
+    document.querySelectorAll('.aula').forEach((a,i)=>{
+      a.classList.remove('active');
+      if(i+1 <= n && aulasConcluidas.includes(i+1)){}else if(i+1 > n){a.classList.add('locked')}
+      if(i+1 === n) a.classList.add('active');
+    });
+    document.getElementById('btnAnterior').disabled = n===1;
+    document.getElementById('btnProximo').disabled = n===totalAulas;
+    atualizarProgresso();
+    window.scrollTo(0,0);
+  }
+
+  function proximaAula(){ if(aulaAtual < totalAulas) carregarAula(aulaAtual+1) }
+  function anteriorAula(){ if(aulaAtual > 1) carregarAula(aulaAtual-1) }
+
+  function concluirAula(){
+    if(!aulasConcluidas.includes(aulaAtual)){
+      aulasConcluidas.push(aulaAtual);
+      localStorage.setItem('kth_progresso', JSON.stringify(aulasConcluidas));
+      // destrava próxima
+      document.querySelectorAll('.aula')[aulaAtual].classList.remove('locked');
+    }
+    atualizarProgresso();
+    alert('Aula concluída!');
+  }
+
+  function atualizarProgresso(){
+    const perc = Math.round((aulasConcluidas.length/totalAulas)*100);
+    document.getElementById('barraProgresso').style.width = perc + '%';
+  }
+  atualizarProgresso();
+</script>
+</body>
+</html>
