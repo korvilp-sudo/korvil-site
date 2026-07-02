@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>KORVIL | K-TH</title>
+<title>K-TH | KORVIL</title>
 <style>
 :root{--c:#00f5ff; --bg:#000; --text:#fff; --text2:#aaa; --ok:#00ff88; --warn:#ffb800;}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;-webkit-tap-highlight-color:transparent;}
 body{background:#000;color:var(--text);overflow-x:hidden;font-size:15px;line-height:1.6;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-@keyframes spin3d{0%{transform:rotateX(-20deg) rotateY(0deg);}100%{transform:rotateX(-20deg) rotateY(360deg);}}
-.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;z-index:100;animation:fadeIn.4s;}
-.menu-btn{position:absolute;left:15px;background:transparent;border:1px solid var(--c);color:var(--c);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;}
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid #1a1a1a;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:100;animation:fadeIn.4s;}
 .logo{color:var(--c);font-weight:800;font-size:18px;letter-spacing:1.5px;text-shadow:0 0 12px var(--c);}
-.wrap{padding:80px 16px 120px;max-width:680px;margin:auto;animation:fadeIn.5s;}
+.btn-top{background:transparent;border:1px solid var(--c);color:var(--c);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;}
+.wrap{padding:80px 16px 40px;max-width:680px;margin:auto;animation:fadeIn.5s;}
 h1{color:var(--text);font-size:22px;margin-bottom:6px;font-weight:700;text-align:center;}
 h2{color:var(--text);font-size:17px;margin:20px 0 10px 0;font-weight:700;}
 h3{color:var(--c);font-size:16px;margin-bottom:5px;}
@@ -25,42 +24,10 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .card .meta{font-size:12px;color:var(--text2);margin-top:4px;}
 .tela{display:none;animation:fadeIn.3s;}
 .tela.ativa{display:block;}
-.sub-aba{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:14px;margin-bottom:10px;}
-.sub-aba ul{list-style:none;padding-left:0;}
-.sub-aba li{color:var(--text2);font-size:14px;padding:7px 0;border-bottom:1px solid #151515;cursor:pointer;}
-.sub-aba li:last-child{border:0;}
-.sub-aba li:hover{color:var(--c);}
 .btn{display:block;background:var(--c);color:#000;text-align:center;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;transition:.2s;border:0;cursor:pointer;margin-top:14px;width:100%;}
 .btn:active{transform:scale(.97);filter:brightness(1.15);}
 .btn.voltar{background:#222;color:var(--text);width:auto;display:inline-block;padding:12px 18px;margin-right:10px;}
 .btn.sec{background:#111;color:var(--c);border:1px solid #333;}
-.menu-lateral{position:fixed;top:0;left:-280px;width:270px;height:100%;background:#080808;border-right:1px solid #222;z-index:101;transition:left.3s ease;padding-top:70px;}
-.menu-lateral.ativo{left:0;}
-.menu-lateral a{display:block;color:var(--text);padding:16px 20px;text-decoration:none;border-bottom:1px solid #111;font-size:15px;font-weight:600;cursor:pointer;transition:.2s;}
-.menu-lateral a:active{background:#111;color:var(--c);}
-.overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.8);display:none;z-index:100;backdrop-filter:blur(3px);}
-.overlay.ativo{display:block;}
-.logo-central{width:85%; max-width:340px; margin:0 auto 20px auto; display:block; border-radius:12px;filter:drop-shadow(0 0 15px var(--c));}
-.tag{background:#111;border:1px solid #333;color:var(--text2);padding:4px 10px;border-radius:6px;font-size:12px;display:inline-block;margin:3px;}
-.modal{position:fixed;inset:0;background:#000f;display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(5px);}
-.modal.ativo{display:flex;}
-.modal-box{background:#0a0a0a;border:2px solid var(--c);border-radius:14px;padding:22px;width:92%;max-width:400px;animation:fadeIn.3s;box-shadow:0 0 25px var(--c)30;}
-.modal-box input{width:100%;padding:14px;margin:8px 0;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;outline:none;}
-.modal-box input:focus{border-color:var(--c);box-shadow:0 0 10px var(--c);}
-.kai-footer{position:fixed;bottom:16px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;z-index:98;pointer-events:none;}
-.scene{width:66px;height:66px;perspective:700px;flex-shrink:0;position:relative;pointer-events:auto;}
-.cube{width:66px;height:66px;position:relative;transform-style:preserve-3d;animation:spin3d 7s linear infinite;cursor:pointer;transition:transform.4s;}
-.cube-face{position:absolute;width:66px;height:66px;background:linear-gradient(145deg,#00eaff,#006a7a);border:2px solid var(--c);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:13px;border-radius:8px;box-shadow:0 8px 25px var(--c)90;user-select:none;}
-.front{transform:rotateY(0deg) translateZ(33px);}.back{transform:rotateY(180deg) translateZ(33px);}
-.right{transform:rotateY(90deg) translateZ(33px);}.left{transform:rotateY(-90deg) translateZ(33px);}
-.top{transform:rotateX(90deg) translateZ(33px);}.bottom{transform:rotateX(-90deg) translateZ(33px);}
-.message-box{max-width:240px;padding:14px;background:rgba(0,245,255,.15);border:2px solid var(--c);border-radius:12px;color:#fff;font-size:13px;font-weight:600;backdrop-filter:blur(8px);animation:fadeIn.4s;min-height:52px;display:flex;align-items:center;position:relative;pointer-events:auto;box-shadow:0 0 15px var(--c)20;}
-.message-box::after{content:'';position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:12px solid var(--c);filter:drop-shadow(0 0 5px var(--c));}
-.kai-menu-box{position:absolute;bottom:75px;right:0;width:230px;background:rgba(5,5,5,.98);border:2px solid var(--c);border-radius:12px;padding:10px;display:none;z-index:99;backdrop-filter:blur(12px);pointer-events:auto;box-shadow:0 0 20px var(--c)40;}
-.kai-menu-box.ativo{display:block;animation:fadeIn.25s;}
-.kai-menu-box button{width:100%;background:transparent;border:0;color:var(--text2);padding:12px 10px;font-size:14px;text-align:left;cursor:pointer;border-bottom:1px solid #222;font-weight:600;transition:.2s;border-radius:6px;}
-.kai-menu-box button:last-child{border:0;}
-.kai-menu-box button:active{background:#111;color:var(--c);padding-left:14px;}
 .progresso{height:6px;background:#111;border-radius:6px;overflow:hidden;margin:10px 0;}
 .progresso-bar{height:100%;background:var(--c);width:0%;transition:.3s;}
 .aula{background:#0d0d0d;border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
@@ -74,250 +41,151 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .tema .check{float:right;color:var(--ok);font-weight:700;display:none;}
 .tema.concluido .check{display:inline;}
 .pagina{background:#111;border:1px solid #222;border-radius:8px;padding:16px;margin-bottom:12px;}
-.pagina h4{color:var(--c);margin-bottom:8px;}
 .pag-nav{display:flex;justify-content:space-between;margin-top:14px;}
 .pag-nav .btn{width:48%;}
-.video-box{width:100%;aspect-ratio:16/9;background:#111;border-radius:12px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;color:var(--text2);border:1px solid #222;}
 .exercicio{background:#0a0a0a;border-left:3px solid var(--warn);padding:12px;border-radius:6px;margin-top:10px;}
 </style>
 </head>
 <body>
 
-<div class="topbar"><button class="menu-btn" onclick="toggleMenu()">MENU</button><div class="logo">KORVIL</div></div>
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-<nav class="menu-lateral" id="menu">
-  <a onclick="abrirTela('kalma');toggleMenu()">K-ALMA</a>
-  <a onclick="abrirTela('kafortunado');toggleMenu()">K-AFORTUNADO</a>
-  <a onclick="abrirTela('ktp');toggleMenu()">K-TP</a>
-  <a onclick="abrirTela('sistema');toggleMenu()">SISTEMA K</a>
-  <a onclick="abrirTela('central');toggleMenu()">CENTRAL KORVIL</a>
-</nav>
+<div class="topbar">
+  <a href="../../../../" class="btn-top">← KORVIL</a>
+  <div class="logo">K-TH</div>
+  <a href="https://wa.me/5513997690898" class="btn-top">Suporte</a>
+</div>
 
 <main class="wrap">
-  <section id="central" class="tela ativa">
-    <img src="https://raw.githubusercontent.com/korvilp-sudo/korvil-site/main/assets/images/logo-korvil.png" alt="Logo KORVIL" class="logo-central">
-    <h1>CENTRAL KORVIL</h1>
-    <div class="card" onclick="abrirTela('humano')"><h2>1. DESENVOLVIMENTO HUMANO</h2><p>Cursos, Treinamento, Saude e Beleza</p></div>
-    <div class="card" onclick="abrirTela('negocios')"><h2>2. NEGOCIOS</h2><p>Parcerias com Profissionais</p></div>
-    <div class="card" onclick="abrirTela('servicos')"><h2>3. SERVICOS</h2><p>Profissionais Especializados</p></div>
-  </section>
-
-  <section id="humano" class="tela">
-    <h1>DESENVOLVIMENTO HUMANO</h1><h2>CURSOS</h2>
-    <div class="sub-aba">
-      <h4>ÁREAS</h4>
-      <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
-      <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
-      <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4>Saúde:</h4><ul><li onclick="abrirTela('kth')">1. K-TH Terapia Holística →</li></ul>
-      <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
-    </div>
-    <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
-    <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
-  </section>
-
   <!-- DASHBOARD K-TH -->
-  <section id="kth" class="tela">
+  <section id="kth" class="tela ativa">
     <h1>K-TH TERAPIA HOLÍSTICA</h1>
     <p class="sub">220 Aulas | 80 Módulos | Certificado KORVIL</p>
-    <div class="progresso"><div class="progresso-bar" id="kth-progresso" style="width:12%;"></div></div>
-    <p style="text-align:center;font-size:12px;color:var(--text2);margin-bottom:20px;">Progresso Geral: 12%</p>
+    <div class="progresso"><div class="progresso-bar" style="width:5%;"></div></div>
+    <p style="text-align:center;font-size:12px;color:var(--text2);margin-bottom:20px;">Progresso Geral: 5%</p>
     
     <h2>CRONOGRAMA ANUAL</h2>
-    <div class="card" onclick="abrirTela('kth-modulo1')"><h3>Janeiro a Março | Módulo 1: Formação Básica</h3><p class="meta">20 Aulas | 5 Aulas/semana | 1 aula/dia</p></div>
-    <div class="card" onclick="abrirTela('kth-modulo2')"><h3>Abril a Junho | Módulo 2: Formação em Cuidados</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
-    <div class="card" onclick="abrirTela('kth-modulo3')"><h3>Julho a Setembro | Módulo 3: Desenvolvimento Profissional</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
-    <div class="card" onclick="abrirTela('kth-modulo4')"><h3>Outubro a Novembro | Módulo 4: Empreendedora e Prática</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
-    <div class="card" onclick="abrirTela('kth-dezembro')"><h3>Dezembro | Conclusão da Turma</h3><p class="meta">Revisão, Avaliação, Certificado e Formatura</p></div>
-
-    <button class="btn sec" onclick="abrirWhats('K-TH - Duvida')">Suporte do K-AI</button>
-    <button class="btn voltar" onclick="abrirTela('humano')">Voltar</button>
+    <div class="card" onclick="abrirTela('kth-m1')"><h3>Jan-Mar | Módulo 1: Formação Básica</h3><p class="meta">20 Aulas | 5 Aulas/semana = 1 por dia</p></div>
+    <div class="card" onclick="abrirTela('kth-m2')"><h3>Abr-Jun | Módulo 2: Formação em Cuidados</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-m3')"><h3>Jul-Set | Módulo 3: Desenvolvimento Profissional</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-m4')"><h3>Out-Nov | Módulo 4: Empreendedora e Prática</h3><p class="meta">20 Aulas | 5 Aulas/semana</p></div>
+    <div class="card" onclick="abrirTela('kth-dez')"><h3>Dezembro | Conclusão da Turma</h3><p class="meta">Certificado, Formatura, Banco KORVIL</p></div>
   </section>
 
-  <!-- MÓDULO 1 EXEMPLO -->
-  <section id="kth-modulo1" class="tela">
+  <!-- MÓDULO 1 -->
+  <section id="kth-m1" class="tela">
     <h1>Módulo 1: Formação Básica</h1>
-    <p class="sub">Jan-Mar | 20 Aulas | Progresso: 3/20</p>
-    <div class="progresso"><div class="progresso-bar" style="width:15%;"></div></div>
-    <h2>AULAS DA SEMANA 1</h2>
+    <p class="sub">Jan-Mar | 20 Aulas | 5 Aulas/semana</p>
+    <div class="progresso"><div class="progresso-bar" style="width:10%;"></div></div>
+    <h2>SEMANA 1</h2>
     <div class="aula" onclick="abrirTela('kth-m1-a1')"><h4>Aula 1: Introdução ao K-TH</h4><span>5 Temas</span></div>
-    <div class="aula concluida" onclick="abrirTela('kth-m1-a2')"><h4>Aula 2: Energia Vital</h4><span>✓</span></div>
+    <div class="aula" onclick="abrirTela('kth-m1-a2')"><h4>Aula 2: Energia Vital</h4><span>5 Temas</span></div>
     <div class="aula" onclick="abrirTela('kth-m1-a3')"><h4>Aula 3: Os 7 Chakras</h4><span>5 Temas</span></div>
     <div class="aula" onclick="abrirTela('kth-m1-a4')"><h4>Aula 4: Auto Reiki N1</h4><span>5 Temas</span></div>
     <div class="aula" onclick="abrirTela('kth-m1-a5')"><h4>Aula 5: Limpeza Energética</h4><span>5 Temas</span></div>
-    <p style="color:var(--text2);font-size:12px;text-align:center;margin-top:10px;">... Aula 6 a 20</p>
-    <button class="btn voltar" onclick="abrirTela('kth')">Voltar para Módulos</button>
+    <p style="color:var(--text2);font-size:12px;text-align:center;margin-top:10px;">Aula 6 a 20</p>
+    <button class="btn voltar" onclick="abrirTela('kth')">← Voltar Módulos</button>
   </section>
 
-  <!-- AULA 1 EXEMPLO -->
+  <!-- AULA 1 -->
   <section id="kth-m1-a1" class="tela">
     <h1>Aula 1: Introdução ao K-TH</h1>
-    <p class="sub">5 Temas | 25 Páginas</p>
+    <p class="sub">5 Temas | 25 Páginas no total</p>
     <div class="tema" onclick="abrirTela('kth-m1-a1-t1')"><h4>Tema 1: O que é Terapia Holística <span class="check">✓</span></h4><p>5 Páginas</p></div>
-    <div class="tema" onclick="abrirTela('kth-m1-a1-t2')"><h4>Tema 2: História do KORVIL <span class="check">✓</span></h4><p>5 Páginas</p></div>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t2')"><h4>Tema 2: História do KORVIL <span class="check"></span></h4><p>5 Páginas</p></div>
     <div class="tema" onclick="abrirTela('kth-m1-a1-t3')"><h4>Tema 3: Ética e Postura <span class="check"></span></h4><p>5 Páginas</p></div>
     <div class="tema" onclick="abrirTela('kth-m1-a1-t4')"><h4>Tema 4: Metodologia K-TH <span class="check"></span></h4><p>5 Páginas</p></div>
-    <div class="tema" onclick="abrirTela('kth-m1-a1-t5')"><h4>Tema 5: Avaliação da Aula 1 <span class="check"></span></h4><p>5 Páginas</p></div>
-    <button class="btn voltar" onclick="abrirTela('kth-modulo1')">Voltar para Aulas</button>
+    <div class="tema" onclick="abrirTela('kth-m1-a1-t5')"><h4>Tema 5: Avaliação Aula 1 <span class="check"></span></h4><p>5 Páginas</p></div>
+    <button class="btn voltar" onclick="abrirTela('kth-m1')">← Voltar Aulas</button>
   </section>
 
-  <!-- TEMA 1 EXEMPLO -->
+  <!-- TEMA 1 -->
   <section id="kth-m1-a1-t1" class="tela">
     <h1>Tema 1: O que é Terapia Holística</h1>
     <p class="sub">Página 1 de 5</p>
     <div class="pagina">
       <h4>Página 1</h4>
-      <p>Terapia Holística é uma abordagem que considera o ser humano como um todo: corpo, mente, emoção e energia. Diferente da visão fragmentada, o K-TH trabalha a integração.</p>
-      <div class="exercicio"><b>Exercício 1:</b> Escreva 3 diferenças entre terapia convencional e holística.</div>
-    </div>
-    <div class="pagina">
-      <h4>Página 2</h4>
-      <p>Os 4 pilares do K-TH: 1. Energia, 2. Corpo, 3. Mente, 4. Profissão. Cada módulo aprofunda 1 pilar.</p>
+      <p>Terapia Holística considera o ser humano como um todo: corpo, mente, emoção e energia. O K-TH trabalha a integração dos 4 pilares.</p>
+      <div class="exercicio"><b>Exercício 1:</b> Liste 3 diferenças entre terapia convencional e holística.</div>
     </div>
     <div class="pag-nav">
       <button class="btn sec" disabled>Anterior</button>
-      <button class="btn" onclick="abrirTela('kth-m1-a1-t1-p3')">Próxima →</button>
+      <button class="btn" onclick="abrirTela('kth-m1-a1-t1-p2')">Próxima →</button>
     </div>
-    <button class="btn sec" onclick="marcarTemaConcluido('kth-m1-a1-t1')">Marcar Tema como Concluído</button>
-    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">Voltar para Temas</button>
+    <button class="btn sec" onclick="marcarTema('kth-m1-a1-t1')">Marcar Tema Concluído</button>
+    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">← Voltar Temas</button>
   </section>
 
-  <!-- PÁGINA 3 EXEMPLO -->
+  <section id="kth-m1-a1-t1-p2" class="tela">
+    <h1>Tema 1: O que é Terapia Holística</h1>
+    <p class="sub">Página 2 de 5</p>
+    <div class="pagina"><h4>Página 2</h4><p>Os 4 pilares do K-TH: 1. Energia, 2. Corpo, 3. Mente, 4. Profissão.</p></div>
+    <div class="pag-nav">
+      <button class="btn sec" onclick="abrirTela('kth-m1-a1-t1')">Anterior ←</button>
+      <button class="btn" onclick="abrirTela('kth-m1-a1-t1-p3')">Próxima →</button>
+    </div>
+    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">← Voltar Temas</button>
+  </section>
+
   <section id="kth-m1-a1-t1-p3" class="tela">
     <h1>Tema 1: O que é Terapia Holística</h1>
     <p class="sub">Página 3 de 5</p>
-    <div class="pagina">
-      <h4>Página 3</h4>
-      <p>O K-TH foi criado há 11 anos para formar terapeutas completos, com base científica e energética.</p>
-    </div>
+    <div class="pagina"><h4>Página 3</h4><p>O K-TH tem 11 anos formando terapeutas completos, base científica + energética.</p></div>
     <div class="pag-nav">
-      <button class="btn sec" onclick="abrirTela('kth-m1-a1-t1')">Anterior ←</button>
+      <button class="btn sec" onclick="abrirTela('kth-m1-a1-t1-p2')">Anterior ←</button>
       <button class="btn" onclick="abrirTela('kth-m1-a1-t1-p4')">Próxima →</button>
     </div>
-    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">Voltar para Temas</button>
+    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">← Voltar Temas</button>
   </section>
 
-  <!-- TELA DEZEMBRO -->
-  <section id="kth-dezembro" class="tela">
-    <h1>Dezembro | Conclusão da Turma</h1>
-    <p class="sub">Mês de fechamento, sem aulas novas</p>
-    <div class="sub-aba">
-      <h4>ETAPAS FINAIS</h4>
-      <ul>
-        <li>Revisão geral do curso</li>
-        <li>Recuperação de atividades pendentes</li>
-        <li>Avaliações finais teóricas e práticas</li>
-        <li>Entrega do projeto final</li>
-        <li>Encerramento oficial da turma</li>
-        <li>Conferência da carga horária</li>
-        <li>Emissão dos certificados por módulo</li>
-        <li>Certificado de Conclusão K-TH</li>
-        <li>Histórico de formação</li>
-        <li>Cerimônia de formatura</li>
-        <li>Cadastro no banco de profissionais KORVIL</li>
-        <li>Orientação para atuação autônoma</li>
-      </ul>
+  <section id="kth-m1-a1-t1-p4" class="tela">
+    <h1>Tema 1: O que é Terapia Holística</h1>
+    <p class="sub">Página 4 de 5</p>
+    <div class="pagina"><h4>Página 4</h4><p>Conteúdo da página 4. Adicione seu material aqui.</p></div>
+    <div class="pag-nav">
+      <button class="btn sec" onclick="abrirTela('kth-m1-a1-t1-p3')">Anterior ←</button>
+      <button class="btn" onclick="abrirTela('kth-m1-a1-t1-p5')">Próxima →</button>
     </div>
-    <button class="btn" onclick="abrirWhats('K-TH - Certificado')">Solicitar Certificado</button>
-    <button class="btn voltar" onclick="abrirTela('kth')">Voltar para Módulos</button>
+    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">← Voltar Temas</button>
   </section>
 
-  <!-- OUTROS MÓDULOS VAZIOS PRA VOCÊ PREENCHER -->
-  <section id="kth-modulo2" class="tela"><h1>Módulo 2: Formação em Cuidados</h1><p class="sub">Abr-Jun | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">Voltar</button></section>
-  <section id="kth-modulo3" class="tela"><h1>Módulo 3: Desenvolvimento Profissional</h1><p class="sub">Jul-Set | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">Voltar</button></section>
-  <section id="kth-modulo4" class="tela"><h1>Módulo 4: Empreendedora e Prática</h1><p class="sub">Out-Nov | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">Voltar</button></section>
+  <section id="kth-m1-a1-t1-p5" class="tela">
+    <h1>Tema 1: O que é Terapia Holística</h1>
+    <p class="sub">Página 5 de 5</p>
+    <div class="pagina"><h4>Página 5</h4><p>Última página do tema. Faça o exercício final para concluir.</p></div>
+    <div class="pag-nav">
+      <button class="btn sec" onclick="abrirTela('kth-m1-a1-t1-p4')">Anterior ←</button>
+      <button class="btn" onclick="abrirTela('kth-m1-a1')">Finalizar Tema</button>
+    </div>
+    <button class="btn voltar" onclick="abrirTela('kth-m1-a1')">← Voltar Temas</button>
+  </section>
 
-  <section id="negocios" class="tela"><h1>NEGOCIOS</h1><div class="sub-aba"><h4>PARCERIAS COM PROFISSIONAIS</h4><p>Profissionais das areas KORVIL.</p><span class="tag">Tecnologia</span><span class="tag">Saude</span><span class="tag">Beleza</span><span class="tag">Financas</span></div><button class="btn" onclick="abrirWhats('Parcerias KORVIL - Negocios')">Falar com Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="servicos" class="tela"><h1>SERVICOS</h1><div class="sub-aba"><h4>1. CONCERTOS DE CELULAR</h4><p>Profissionais tecnicos.</p></div><div class="sub-aba"><h4>2. TREINAMENTO</h4><p>Profissionais KORVIL.</p></div><div class="sub-aba"><h4>3. CONSULTORIA</h4><p>Profissionais em Financas.</p></div><div class="sub-aba"><h4>4. SAUDE E BELEZA</h4><p>Profissionais da area.</p></div><button class="btn" onclick="abrirWhats('Servicos KORVIL - Servicos')">Contratar Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="sistema" class="tela"><h1>SISTEMA K</h1><h2>SERVICOS GERAIS PROFISSIONAIS</h2><div class="sub-aba"><ul><li>Eletricista</li><li>Carpinteiro</li><li>Faxineira</li><li>Encanador</li><li>Pintor</li><li>Pedreiro</li></ul></div><button class="btn" onclick="abrirWhats('Sistema K - Servicos Gerais')">Contratar Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="ktp" class="tela"><h1>K-TP</h1><div class="sub-aba"><h4>PROJETO TRANSFORMACAO</h4><p>11 Anos de conteudo e gestao.</p></div><button class="btn" onclick="abrirWhats('K-TP - Projeto Transformacao')">Entrar no K-TP</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kafortunado" class="tela"><h1>K-AFORTUNADO</h1><div class="sub-aba"><h4>CONSULTORIA FINANCEIRA</h4><p>Profissionais em estrategia.</p></div><button class="btn" onclick="abrirWhats('K-AFORTUNADO - Consultoria Financeira')">Agendar Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kalma" class="tela"><h1>K-ALMA</h1><h2>SAUDE</h2><div class="sub-aba"><ul><li>Terapeuta Holistico</li><li>Dentista</li><li>Fisioterapeuta</li><li>Medico</li></ul></div><h2>BELEZA</h2><div class="sub-aba"><ul><li>Cabeleireiro Unissex</li><li>Barbeiro</li><li>Esteticista</li><li>Manicure</li><li>Sobrancelhas</li></ul></div><button class="btn" onclick="abrirWhats('K-ALMA - Saude e Beleza')">Agendar Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <!-- DEZEMBRO -->
+  <section id="kth-dez" class="tela">
+    <h1>Dezembro | Conclusão da Turma</h1>
+    <p class="sub">Sem aulas novas. Apenas fechamento.</p>
+    <div class="card"><h3>ETAPAS FINAIS</h3>
+      <p>Revisão geral. Recuperação de pendentes. Avaliações finais teóricas e práticas. Entrega do projeto final. Encerramento oficial. Conferência carga horária. Emissão certificados por módulo. Certificado K-TH. Histórico. Formatura. Cadastro banco KORVIL. Orientação profissional autônoma.</p>
+    </div>
+    <button class="btn" onclick="window.open('https://wa.me/5513997690898?text=K-TH%20Certificado')">Solicitar Certificado</button>
+    <button class="btn voltar" onclick="abrirTela('kth')">← Voltar Módulos</button>
+  </section>
 
-  <section id="kai-assistente" class="tela"><h1>K-AI ASSISTENTE</h1><div class="card"><p>Eu sou o K-AI. Clique no meu cubo para abrir o menu. Posso te levar pro Whats 13997690898 agora.</p></div><button class="btn" onclick="abrirWhats('K-AI - Assistente Virtual')">Falar com K-AI no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kai-sobre" class="tela"><h1>SOBRE O KORVIL</h1><div class="card"><h4>11 ANOS DE KORVIL</h4><p><b>Sistema K:</b> Servicos Gerais</p><p><b>K-TP:</b> Projeto Transformacao</p><p><b>K-AFORTUNADO:</b> Financas</p><p><b>K-ALMA:</b> Saude e Beleza</p><p><b>Cursos:</b> Tecnologia, Educacao Fisica, Empreendedorismo</p></div><button class="btn" onclick="abrirWhats('KORVIL - Sobre')">Falar sobre KORVIL no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
-  <section id="kai-politica" class="tela"><h1>POLITICA E PRIVACIDADE</h1><div class="card"><p><b>KORVIL LTDA</b></p><p>LGPD: Seus dados sao usados so para contato. Nao vendemos dados. Whats oficial: 13997690898</p></div><button class="btn" onclick="abrirWhats('KORVIL - Politica e Privacidade')">Duvidas no Whats</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
+  <!-- MÓDULOS VAZIOS PRA PREENCHER -->
+  <section id="kth-m2" class="tela"><h1>Módulo 2: Formação em Cuidados</h1><p class="sub">Abr-Jun | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">← Voltar</button></section>
+  <section id="kth-m3" class="tela"><h1>Módulo 3: Desenvolvimento Profissional</h1><p class="sub">Jul-Set | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">← Voltar</button></section>
+  <section id="kth-m4" class="tela"><h1>Módulo 4: Empreendedora e Prática</h1><p class="sub">Out-Nov | 20 Aulas</p><button class="btn voltar" onclick="abrirTela('kth')">← Voltar</button></section>
 </main>
 
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h2 class="logo">KORVIL</h2>
-    <input id="nome" placeholder="Seu Nome Completo" required>
-    <input id="whats" placeholder="Seu WhatsApp com DDD" required>
-    <input id="cep" placeholder="CEP" onblur="buscaCEP()">
-    <input id="rua" placeholder="Rua e Numero">
-    <button class="btn" onclick="enviarWhats()">Enviar para WhatsApp 13997690898</button>
-    <button class="btn voltar" onclick="fecharForm()">Cancelar</button>
-  </div>
-</div>
-
-<footer class="kai-footer">
-  <div class="message-box" id="cubeMessage">Carregando K-AI...</div>
-  <div class="scene" id="cubeScene">
-    <div class="cube" id="cubeKAI">
-      <div class="cube-face front">K-AI</div><div class="cube-face back">K-AI</div>
-      <div class="cube-face right">K-AI</div><div class="cube-face left">K-AI</div>
-      <div class="cube-face top">K-AI</div><div class="cube-face bottom">K-AI</div>
-    </div>
-    <div class="kai-menu-box" id="kaiMenu">
-      <button onclick="abrirTela('kai-assistente');toggleKaiMenu()">1. Assistente Virtual</button>
-      <button onclick="abrirTela('kai-sobre');toggleKaiMenu()">2. Sobre o KORVIL</button>
-      <button onclick="abrirTela('kai-politica');toggleKaiMenu()">3. Politica e Privacidade</button>
-      <button onclick="abrirWhats('K-AI - Menu WhatsApp')">4. Falar no WhatsApp</button>
-    </div>
-  </div>
-</footer>
-
 <script>
-const WHATS_NUMBER = '5513997690898';
-let textoWhats = '';
-const cube = document.getElementById("cubeKAI");
-const kaiMenu = document.getElementById("kaiMenu");
-
 function abrirTela(id){
   document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   document.getElementById(id).classList.add('ativa');
   window.scrollTo({top:0, behavior:'smooth'});
-  kaiMenu.classList.remove('ativo');
 }
-function toggleMenu(){
-  document.getElementById('menu').classList.toggle('ativo');
-  document.getElementById('overlay').classList.toggle('ativo');
-}
-function abrirWhats(mensagem){
-  textoWhats = mensagem;
-  document.getElementById('modal').classList.add('ativo');
-  kaiMenu.classList.remove('ativo');
-}
-function fecharForm(){
-  document.getElementById('modal').classList.remove('ativo');
-}
-async function buscaCEP(){
-  const cep=document.getElementById('cep').value.replace(/\D/g,'');
-  if(cep.length!==8)return;
-  try{
-    const res=await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-    const d=await res.json();
-    if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
-  }catch(e){}
-}
-function enviarWhats(){
-  const nome=document.getElementById('nome').value;
-  const whats=document.getElementById('whats').value;
-  const cep=document.getElementById('cep').value;
-  const rua=document.getElementById('rua').value;
-  if(!nome||!whats){alert('Preencha Nome e WhatsApp');return;}
-  const msg=`*KORVIL - ${textoWhats}*\n\n*DADOS DO CLIENTE:*\nNome: ${nome}\nWhats: ${whats}\nCEP: ${cep}\nRua: ${rua}\n\nOla, vim do site KORVIL e quero atendimento.`;
-  const texto = encodeURIComponent(msg);
-  const appLink = `https://wa.me/55${WHATS_NUMBER}?text=${texto}`;
-  const webLink = `https://web.whatsapp.com/send?phone=55${WHATS_NUMBER}&text=${texto}`;
-  const newWindow = window.open(appLink, '_blank');
-  setTimeout(()=>{ if(!newWindow || newWindow.closed || typeof newWindow.closed=='undefined'){ window.open(webLink, '_blank'); }}, 500);
-  fecharForm();
-}
-function marcarTemaConcluido(id){
+function marcarTema(id){
   document.getElementById(id).classList.add('concluido');
   alert('Tema marcado como concluído!');
   abrirTela('kth-m1-a1');
 }
-const mensagensKAI = ["KORVIL 11 anos","Profissionais online","Manutencao Celular","Negocio Proprio","
+</script>
+</body>
+</html>
