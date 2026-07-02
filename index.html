@@ -88,7 +88,7 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
       <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
       <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
       <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4>Saúde:</h4><ul><li onclick="window.location.href='./sections/centralKORVIL/Desenvolvimento-humano/Cursos/Areas/Saude/k-th/'" style="cursor:pointer;color:var(--c);">1. K-TH Terapia Holística →</li></ul>
+      <h4>Saúde:</h4><ul><li onclick="window.location.href='/korvil-site/sections/centralKORVIL/Desenvolvimento-humano/Cursos/Areas/Saude/k-th/'" style="cursor:pointer;color:var(--c);">1. K-TH Terapia Holística →</li></ul>
       <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
     <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
@@ -169,42 +169,27 @@ async function buscaCEP(){
     if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
   }catch(e){}
 }
-
-/* WHATSAPP 100% GARANTIDO: APP OU WEB */
 function enviarWhats(){
   const nome=document.getElementById('nome').value;
   const whats=document.getElementById('whats').value;
   const cep=document.getElementById('cep').value;
   const rua=document.getElementById('rua').value;
   if(!nome||!whats){alert('Preencha Nome e WhatsApp');return;}
-
   const msg=`*KORVIL - ${textoWhats}*\n\n*DADOS DO CLIENTE:*\nNome: ${nome}\nWhats: ${whats}\nCEP: ${cep}\nRua: ${rua}\n\nOla, vim do site KORVIL e quero atendimento.`;
   const texto = encodeURIComponent(msg);
-
   const appLink = `https://wa.me/55${WHATS_NUMBER}?text=${texto}`;
   const webLink = `https://web.whatsapp.com/send?phone=55${WHATS_NUMBER}&text=${texto}`;
-
   const newWindow = window.open(appLink, '_blank');
   setTimeout(()=>{ if(!newWindow || newWindow.closed || typeof newWindow.closed=='undefined'){ window.open(webLink, '_blank'); }}, 500);
-
   fecharForm();
 }
-
-// 50 MENSAGENS K-AI
 const mensagensKAI = ["KORVIL 11 anos","Profissionais online","Manutencao Celular","Negocio Proprio","K-TH Terapia","Cabeleireiro Unissex","Eletricista 24h","K-TP Projeto","K-AFORTUNADO Financas","K-ALMA Saude","Whats 13997690898","K-AI 24h","Resultado KORVIL","Entre hoje","Saude e Beleza","Tecnologia","Consultoria","Impulso KORVIL","Mude seu jogo","Central ativa","Negocios lucram","Servicos gerais","Beleza KORVIL","Saude primeiro","Educacao Fisica","Confianca","Ao seu lado","Fale agora","Trafego","Empreendedorismo","K-ALMA","K-TP","Sistema K","K-AFORTUNADO","Parcerias","Ecossistema","Futuro","Treinamento","Design","Financas","Sorteios","Atendimento","KORVIL cuida","Profissionais top","R$197","220 Aulas","Barbeiro","Esteticista","Medico","Dentista"];
 let msgIndex = Math.floor(Math.random() * mensagensKAI.length);
 const messageBox = document.getElementById("cubeMessage");
 function trocarMensagem(){messageBox.textContent = mensagensKAI[msgIndex];msgIndex = Math.floor(Math.random() * mensagensKAI.length);}
 trocarMensagem();setInterval(trocarMensagem, 10000);
-
-/* K-AI: SÓ 1 CLIQUE ABRE/FECHA MENU */
-cube.onclick = function(e){
-  e.stopPropagation();
-  kaiMenu.classList.toggle('ativo');
-};
-document.onclick = function(e){
-  if(!e.target.closest('.scene')) kaiMenu.classList.remove('ativo');
-};
+cube.onclick = function(e){e.stopPropagation();kaiMenu.classList.toggle('ativo');};
+document.onclick = function(e){if(!e.target.closest('.scene')) kaiMenu.classList.remove('ativo');};
 </script>
 </body>
 </html>
