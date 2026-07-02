@@ -24,8 +24,9 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .tela.ativa{display:block;}
 .sub-aba{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:14px;margin-bottom:10px;}
 .sub-aba ul{list-style:none;padding-left:0;}
-.sub-aba li{color:var(--text2);font-size:14px;padding:7px 0;border-bottom:1px solid #151515;}
+.sub-aba li{color:var(--text2);font-size:14px;padding:7px 0;border-bottom:1px solid #151515;cursor:pointer;}
 .sub-aba li:last-child{border:0;}
+.sub-aba li:hover{color:var(--c);}
 .btn{display:block;background:var(--c);color:#000;text-align:center;padding:14px 16px;border-radius:8px;text-decoration:none;font-weight:800;font-size:14px;transition:.2s;border:0;cursor:pointer;margin-top:14px;width:100%;}
 .btn:active{transform:scale(.97);filter:brightness(1.15);}
 .btn.voltar{background:#222;color:var(--text);width:auto;display:inline-block;padding:12px 18px;margin-right:10px;}
@@ -58,6 +59,8 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
 .kai-menu-box button{width:100%;background:transparent;border:0;color:var(--text2);padding:12px 10px;font-size:14px;text-align:left;cursor:pointer;border-bottom:1px solid #222;font-weight:600;transition:.2s;border-radius:6px;}
 .kai-menu-box button:last-child{border:0;}
 .kai-menu-box button:active{background:#111;color:var(--c);padding-left:14px;}
+.fase{background:#0a0a0a;border:1px solid #1f1f1f;border-radius:10px;padding:15px;margin-bottom:12px;}
+.fase h3{color:var(--c);font-size:16px;margin-bottom:5px;}
 </style>
 </head>
 <body>
@@ -88,11 +91,24 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
       <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
       <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
       <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4>Saúde:</h4><ul><li onclick="window.location.href='sections/centralKORVIL/Desenvolvimento-humano/Cursos/Areas/Saude/k-th/'" style="cursor:pointer;color:var(--c);">1. K-TH Terapia Holística →</li></ul>
+      <h4>Saúde:</h4><ul><li onclick="abrirTela('kth')">1. K-TH Terapia Holística →</li></ul>
       <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
     <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
     <button class="btn voltar" onclick="abrirTela('central')">Voltar</button>
+  </section>
+
+  <!-- NOVA TELA DO K-TH AQUI DENTRO. SEM LINK EXTERNO -->
+  <section id="kth" class="tela">
+    <h1>K-TH TERAPIA HOLÍSTICA</h1>
+    <p style="text-align:center;color:var(--text2);margin-bottom:20px;">Formação Completa em 12 Meses | Certificado KORVIL</p>
+    <h2>CRONOGRAMA - 4 FASES</h2>
+    <div class="fase"><h3>FASE 1: BASE ENERGÉTICA</h3><p>1-3 Mês | Reiki, Chakra, Limpeza Energética. 55 Aulas.</p></div>
+    <div class="fase"><h3>FASE 2: TERAPIAS CORPORAIS</h3><p>4-6 Mês | Massoterapia, Reflexologia, Auriculoterapia. 55 Aulas.</p></div>
+    <div class="fase"><h3>FASE 3: MENTE E EMOÇÃO</h3><p>7-9 Mês | Hipnose, PNL, Constelação Familiar. 55 Aulas.</p></div>
+    <div class="fase"><h3>FASE 4: PROFISSIONAL K-TH</h3><p>10-12 Mês | Atendimento, Ética, Captação de Clientes. 55 Aulas.</p></div>
+    <button class="btn" onclick="abrirWhats('K-TH - Inscrição')">QUERO ME INSCREVER NO K-TH →</button>
+    <button class="btn voltar" onclick="abrirTela('humano')">Voltar</button>
   </section>
 
   <section id="negocios" class="tela"><h1>NEGOCIOS</h1><div class="sub-aba"><h4>PARCERIAS COM PROFISSIONAIS</h4><p>Profissionais das areas KORVIL.</p><span class="tag">Tecnologia</span><span class="tag">Saude</span><span class="tag">Beleza</span><span class="tag">Financas</span></div><button class="btn" onclick="abrirWhats('Parcerias KORVIL - Negocios')">Falar com Profissionais</button><button class="btn voltar" onclick="abrirTela('central')">Voltar</button></section>
@@ -192,4 +208,4 @@ cube.onclick = function(e){e.stopPropagation();kaiMenu.classList.toggle('ativo')
 document.onclick = function(e){if(!e.target.closest('.scene')) kaiMenu.classList.remove('ativo');};
 </script>
 </body>
-</html>
+    </html>
