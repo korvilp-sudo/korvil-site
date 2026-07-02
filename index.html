@@ -83,11 +83,11 @@ p{color:var(--text2);font-size:14px;line-height:1.7;}
   <section id="humano" class="tela">
     <h1>DESENVOLVIMENTO HUMANO</h1><h2>CURSOS</h2>
     <div class="sub-aba">
-      <h4>ÁREAS</h4>
-      <h4>Tecnologias:</h4><ul><li>1. Manutenção de Celular</li></ul>
-      <h4>Educação Física Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
-      <h4>Empreendedorismo:</h4><ul><li>1. Negócio Próprio</li></ul>
-      <h4>Saúde:</h4><ul><li onclick="window.location.href='sections/centralKORVIL/Desenvolvimento-humano/Cursos/Areas/Saude/k-th/'">1. K-TH Terapia Holística →</li></ul>
+      <h4>AREAS</h4>
+      <h4>Tecnologias:</h4><ul><li>1. Manutencao de Celular</li></ul>
+      <h4>Educacao Fisica Bacharelado:</h4><ul><li>1. Treinamento Personalizado</li></ul>
+      <h4>Empreendedorismo:</h4><ul><li>1. Negocio Proprio</li></ul>
+      <h4>Saude:</h4><ul><li onclick="window.location.href='sections/centralkorvil/desenvolvimentohumano/cursos/areas/saude/kth/'">1. K-TH Terapia Holistica →</li></ul>
       <h4>Beleza:</h4><ul><li>1. Cabeleireiro Unissex</li></ul>
     </div>
     <button class="btn" onclick="abrirWhats('Cursos KORVIL - Desenvolvimento Humano')">Falar com Profissionais</button>
@@ -167,7 +167,6 @@ async function buscaCEP(){
     const d=await res.json();
     if(!d.erro){ document.getElementById('rua').value=d.logradouro; }
   }catch(e){}
-}
 function enviarWhats(){
   const nome=document.getElementById('nome').value;
   const whats=document.getElementById('whats').value;
